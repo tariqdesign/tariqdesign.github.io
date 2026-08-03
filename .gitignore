@@ -1,0 +1,8 @@
+# Local/private source material — never publish with the website
+tariq-yosef-buisness_designdirector.md
+index.backup-*.html
+*.zip
+MD
+
+# macOS metadata
+.DS_Store

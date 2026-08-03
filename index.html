@@ -1,506 +1,134 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tariq Yosef — About</title>
-<style>
-/* ─────────────────────────────────────────────
-   SCALE: Perfect Fourth 1.333 — base 16px
-   
-   xs:   9px   (16 ÷ 1.333³)
-   sm:  10px   (16 ÷ 1.333²)  → caption/meta
-   md:  12px   (16 ÷ 1.333)   → label/nav
-   base:16px                   → body
-   lg:  21px   (16 × 1.333)   → subheading
-   xl:  28px   (16 × 1.333²)  → heading
-   2xl: 38px   (16 × 1.333³)  → section title
-   3xl: 50px   (16 × 1.333⁴)  → hero
-   4xl: 67px   (16 × 1.333⁵)  → display (unused here)
-───────────────────────────────────────────── */
-
-:root {
-  --s-xs:    9px;
-  --s-sm:   10px;
-  --s-md:   12px;
-  --s-base: 16px;
-  --s-lg:   21px;
-  --s-xl:   28px;
-  --s-2xl:  38px;
-  --s-3xl:  50px;
-
-  --lh-tight:  1.05;
-  --lh-head:   1.15;
-  --lh-sub:    1.25;
-  --lh-body:   1.625;
-  --lh-label:  1.4;
-
-  --bg:       #F5F4F1;
-  --ink:      #1A1918;
-  --ink-mid:  #6B6965;
-  --ink-faint:#A8A5A0;
-  --rule:     #D8D5CF;
-  --accent:   #FC5927;
-  --white:    #FDFCFA;
-
-  --font: 'BDO Grotesk', 'Neue Haas Grotesk Display Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
-  --max: 760px;
-  --col-gap: 48px;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html {
-  font-family: var(--font);
-  font-size: var(--s-base);
-  line-height: var(--lh-body);
-  background: var(--bg);
-  color: var(--ink);
-  -webkit-font-smoothing: antialiased;
-}
-
-body {
-  padding-bottom: 120px;
-}
-
-/* ── ACCENT STRIPE ─────────────────────────── */
-.stripe {
-  height: 3px;
-  background: var(--accent);
-}
-
-
-
-/* ── PAGE LAYOUT ───────────────────────────── */
-.page {
-  max-width: calc(var(--max) + 96px);
-  margin: 0 auto;
-  padding: 0 48px;
-}
-
-.page,
-footer {
-  max-width: calc(var(--max) + 96px);
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* ── HERO ──────────────────────────────────── */
-.hero {
-  padding: 80px 0 64px;
-  border-bottom: 1px solid var(--rule);
-}
-
-.hero-eyebrow {
-  font-size: var(--s-md);
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  margin-bottom: 24px;
-}
-
-.hero-headline {
-  font-size: var(--s-3xl);
-  font-weight: 400;
-  line-height: var(--lh-tight);
-  letter-spacing: -0.025em;
-  color: var(--ink);
-  max-width: 860px;
-}
-
-.hero-headline em {
-  font-style: normal;
-  color: var(--accent);
-}
-
-/* ── SOCIAL LINKS ──────────────────────────── */
-.social-links {
-  margin-top: 32px;
-  display: flex;
-  gap: 28px;
-  list-style: none;
-}
-
-.social-links a {
-  font-size: var(--s-md);
-  font-weight: 400;
-  color: var(--ink-mid);
-  text-decoration: none;
-  letter-spacing: 0.02em;
-  transition: color 0.15s;
-}
-
-.social-links a:hover {
-  color: var(--accent);
-}
-
-/* ── TWO-COL ───────────────────────────────── */
-.two-col {
-  display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: var(--col-gap);
-  padding: 64px 0;
-  border-bottom: 1px solid var(--rule);
-  align-items: start;
-}
-
-/* ── INTRO TEXT ────────────────────────────── */
-.intro-body {
-  font-size: var(--s-base);
-  line-height: var(--lh-body);
-  color: var(--ink);
-  max-width: 560px;
-}
-
-/* ── PHOTO ─────────────────────────────────── */
-.photo-block img {
-  width: 100%;
-  display: block;
-  filter: grayscale(8%);
-}
-
-.photo-caption {
-  font-size: var(--s-sm);
-  color: var(--ink-faint);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-top: 12px;
-}
-
-/* ── SECTION ───────────────────────────────── */
-.section {
-  padding: 64px 0;
-  border-bottom: 1px solid var(--rule);
-}
-
-.section-label {
-  font-size: var(--s-md);
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  margin-bottom: 32px;
-}
-
-.section-title {
-  font-size: var(--s-2xl);
-  font-weight: 400;
-  line-height: var(--lh-head);
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  margin-bottom: 24px;
-}
-
-.section-body {
-  font-size: var(--s-base);
-  line-height: var(--lh-body);
-  color: var(--ink);
-  max-width: 600px;
-}
-
-.section-body + .section-body {
-  margin-top: 20px;
-}
-
-/* ── CAPABILITIES GRID ─────────────────────── */
-.cap-grid {
-  display: block;
-  margin-top: 40px;
-}
-
-.cap-item {
-  background: transparent;
-  padding: 0;
-  margin-bottom: 28px;
-}
-
-.cap-item__title {
-  font-size: var(--s-lg);
-  font-weight: 400;
-  line-height: var(--lh-sub);
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  margin-bottom: 8px;
-}
-
-.cap-item__body {
-  font-size: var(--s-md);
-  line-height: var(--lh-label);
-  color: var(--ink-mid);
-}
-
-/* ── RECOGNITION ───────────────────────────── */
-.recognition-grid {
-  display: block;
-  margin-top: 40px;
-}
-
-.rec-item {
-  padding: 0;
-  border: none;
-  font-size: var(--s-md);
-  color: var(--ink-mid);
-  line-height: var(--lh-label);
-  margin-bottom: 28px;
-}
-
-.rec-item span {
-  display: inline;
-  font-size: var(--s-md);
-  color: var(--ink-faint);
-  margin-left: 8px;
-  letter-spacing: 0.02em;
-}
-
-/* ── CTA ───────────────────────────────────── */
-.cta-block {
-  padding: 80px 0 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 48px;
-}
-
-.cta-title {
-  font-size: var(--s-2xl);
-  font-weight: 400;
-  line-height: var(--lh-head);
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  max-width: 480px;
-}
-
-.cta-title em {
-  font-style: normal;
-  color: var(--accent);
-}
-
-.cta-link {
-  display: inline-block;
-  font-size: var(--s-md);
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--white);
-  background: var(--ink);
-  text-decoration: none;
-  padding: 14px 28px;
-  white-space: nowrap;
-  transition: background 0.15s;
-  flex-shrink: 0;
-}
-
-.cta-link:hover { background: var(--accent); }
-
-/* ── FOOTER ────────────────────────────────── */
-footer {
-  margin-top: 80px;
-  padding: 24px 48px;
-  border-top: 1px solid var(--rule);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: calc(var(--max) + 96px);
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.footer-name {
-  font-size: var(--s-md);
-  color: var(--ink-mid);
-  letter-spacing: 0.02em;
-}
-
-.footer-email {
-  font-size: var(--s-md);
-  color: var(--ink-faint);
-  text-decoration: none;
-  letter-spacing: 0.02em;
-}
-
-.footer-email:hover { color: var(--accent); }
-
-/* ── RESPONSIVE ────────────────────────────── */
-@media (max-width: 768px) {
-  .two-col {
-    grid-template-columns: 1fr;
-    gap: 32px;
-    padding: 48px 0;
-  }
-
-  .intro-body {
-    font-size: clamp(14px, 4vw, 16px);
-    line-height: var(--lh-body);
-  }
-
-  .hero {
-    padding: 60px 0 48px;
-  }
-
-  .section {
-    padding: 48px 0;
-  }
-
-  .cta-block {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
-  }
-
-  .cta-title {
-    font-size: clamp(28px, 6vw, 38px);
-  }
-}
-
-@media (max-width: 480px) {
-  .page {
-    padding: 0 24px;
-  }
-
-  .intro-body {
-    font-size: clamp(14px, 3.5vw, 16px);
-  }
-
-  .hero-headline {
-    font-size: clamp(32px, 7vw, 50px);
-  }
-
-  footer {
-    padding: 24px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-}
-
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tariq Yosef — Design Director</title>
+  <meta name="description" content="Tariq Yosef is an independent Design Director helping organisations regain control of fragmented brand work across strategy, identity, communication and rollout.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:title" content="Tariq Yosef — Design Director">
+  <meta property="og:description" content="Creative direction, identity systems and brand governance across Saudi Arabia and MENA.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tariqdesign.com/">
+  <link rel="canonical" href="https://tariqdesign.com/">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- SITE HEADER: edit the navigation labels or destinations here. -->
+  <header class="site-header" data-header>
+    <a class="brand" href="#about" aria-label="Tariq Design home">
+      <span>Tariq Yosef</span>
+      <span>Design Director</span>
+    </a>
 
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-button>
+      Menu
+    </button>
 
-<main class="page">
-
-  <!-- HERO -->
-  <section class="hero">
-    <p class="hero-eyebrow">Creative Director — Brand, Identity <em>&amp;</em> Communications</p>
-    <h1 class="hero-headline">Tariq Yosef.<br>20+ years building brand<br>identity systems <em>&amp;</em> governance.</h1>
-    <nav class="social-links">
-      <a href="https://tariqdesign.com" target="_blank" rel="noopener">tariqdesign.com</a>
-      <a href="https://www.linkedin.com/in/tariqdesign/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://www.behance.net/tariqdesign" target="_blank" rel="noopener">Behance</a>
+    <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-nav>
+      <a class="is-active" href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="https://www.behance.net/tariqdesign" rel="noopener noreferrer">Projects</a>
+      <a href="#approach">Brain talk</a>
+      <a href="#contact">Contact</a>
     </nav>
-  </section>
+  </header>
 
-  <!-- INTRO + PHOTO -->
-  <div class="two-col">
-    <div>
-      <p class="intro-body">
-        Creative Director with 20+ years building brand identity systems, leading creative functions, and directing visual communication strategy across MENA and international markets. I define what a brand stands for before any design begins — then build and govern the identity, campaign, editorial, and digital systems that deliver on that promise.
-      </p>
-      <p class="intro-body" style="margin-top:20px;color:var(--ink-mid);">
-        Based in Amman, working across Saudi Arabia and international markets. I lead creative teams, manage client relationships at C-suite level, and own the brand decision process end to end — bridging strategy, identity, communication, and governance.
-      </p>
-    </div>
-    <div class="photo-block">
-      <img
-        src="https://tariqdesign.com/wp-content/uploads/2026/02/tariq_photography_sessionArtboard-1-copy-2.jpg"
-        alt="Tariq Yosef"
-      >
-      <p class="photo-caption">Tariq Yosef — Design Director</p>
-    </div>
-  </div>
-
-  <!-- EXPERIENCE -->
-  <section class="section">
-    <p class="section-label">Experience</p>
-    <h2 class="section-title">Design Direction &amp; Creative Leadership</h2>
-    
-    <div style="margin-top: 40px;">
-      <h3 style="font-size: var(--s-lg); font-weight: 400; color: var(--ink); margin-bottom: 4px;">DOO®</h3>
-      <p style="font-size: var(--s-md); color: var(--ink-faint); margin-bottom: 12px; letter-spacing: 0.02em;">Design Director · Saudi Arabia · Hybrid · May 2024 – Present</p>
-      <p class="section-body" style="margin-bottom: 16px;">
-        Defined overall visual direction and brand identity systems across 15+ enterprise brand engagements in Healthcare, Technology, and Cultural sectors. Acted as final authority on brand structure, hierarchy, and visual logic. Established design governance frameworks that reduced iteration cycles by 40% and increased stakeholder confidence in design decisions.
-      </p>
-    </div>
-
-    <div style="margin-top: 32px;">
-      <h3 style="font-size: var(--s-lg); font-weight: 400; color: var(--ink); margin-bottom: 4px;">Confidential</h3>
-      <p style="font-size: var(--s-md); color: var(--ink-faint); margin-bottom: 12px; letter-spacing: 0.02em;">Lead Designer / Design Direction · Amman, Jordan · 2022 – 2023</p>
-      <p class="section-body" style="margin-bottom: 16px;">
-        Defined visual direction for high-sensitivity branding assignments with national-level visibility, operating in low-noise, high-impact contexts with limited production support. Worked directly with key stakeholders to translate strategic intent into precise visual outcomes. 95%+ first-round approval rate on strategic design deliverables.
-      </p>
-    </div>
-
-    <div style="margin-top: 32px;">
-      <h3 style="font-size: var(--s-lg); font-weight: 400; color: var(--ink); margin-bottom: 4px;">Tariqdesign</h3>
-      <p style="font-size: var(--s-md); color: var(--ink-faint); margin-bottom: 12px; letter-spacing: 0.02em;">Design Director · Amman, Jordan · Jan 2014 – Present</p>
-      <p class="section-body" style="margin-bottom: 16px;">
-        Led end-to-end brand identity and visual system projects for regional and international clients across MENA, Europe, and North America. Operated as strategic design lead in environments without internal brand structure. Defined visual direction, frameworks, and execution standards, owning client decision processes. Built and managed distributed project teams across per-engagement scope and timeline.
-      </p>
-    </div>
-
-    <div style="margin-top: 32px;">
-      <h3 style="font-size: var(--s-lg); font-weight: 400; color: var(--ink); margin-bottom: 4px;">Zerographics</h3>
-      <p style="font-size: var(--s-md); color: var(--ink-faint); margin-bottom: 12px; letter-spacing: 0.02em;">Co-Founder, Art Director · Amman, Jordan · 2017 – Aug 2024</p>
-      <p class="section-body">
-        Co-founded and ran a creative studio focused on experimental visual practice. Directed output, established the creative methodology, and managed the publishing relationship. Work featured in Zero Posters Vol.1 &amp; Vol.2, Abduzeedo, and Flamant Publishers.
-      </p>
-    </div>
-  </section>
-
-  <!-- CAPABILITIES -->
-  <section class="section">
-    <p class="section-label">Core Capabilities</p>
-    <div class="cap-grid">
-      <div class="cap-item">
-        <h3 class="cap-item__title">Brand Strategy &amp; Architecture</h3>
-        <p class="cap-item__body">Positioning, brand structure, visual logic, decision frameworks</p>
+  <main id="main">
+    <!-- ABOUT: primary positioning statement and supporting biography. -->
+    <section class="about-section" id="about" aria-labelledby="about-title">
+      <h1 class="visually-hidden" id="about-title">About Tariq Yosef</h1>
+      <div class="about-lead">
+        <p>I’ve led visual communication and identity system work for regional organisations, often working directly with founders, executives, and senior teams.</p>
+        <p>This usually involves translating strategic intent into practical design frameworks that people can actually use — not guidelines that sit on a shelf.</p>
       </div>
-      <div class="cap-item">
-        <h3 class="cap-item__title">Identity Systems &amp; Visual Frameworks</h3>
-        <p class="cap-item__body">Logo systems, typography architecture, color systems, layout rules</p>
+      <div class="about-intro">
+        <p>I help organisations build brands with clarity, structure, and long-term consistency. As a Strategic Design Director, my work bridges the strategic side of brand definition with the craft of visual identity—turning insights and direction into cohesive systems that guide how a brand behaves across every touchpoint.</p>
+        <p>With 16+ years of experience across government, private sector, and agencies, I focus on transforming brands into structured systems: visual architectures, guidelines, and design languages that ensure consistency and creative clarity.</p>
       </div>
-      <div class="cap-item">
-        <h3 class="cap-item__title">Art Direction &amp; Oversight</h3>
-        <p class="cap-item__body">Design leadership, quality control, consistency across outputs</p>
+    </section>
+
+    <!-- SERVICES: keep these aligned with the master context/CV. -->
+    <section class="capabilities-section" id="services" aria-labelledby="services-title">
+      <h2 id="services-title">Core Capabilities</h2>
+      <div class="capabilities-list">
+        <article>
+          <h3>Brand Strategy &amp; Architecture</h3>
+          <p>Positioning, brand structure, visual logic, decision frameworks</p>
+        </article>
+        <article>
+          <h3>Identity Systems &amp; Visual Frameworks</h3>
+          <p>Logo systems, typography architecture, color systems, layout rules</p>
+        </article>
+        <article>
+          <h3>Art Direction &amp; Oversight</h3>
+          <p>Design leadership, quality control, consistency across outputs</p>
+        </article>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- RECOGNITION -->
-  <section class="section">
-    <p class="section-label">Recognition</p>
-    <div class="recognition-grid">
-      <div class="rec-item">Advanced Photoshop UK <span>— Magazine feature</span></div>
-      <div class="rec-item">Warehouse421 Abu Dhabi <span>— Exhibition</span></div>
-      <div class="rec-item">Amman Design Week <span>— Exhibition</span></div>
-      <div class="rec-item">Type01.com <span>— Inspired Typeface interview, 2021</span></div>
-      <div class="rec-item">Abduzeedo.com <span>— Zero Posters Vol.1 &amp; Vol.2 — 2019, 2021</span></div>
-      <div class="rec-item">Flamant Publishers <span>— New 3D Effects in Graphic Design, 2019</span></div>
-      <div class="rec-item">100 Poster <span>— Belgium exhibition</span></div>
-      <div class="rec-item">Advanced Photoshop GE <span>— German edition feature</span></div>
-    </div>
-  </section>
+    <!-- RECOGNITION: publications, features, and exhibitions only. -->
+    <section class="recognition-section" id="approach" aria-labelledby="recognition-title">
+      <h2 id="recognition-title">Recognition</h2>
+      <ul class="recognition-list" aria-label="Selected recognition and publications">
+        <li><span>Type01</span><span>Inspired Typeface Interview, 2021</span></li>
+        <li><span>Abduzeedo</span><span>Zero Posters Vol. 1, 2019 · Vol. 2, 2021</span></li>
+        <li><span>Flamant Publishers</span><span><cite>New 3D Effects in Graphic Design</cite>, 2019</span></li>
+        <li><span>Advanced Photoshop UK</span><span>Featured work</span></li>
+        <li><span>Advanced Photoshop Magazine GE</span><span>Featured work</span></li>
+        <li><span>Type Image Book</span><span>Published work</span></li>
+        <li><span>100Poster</span><span>Belgium exhibition</span></li>
+        <li><span>Amman Design Week</span><span>Exhibition</span></li>
+        <li><span>Warehouse421</span><span>Abu Dhabi exhibition</span></li>
+        <li><span>DeviantArt</span><span>Daily Deviation</span></li>
+      </ul>
+    </section>
 
-  <!-- CTA -->
-  <div class="cta-block">
-    <h2 class="cta-title">Have a brand that needs clarity, structure, or a <em>new direction?</em></h2>
-    <a href="mailto:tariqdesign@gmail.com" class="cta-link">Start a Conversation →</a>
-  </div>
+    <!-- EXPERTISE: short statements describing Tariq's working model. -->
+    <section class="expertise-section" aria-labelledby="expertise-title">
+      <h2 id="expertise-title">Expertise</h2>
+      <div class="expertise-list">
+        <article>
+          <h3>External / embedded direction</h3>
+          <p>Working directly with founders, executives, and senior teams to provide clear creative ownership.</p>
+        </article>
+        <article>
+          <h3>Scoped to the problem</h3>
+          <p>Each engagement is structured around what the brand actually needs—not a fixed package.</p>
+        </article>
+        <article>
+          <h3>Systems that hold together</h3>
+          <p>Turning strategic intent into practical frameworks teams can use across every touchpoint.</p>
+        </article>
+      </div>
+    </section>
 
-</main>
-
-
-<footer>
-  <div>
-    <span class="footer-name">Tariq Yosef — Creative Director</span>
-    <p style="font-size: var(--s-sm); color: var(--ink-faint); margin-top: 8px; letter-spacing: 0.02em;">Amman, Jordan · tariqdesign.com · +962 777 267 892</p>
-  </div>
-  <a href="mailto:info@tariqdesign.com" class="footer-email">info@tariqdesign.com</a>
-</footer>
-
+    <!--
+      SELECTED WORK + CONTACT
+      These project links currently open the main Behance archive. Replace an
+      individual href later when a direct Behance case-study URL is available.
+    -->
+    <section class="clients-section" id="contact" aria-labelledby="clients-title">
+      <h2 id="clients-title">Selected work</h2>
+      <ul class="work-list" aria-label="Selected projects from 2010 to 2026">
+        <li><a href="https://www.behance.net/tariqdesign" rel="noopener noreferrer">10events ↗</a></li>
+        <li><a href="https://www.behance.net/tariqdesign" rel="noopener noreferrer">Alinma Bank ↗</a></li>
+        <li><a href="https://www.behance.net/tariqdesign" rel="noopener noreferrer">Cooldra ↗</a></li>
+        <li><a href="https://www.behance.net/tariqdesign" rel="noopener noreferrer">Rewire ↗</a></li>
+        <li><a href="https://www.behance.net/tariqdesign" rel="noopener noreferrer">Masan ↗</a></li>
+        <li><a href="https://www.behance.net/tariqdesign" rel="noopener noreferrer">Almocha ↗</a></li>
+        <li><a href="https://www.behance.net/tariqdesign" rel="noopener noreferrer">Erorstore ↗</a></li>
+        <li><a href="https://www.behance.net/tariqdesign" rel="noopener noreferrer">Posters a Day ↗</a></li>
+      </ul>
+      <div class="availability-row">
+        <a href="https://www.behance.net/tariqdesign" rel="noopener noreferrer">View Behance archive ↗</a>
+        <a href="mailto:tariqdesign@gmail.com">tariqdesign@gmail.com</a>
+        <p>Available for senior roles and selected engagements</p>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
