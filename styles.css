@@ -35,6 +35,11 @@ html {
   scroll-behavior: smooth;
 }
 
+section,
+#contact {
+  scroll-margin-top: 80px;
+}
+
 body {
   min-height: 100vh;
   margin: 0;
@@ -113,7 +118,8 @@ p:last-child {
 .capabilities-section,
 .recognition-section,
 .expertise-section,
-.clients-section {
+.work-section,
+.contact-section {
   width: var(--page);
   margin-inline: auto;
 }
@@ -178,7 +184,8 @@ p:last-child {
 .capabilities-section,
 .recognition-section,
 .expertise-section,
-.clients-section {
+.work-section,
+.contact-section {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: var(--gutter);
@@ -218,8 +225,13 @@ p:last-child {
   margin-bottom: 0;
 }
 
-.about-intro p + p {
-  margin-top: 1em;
+.about-work-link {
+  display: inline-block;
+  margin-top: 28px;
+  color: var(--ink);
+  font-size: var(--step-0);
+  font-weight: 500;
+  text-underline-offset: 0.18em;
 }
 
 /* Core capabilities */
@@ -230,7 +242,8 @@ p:last-child {
 .capabilities-section > h2,
 .recognition-section > h2,
 .expertise-section > h2,
-.clients-section > h2 {
+.work-section > h2,
+.contact-section > h2 {
   grid-column: 1 / span 3;
   margin-bottom: 0;
   font-size: var(--step-1);
@@ -302,7 +315,7 @@ p:last-child {
 
 /* Expertise */
 .expertise-section {
-  padding-top: 132px;
+  padding-top: 96px;
 }
 
 .expertise-list {
@@ -320,56 +333,51 @@ p:last-child {
   margin-bottom: 5px;
 }
 
-/* Selected work and contact */
-.clients-section {
-  min-height: 620px;
-  padding-top: 132px;
+/* Selected work */
+.work-section {
+  min-height: 320px;
+  padding-top: 96px;
 }
 
-.work-list {
+.work-link {
   grid-column: 5 / -1;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px var(--gutter);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: var(--step-0);
-  line-height: 1.2;
-}
-
-.work-list a {
-  display: inline-block;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.16em;
-}
-
-.availability-row {
-  grid-column: 5 / -1;
-  display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
+  display: flex;
+  justify-content: space-between;
   gap: var(--gutter);
-  align-items: start;
-  margin-top: 96px;
-  font-size: var(--step-0);
+  padding: 18px 0 21px;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  font-size: var(--step-2);
+  font-weight: 450;
+  line-height: 1.08;
+  text-decoration: none;
+}
+
+/* Contact footer */
+.contact-section {
+  padding: 80px 0 100px;
+  border-top: 1px solid #d7d7d7;
+}
+
+.contact-content {
+  grid-column: 5 / span 6;
+}
+
+.contact-content p {
+  max-width: 38rem;
+  margin-bottom: 42px;
+  font-size: var(--step-2);
+  font-weight: 400;
+  line-height: 1.12;
+}
+
+.contact-content a {
+  display: inline-block;
+  font-size: var(--step-1);
   font-weight: 500;
-}
-
-.availability-row a {
-  width: max-content;
-  text-underline-offset: 0.16em;
-}
-
-.availability-row a:first-child {
-  grid-column: 1 / span 2;
-}
-
-.availability-row a:nth-child(2) {
-  grid-column: 3 / span 2;
-}
-
-.availability-row p {
-  grid-column: 5 / -1;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+  text-underline-offset: 0.18em;
 }
 
 /* Large desktop refinement */
@@ -407,12 +415,17 @@ p:last-child {
   }
 
   .expertise-section {
-    padding-top: 170px;
+    padding-top: 120px;
   }
 
-  .clients-section {
-    min-height: 820px;
-    padding-top: 170px;
+  .work-section {
+    min-height: 420px;
+    padding-top: 120px;
+  }
+
+  .contact-section {
+    padding-top: 100px;
+    padding-bottom: 120px;
   }
 }
 
@@ -485,7 +498,8 @@ p:last-child {
   .capabilities-section,
   .recognition-section,
   .expertise-section,
-  .clients-section {
+  .work-section,
+  .contact-section {
     display: block;
   }
 
@@ -510,7 +524,8 @@ p:last-child {
   .capabilities-section > h2,
   .recognition-section > h2,
   .expertise-section > h2,
-  .clients-section > h2 {
+  .work-section > h2,
+  .contact-section > h2 {
     margin-bottom: 44px;
   }
 
@@ -531,8 +546,7 @@ p:last-child {
     padding-top: 80px;
   }
 
-  .expertise-list,
-  .work-list {
+  .expertise-list {
     display: block;
   }
 
@@ -540,34 +554,27 @@ p:last-child {
     margin-bottom: 30px;
   }
 
-  .work-list li {
-    border-top: 1px solid #d7d7d7;
-  }
-
-  .work-list a {
-    display: block;
+  .work-link {
     min-height: 44px;
-    padding: 11px 0;
+    padding: 14px 0 16px;
+    font-size: var(--step-1);
   }
 
-  .work-list li:last-child {
-    border-bottom: 1px solid #d7d7d7;
-  }
-
-  .clients-section {
-    min-height: 520px;
+  .work-section {
+    min-height: 280px;
     padding-top: 70px;
   }
 
-  .availability-row {
-    display: block;
-    margin-top: 58px;
+  .contact-section {
+    padding: 70px 0 86px;
   }
 
-  .availability-row a {
-    display: inline-block;
-    margin-bottom: 24px;
+  .contact-content p {
+    margin-bottom: 32px;
+    font-size: var(--step-1);
+    line-height: 1.18;
   }
+
 }
 
 /* Respect the visitor's motion preference */

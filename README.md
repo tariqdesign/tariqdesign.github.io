@@ -14,12 +14,12 @@ A lightweight static site designed for GitHub Pages. No framework or build step 
 
 The site is intentionally framework-free and split by responsibility:
 
-- Edit visible wording, navigation links, work names, Behance links, and the email address in `index.html`.
+- Edit visible wording, navigation links, the Behance link, and the email address in `index.html`.
 - Edit colors, page width, spacing, and type sizes in the `:root` design tokens near the top of `styles.css`.
 - Edit section layouts inside the clearly labelled CSS blocks. The mobile layout starts at `@media (max-width: 800px)`.
 - `script.js` only controls the mobile menu. Its breakpoint must match the CSS breakpoint.
 
-HTML sections are marked with comments. Each selected-work item currently links to the main Behance archive; replace its `href` with the direct case-study URL when available.
+HTML sections are marked with comments. The Selected Work section intentionally uses one prominent link to the main Behance archive.
 
 ## Overused Grotesk
 
@@ -32,7 +32,7 @@ Typography uses an 18px base and a 1.333 (Major Third) modular scale: 18px, 24px
 
 ## Important edits before launch
 
-1. Confirm the Behance profile URL and add direct case-study URLs when ready.
+1. Confirm the Behance profile URL.
 2. Keep the confirmed `16+ years` figure consistent with the CV and LinkedIn.
 3. Add a social sharing image and reference it with `og:image` in `index.html`.
 4. The temporary contact email is `tariqdesign@gmail.com`; replace it in `index.html` when the permanent address is ready.
