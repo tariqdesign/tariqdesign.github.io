@@ -1,0 +1,192 @@
+media:
+  input: assets/images/uploads
+  output: /assets/images/uploads
+  extensions: [webp, jpg, jpeg, png]
+  categories: [image]
+  rename: safe
+
+settings:
+  content:
+    merge: true
+
+content:
+  - name: site
+    label: General website content
+    type: file
+    path: content/site.json
+    format: json
+    operations:
+      delete: false
+    fields:
+      - name: name
+        label: Name
+        type: string
+        required: true
+      - name: professionalTitle
+        label: Professional title
+        type: string
+        required: true
+      - name: mainPositioningStatement
+        label: Main positioning statement
+        type: rich-text
+        required: true
+        options:
+          format: html
+          media: false
+      - name: introduction
+        label: Short introduction
+        type: rich-text
+        required: true
+        options:
+          format: html
+          media: false
+      - name: leadershipStatement
+        label: Leadership statement
+        type: text
+      - name: pointOfViewText
+        label: Point-of-view text
+        type: text
+      - name: systemsStatement
+        label: Systems statement
+        type: text
+      - name: markets
+        label: Markets
+        type: string
+        list: true
+      - name: sectors
+        label: Sectors
+        type: string
+        list: true
+      - name: capabilities
+        label: Core capabilities
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Capability
+            type: string
+            required: true
+          - name: description
+            label: Description
+            type: text
+      - name: recognition
+        label: Recognition
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{name}"
+        fields:
+          - name: name
+            label: Publication or organisation
+            type: string
+            required: true
+          - name: detail
+            label: Recognition detail
+            type: rich-text
+            options:
+              format: html
+              media: false
+      - name: email
+        label: Email
+        type: string
+        pattern:
+          regex: "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
+          message: Enter a valid email address.
+      - name: linkedInUrl
+        label: LinkedIn URL
+        type: string
+        pattern:
+          regex: "^$|^https://([a-z]+\\.)?linkedin\\.com/.*$"
+          message: Use a full LinkedIn URL beginning with https://.
+      - name: behanceUrl
+        label: Behance URL
+        type: string
+        pattern:
+          regex: "^$|^https://(www\\.)?behance\\.net/.*$"
+          message: Use a full Behance URL beginning with https://.
+      - name: privatePortfolioRequestText
+        label: Private portfolio request text
+        type: string
+      - name: footerText
+        label: Footer text
+        type: text
+
+  - name: engagements
+    label: Selected engagements
+    type: file
+    path: content/engagements.json
+    format: json
+    list: true
+    operations:
+      delete: false
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: clientOrProjectName
+        label: Client or project name
+        type: string
+        required: true
+      - name: sector
+        label: Sector
+        type: string
+      - name: location
+        label: Location
+        type: string
+      - name: year
+        label: Year
+        type: number
+        options:
+          min: 1900
+          max: 2100
+      - name: role
+        label: Role
+        type: string
+      - name: problem
+        label: Problem
+        type: rich-text
+        options:
+          format: html
+          media: false
+      - name: decision
+        label: Creative decision
+        type: rich-text
+        options:
+          format: html
+          media: false
+      - name: outcome
+        label: Business or design outcome
+        type: rich-text
+        options:
+          format: html
+          media: false
+      - name: coverImage
+        label: Cover image
+        type: image
+        options:
+          extensions: [webp, jpg, jpeg, png]
+          rename: safe
+      - name: supportingImages
+        label: Supporting images
+        type: image
+        options:
+          multiple:
+            max: 12
+          unique: true
+          extensions: [webp, jpg, jpeg, png]
+          rename: safe
+      - name: displayOrder
+        label: Display order
+        type: number
+        required: true
+        options:
+          min: 0
+      - name: published
+        label: Published
+        type: boolean
+        required: true

@@ -3,26 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tariq Yosef — Design Director</title>
-  <meta name="description" content="Tariq Yosef is an independent Design Director helping organisations regain control of fragmented brand work across strategy, identity, communication and rollout.">
+  <title>Portfolio</title>
+  <meta name="description" content="">
   <meta name="theme-color" content="#ffffff">
-  <meta property="og:title" content="Tariq Yosef — Design Director">
-  <meta property="og:description" content="Creative direction, identity systems and brand governance across Saudi Arabia and MENA.">
+  <meta property="og:title" content="">
+  <meta property="og:description" content="">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tariqdesign.com/">
   <link rel="canonical" href="https://tariqdesign.com/">
-  <!-- Update this version value after major CSS/JS releases to clear browser caches. -->
-  <link rel="stylesheet" href="styles.css?v=20260804-2">
-  <script defer src="script.js?v=20260804-2"></script>
+  <link rel="stylesheet" href="styles.css?v=20260805-1">
+  <script defer src="script.js?v=20260805-1"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- SITE HEADER: edit the navigation labels or destinations here. -->
   <header class="site-header" data-header>
-    <a class="brand" href="#about" aria-label="Tariq Design home">
-      <span>Tariq Yosef</span>
-      <span>Design Director</span>
+    <a class="brand" href="#about" aria-label="Home">
+      <span data-site="name"></span>
+      <span data-site="professionalTitle"></span>
     </a>
 
     <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-button>
@@ -30,102 +28,82 @@
     </button>
 
     <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-nav>
-      <a class="is-active" href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#recognition">Recognition</a>
-      <a href="#work">Work</a>
-      <a href="#contact">Contact</a>
+      <a class="is-active" href="#about" data-label="about"></a>
+      <a href="#services" data-label="services"></a>
+      <a href="#recognition" data-label="recognition"></a>
+      <a href="#work" data-label="work"></a>
+      <a href="#contact" data-label="contact"></a>
     </nav>
   </header>
 
   <main id="main">
-    <!-- ABOUT: primary positioning statement and supporting biography. -->
+    <p class="content-status" role="status" data-content-status hidden></p>
+
     <section class="about-section" id="about" aria-labelledby="about-title">
-      <h1 class="visually-hidden" id="about-title">About Tariq Yosef</h1>
-      <div class="about-lead">
-        <p>I’ve led visual communication and identity system work for regional organisations, often working directly with founders, executives, and senior teams.</p>
-        <p>This usually involves translating strategic intent into practical design frameworks that people can actually use — not guidelines that sit on a shelf.</p>
-      </div>
+      <h1 class="visually-hidden" id="about-title" data-label="aboutHeading"></h1>
+      <div class="about-lead" data-rich-text="mainPositioningStatement"></div>
       <div class="about-intro">
-        <p>I help organisations build brands with clarity, structure, and long-term consistency. With 16+ years across government, private sector, and agencies, I bridge brand strategy and visual identity—translating direction into practical architectures, guidelines, and design languages that teams can apply consistently across every touchpoint.</p>
-        <a class="about-work-link" href="https://www.behance.net/tariqdesign" rel="noopener noreferrer">View selected work on Behance ↗</a>
+        <div data-rich-text="introduction"></div>
+        <a class="about-work-link" data-link="behanceUrl" rel="noopener noreferrer" hidden></a>
       </div>
     </section>
 
-    <!-- SERVICES: keep these aligned with the master context/CV. -->
     <section class="capabilities-section" id="services" aria-labelledby="services-title">
-      <h2 id="services-title">Core Capabilities</h2>
-      <div class="capabilities-list">
-        <article>
-          <h3>Brand Strategy &amp; Architecture</h3>
-          <p>Positioning, brand structure, visual logic, decision frameworks</p>
-        </article>
-        <article>
-          <h3>Identity Systems &amp; Visual Frameworks</h3>
-          <p>Logo systems, typography architecture, color systems, layout rules</p>
-        </article>
-        <article>
-          <h3>Art Direction &amp; Oversight</h3>
-          <p>Design leadership, quality control, consistency across outputs</p>
-        </article>
-      </div>
+      <h2 id="services-title" data-label="capabilities"></h2>
+      <div class="capabilities-list" data-list="capabilities"></div>
     </section>
 
-    <!-- RECOGNITION: publications, features, and exhibitions only. -->
     <section class="recognition-section" id="recognition" aria-labelledby="recognition-title">
-      <h2 id="recognition-title">Recognition</h2>
-      <ul class="recognition-list" aria-label="Selected recognition and publications">
-        <li><span>Type01</span><span>Inspired Typeface Interview, 2021</span></li>
-        <li><span>Abduzeedo</span><span>Zero Posters Vol. 1, 2019 · Vol. 2, 2021</span></li>
-        <li><span>Flamant Publishers</span><span><cite>New 3D Effects in Graphic Design</cite>, 2019</span></li>
-        <li><span>Advanced Photoshop UK</span><span>Featured work</span></li>
-        <li><span>Advanced Photoshop Magazine GE</span><span>Featured work</span></li>
-        <li><span>Type Image Book</span><span>Published work</span></li>
-        <li><span>100Poster</span><span>Belgium exhibition</span></li>
-        <li><span>Amman Design Week</span><span>Exhibition</span></li>
-        <li><span>Warehouse421</span><span>Abu Dhabi exhibition</span></li>
-        <li><span>DeviantArt</span><span>Daily Deviation</span></li>
-      </ul>
+      <h2 id="recognition-title" data-label="recognitionHeading"></h2>
+      <ul class="recognition-list" aria-label="Selected recognition and publications" data-list="recognition"></ul>
     </section>
 
-    <!-- EXPERTISE: short statements describing Tariq's working model. -->
     <section class="expertise-section" aria-labelledby="expertise-title">
-      <h2 id="expertise-title">Expertise</h2>
+      <h2 id="expertise-title" data-label="expertise"></h2>
       <div class="expertise-list">
-        <article>
-          <h3>External / embedded direction</h3>
-          <p>Working directly with founders, executives, and senior teams to provide clear creative ownership.</p>
+        <article data-optional-content="leadershipStatement">
+          <h3 data-label="leadership"></h3>
+          <p data-site="leadershipStatement"></p>
         </article>
-        <article>
-          <h3>Scoped to the problem</h3>
-          <p>Each engagement is structured around what the brand actually needs—not a fixed package.</p>
+        <article data-optional-content="pointOfViewText">
+          <h3 data-label="pointOfView"></h3>
+          <p data-site="pointOfViewText"></p>
         </article>
-        <article>
-          <h3>Systems that hold together</h3>
-          <p>Turning strategic intent into practical frameworks teams can use across every touchpoint.</p>
+        <article data-optional-content="systemsStatement">
+          <h3 data-label="systems"></h3>
+          <p data-site="systemsStatement"></p>
         </article>
+      </div>
+      <div class="practice-context" data-practice-context hidden>
+        <dl data-optional-list="markets">
+          <dt data-label="markets"></dt>
+          <dd data-list-text="markets"></dd>
+        </dl>
+        <dl data-optional-list="sectors">
+          <dt data-label="sectors"></dt>
+          <dd data-list-text="sectors"></dd>
+        </dl>
       </div>
     </section>
 
-    <!--
-      SELECTED WORK
-      Keep this as one clear route to Behance rather than listing projects here.
-    -->
     <section class="work-section" id="work" aria-labelledby="work-title">
-      <h2 id="work-title">Selected work</h2>
-      <a class="work-link" href="https://www.behance.net/tariqdesign" rel="noopener noreferrer" aria-label="Explore Tariq Yosef's selected work on Behance">
-        <span>Explore selected work on Behance</span>
+      <h2 id="work-title" data-label="workHeading"></h2>
+      <div class="engagements-list" data-list="engagements"></div>
+      <a class="work-link" data-link="behanceUrl" rel="noopener noreferrer" hidden>
+        <span data-site="privatePortfolioRequestText"></span>
         <span aria-hidden="true">↗</span>
       </a>
     </section>
   </main>
 
-  <!-- CONTACT: final page destination and primary inquiry route. -->
   <footer class="contact-section" id="contact" aria-labelledby="contact-title">
-    <h2 id="contact-title">Tariq Design</h2>
+    <h2 id="contact-title" data-label="contactHeading"></h2>
     <div class="contact-content">
-      <p>For any inquiries, work or collaboration proposals, please don’t hesitate to get in touch.</p>
-      <a href="mailto:tariqdesign@gmail.com">tariqdesign@gmail.com</a>
+      <p data-site="footerText"></p>
+      <div class="contact-links">
+        <a data-link="email" hidden></a>
+        <a data-link="linkedInUrl" rel="noopener noreferrer" hidden></a>
+      </div>
     </div>
   </footer>
 </body>

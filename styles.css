@@ -333,6 +333,32 @@ p:last-child {
   margin-bottom: 5px;
 }
 
+.practice-context {
+  grid-column: 5 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(var(--gutter) * 2);
+  margin: 38px 0 0;
+}
+
+.practice-context > dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gutter);
+  margin: 0;
+  padding-top: 9px;
+  border-top: 1px solid #d7d7d7;
+}
+
+.practice-context dt {
+  font-weight: 600;
+}
+
+.practice-context dd {
+  margin: 0;
+  color: var(--muted);
+}
+
 /* Selected work */
 .work-section {
   min-height: 320px;
@@ -351,6 +377,84 @@ p:last-child {
   font-weight: 450;
   line-height: 1.08;
   text-decoration: none;
+}
+
+.engagements-list {
+  grid-column: 5 / -1;
+}
+
+.engagement {
+  padding: 18px 0 24px;
+  border-top: 1px solid var(--ink);
+}
+
+.engagement:last-child {
+  border-bottom: 1px solid var(--ink);
+}
+
+.engagement figure {
+  margin: 0 0 20px;
+}
+
+.engagement img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.engagement-summary {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: var(--gutter);
+}
+
+.engagement-summary h3 {
+  grid-column: 1 / span 4;
+  margin-bottom: 0;
+  font-size: var(--step-2);
+  font-weight: 450;
+  line-height: 1.08;
+}
+
+.engagement-meta {
+  grid-column: 5 / -1;
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.engagement-details {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: calc(var(--gutter) * 2);
+  margin-top: 38px;
+}
+
+.engagement-details h4 {
+  margin: 0 0 5px;
+  font-size: var(--step-0);
+  font-weight: 650;
+  line-height: 1.12;
+}
+
+.engagement-copy {
+  color: var(--muted);
+  font-size: var(--step-0);
+  line-height: 1.18;
+}
+
+.engagement-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gutter);
+  margin-top: 38px;
+}
+
+.engagement-gallery figure {
+  margin: 0;
+}
+
+.engagements-list + .work-link {
+  margin-top: 42px;
 }
 
 /* Contact footer */
@@ -378,6 +482,20 @@ p:last-child {
   line-height: 1.15;
   overflow-wrap: anywhere;
   text-underline-offset: 0.18em;
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+}
+
+.content-status {
+  width: var(--page);
+  margin: 24px auto 0;
+  padding: 12px;
+  border: 1px solid #d7d7d7;
+  color: var(--muted);
 }
 
 /* Large desktop refinement */
@@ -552,6 +670,29 @@ p:last-child {
 
   .expertise-list article {
     margin-bottom: 30px;
+  }
+
+  .practice-context,
+  .practice-context > dl,
+  .engagement-summary,
+  .engagement-details,
+  .engagement-gallery {
+    display: block;
+  }
+
+  .practice-context > dl + dl,
+  .engagement-details > div,
+  .engagement-gallery figure + figure {
+    margin-top: 24px;
+  }
+
+  .practice-context dd,
+  .engagement-meta {
+    margin-top: 3px;
+  }
+
+  .engagement-summary h3 {
+    font-size: var(--step-1);
   }
 
   .work-link {

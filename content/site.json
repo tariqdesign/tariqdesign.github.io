@@ -1,0 +1,59 @@
+{
+  "name": "Tariq Yosef",
+  "professionalTitle": "Design Director",
+  "mainPositioningStatement": "<p>I’ve led visual communication and identity system work for regional organisations, often working directly with founders, executives, and senior teams.</p><p>This usually involves translating strategic intent into practical design frameworks that people can actually use — not guidelines that sit on a shelf.</p>",
+  "introduction": "<p>I help organisations build brands with clarity, structure, and long-term consistency. With 16+ years across government, private sector, and agencies, I bridge brand strategy and visual identity—translating direction into practical architectures, guidelines, and design languages that teams can apply consistently across every touchpoint.</p>",
+  "leadershipStatement": "Working directly with founders, executives, and senior teams to provide clear creative ownership.",
+  "pointOfViewText": "Each engagement is structured around what the brand actually needs—not a fixed package.",
+  "systemsStatement": "Turning strategic intent into practical frameworks teams can use across every touchpoint.",
+  "markets": ["Saudi Arabia", "MENA"],
+  "sectors": ["Government", "Private sector", "Agencies"],
+  "recognition": [
+    { "name": "Type01", "detail": "Inspired Typeface Interview, 2021" },
+    { "name": "Abduzeedo", "detail": "Zero Posters Vol. 1, 2019 · Vol. 2, 2021" },
+    { "name": "Flamant Publishers", "detail": "<cite>New 3D Effects in Graphic Design</cite>, 2019" },
+    { "name": "Advanced Photoshop UK", "detail": "Featured work" },
+    { "name": "Advanced Photoshop Magazine GE", "detail": "Featured work" },
+    { "name": "Type Image Book", "detail": "Published work" },
+    { "name": "100Poster", "detail": "Belgium exhibition" },
+    { "name": "Amman Design Week", "detail": "Exhibition" },
+    { "name": "Warehouse421", "detail": "Abu Dhabi exhibition" },
+    { "name": "DeviantArt", "detail": "Daily Deviation" }
+  ],
+  "capabilities": [
+    { "title": "Brand Strategy & Architecture", "description": "Positioning, brand structure, visual logic, decision frameworks" },
+    { "title": "Identity Systems & Visual Frameworks", "description": "Logo systems, typography architecture, color systems, layout rules" },
+    { "title": "Art Direction & Oversight", "description": "Design leadership, quality control, consistency across outputs" }
+  ],
+  "email": "tariqdesign@gmail.com",
+  "linkedInUrl": "",
+  "behanceUrl": "https://www.behance.net/tariqdesign",
+  "privatePortfolioRequestText": "Explore selected work on Behance",
+  "footerText": "For any inquiries, work or collaboration proposals, please don’t hesitate to get in touch.",
+  "labels": {
+    "about": "About",
+    "services": "Services",
+    "recognition": "Recognition",
+    "work": "Work",
+    "contact": "Contact",
+    "aboutHeading": "About Tariq Yosef",
+    "capabilities": "Core Capabilities",
+    "recognitionHeading": "Recognition",
+    "expertise": "Expertise",
+    "leadership": "External / embedded direction",
+    "pointOfView": "Scoped to the problem",
+    "systems": "Systems that hold together",
+    "markets": "Markets",
+    "sectors": "Sectors",
+    "workHeading": "Selected work",
+    "contactHeading": "Tariq Design",
+    "behanceLink": "View selected work on Behance ↗",
+    "linkedInLink": "LinkedIn ↗",
+    "behanceContactLink": "Behance ↗"
+  },
+  "seo": {
+    "title": "Tariq Yosef — Design Director",
+    "description": "Tariq Yosef is an independent Design Director helping organisations regain control of fragmented brand work across strategy, identity, communication and rollout.",
+    "socialDescription": "Creative direction, identity systems and brand governance across Saudi Arabia and MENA."
+  }
+}
