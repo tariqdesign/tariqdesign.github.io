@@ -4,7 +4,7 @@ const PATHS = {
   engagements: new URL('content/engagements.json', SITE_ROOT)
 };
 
-const INDEX_IMAGE_LIMIT = 14;
+const INDEX_PROJECT_LIMIT = 14;
 const hasText = (value) => typeof value === 'string' && value.trim() !== '';
 const toText = (value) => value === null || value === undefined ? '' : String(value).trim();
 
@@ -31,6 +31,7 @@ const assetUrl = (value) => {
 };
 
 let galleryItems = [];
+let feedProjects = [];
 let activeImageIndex = 0;
 let lightboxReturnFocus = null;
 
@@ -172,18 +173,20 @@ const buildGallery = (site, engagements) => {
     };
   };
 
-  // Published project covers lead the index so every new CMS project is visible.
+  feedProjects = [];
   projects.forEach((project) => {
-    if (hasText(project.coverImage)) candidates.push(projectItem(project, project.coverImage));
+    const paths = [project.coverImage, ...(Array.isArray(project.supportingImages) ? project.supportingImages : [])].filter(hasText);
+    if (!paths.length) return;
+    const items = paths.map((path) => projectItem(project, path));
+    candidates.push(...items);
+    feedProjects.push({
+      title: project.title || project.clientOrProjectName || 'Selected work',
+      meta: [project.sector, project.location, project.year].map(toText).filter(hasText).join(' / '),
+      items
+    });
   });
 
-  // Supporting project imagery follows its covers and remains available in the lightbox.
-  projects.forEach((project) => {
-    const supportingImages = Array.isArray(project.supportingImages) ? project.supportingImages.filter(hasText) : [];
-    supportingImages.forEach((path) => candidates.push(projectItem(project, path)));
-  });
-
-  // General featured images fill any remaining index slots.
+  // General featured images remain part of the full lightbox archive.
   const heroImages = Array.isArray(site.heroImages) ? site.heroImages : [];
   heroImages.forEach((entry) => {
     const path = typeof entry === 'string' ? entry : entry?.image;
@@ -208,25 +211,71 @@ const buildGallery = (site, engagements) => {
 
 const renderFeed = () => {
   const feed = document.querySelector('[data-feed]');
-  feed.replaceChildren(...galleryItems.slice(0, INDEX_IMAGE_LIMIT).map((item, index) => {
-    const figure = document.createElement('figure');
-    figure.className = 'feed-item';
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'feed-image-button';
-    button.setAttribute('aria-label', `Open ${item.title} in image viewer`);
-    const image = document.createElement('img');
-    image.src = assetUrl(item.path);
-    image.alt = item.title;
-    image.loading = index < 2 ? 'eager' : 'lazy';
-    image.decoding = 'async';
-    const caption = document.createElement('figcaption');
-    caption.textContent = item.caption;
-    button.append(image);
-    button.addEventListener('click', () => openLightbox(index, button));
-    figure.append(button, caption);
-    return figure;
+  const groups = feedProjects.slice(0, INDEX_PROJECT_LIMIT);
+  feed.replaceChildren(...groups.map((project, projectIndex) => {
+    const article = document.createElement('article');
+    article.className = 'project-group';
+
+    const header = document.createElement('header');
+    header.className = 'project-heading';
+    const title = document.createElement('h2');
+    title.textContent = project.title;
+    header.append(title);
+    if (hasText(project.meta)) {
+      const meta = document.createElement('p');
+      meta.textContent = project.meta;
+      header.append(meta);
+    }
+
+    const images = document.createElement('div');
+    images.className = 'project-images';
+    project.items.forEach((item, imageIndex) => {
+      const galleryIndex = galleryItems.findIndex((galleryItem) => galleryItem.path === item.path);
+      const figure = document.createElement('figure');
+      figure.className = 'project-image';
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'feed-image-button';
+      button.setAttribute('aria-label', `Open ${project.title}, image ${imageIndex + 1} of ${project.items.length}`);
+      const image = document.createElement('img');
+      image.src = assetUrl(item.path);
+      image.alt = `${project.title} — image ${imageIndex + 1}`;
+      image.loading = projectIndex === 0 && imageIndex === 0 ? 'eager' : 'lazy';
+      image.decoding = 'async';
+      button.append(image);
+      button.addEventListener('click', () => openLightbox(galleryIndex, button));
+      figure.append(button);
+      images.append(figure);
+    });
+
+    article.append(header, images);
+    return article;
   }));
+};
+
+const setupParallax = () => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const images = [...document.querySelectorAll('.feed-image-button img')];
+  if (!images.length) return;
+  let frameRequested = false;
+  const update = () => {
+    const viewportHeight = window.innerHeight;
+    images.forEach((image) => {
+      const rect = image.parentElement.getBoundingClientRect();
+      const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
+      const offset = Math.max(-20, Math.min(20, (progress - 0.5) * 40));
+      image.style.setProperty('--parallax-y', `${offset}px`);
+    });
+    frameRequested = false;
+  };
+  const requestUpdate = () => {
+    if (frameRequested) return;
+    frameRequested = true;
+    window.requestAnimationFrame(update);
+  };
+  window.addEventListener('scroll', requestUpdate, { passive: true });
+  window.addEventListener('resize', requestUpdate);
+  update();
 };
 
 const updateLightbox = () => {
@@ -304,6 +353,7 @@ const initialise = async () => {
     renderInformation(site);
     buildGallery(site, engagements);
     renderFeed();
+    setupParallax();
     setupLightbox();
   } catch (error) {
     const status = document.querySelector('[data-error]');

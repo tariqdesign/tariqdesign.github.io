@@ -41,9 +41,9 @@ content:
           format: html
           media: false
       - name: heroImages
-        label: Featured visual feed images
+        label: Additional lightbox images
         type: object
-        description: Published project covers appear first. These images fill the remaining homepage slots, up to 14 images total, and remain available in the lightbox.
+        description: Optional archive images shown after the grouped project images in the lightbox.
         list:
           collapsible:
             collapsed: true
