@@ -5,6 +5,11 @@
     "problem": "<p></p>",
     "decision": "<p></p>",
     "outcome": "<p></p>",
+    "coverImage": "/assets/images/uploads/untitled-7-768x430.jpg",
+    "supportingImages": [
+      "/assets/images/uploads/color-1536x860bk.png",
+      "/assets/images/uploads/typocolor-scaled.jpg"
+    ],
     "displayOrder": 1,
     "published": true
   },
