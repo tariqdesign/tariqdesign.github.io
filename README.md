@@ -61,6 +61,7 @@ The site uses one Swiss-style outer grid defined by reusable CSS variables at th
 - `--edge` controls the common left and right page margin.
 - `--gap` controls the common space between columns.
 - `--type-body` sets the primary reading size to 14pt.
+- `--type-header` compensates for the greater visual height of uppercase text so the header feels balanced with the 14pt reading text.
 
 Use `var(--site-grid)` for new page-level sections so their edges align with the header, profile, and footer. Image galleries and multi-column text inside a section may use a smaller nested grid, but the section itself should always sit on the shared outer grid. Editing these variables updates the system consistently across the website.
 
