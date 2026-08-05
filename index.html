@@ -97,13 +97,17 @@
   </main>
 
   <footer class="contact-section" id="contact" aria-labelledby="contact-title">
-    <h2 id="contact-title" data-label="contactHeading"></h2>
+    <div class="contact-heading">
+      <h2 id="contact-title" data-label="contactHeading"></h2>
+      <p class="contact-name" data-site="name"></p>
+    </div>
     <div class="contact-content">
-      <p data-site="footerText"></p>
-      <div class="contact-links">
+      <p class="contact-intro" data-site="footerText"></p>
+      <nav class="contact-links" aria-label="Contact links">
         <a data-link="email" hidden></a>
+        <a data-link="behanceUrl" rel="noopener noreferrer" hidden></a>
         <a data-link="linkedInUrl" rel="noopener noreferrer" hidden></a>
-      </div>
+      </nav>
     </div>
   </footer>
 </body>

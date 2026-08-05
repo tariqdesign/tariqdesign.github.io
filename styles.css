@@ -447,24 +447,51 @@ p:last-child {
 
 /* Contact footer */
 .contact-section {
-  padding: 80px 0 100px;
-  border-top: 1px solid #d7d7d7;
+  padding: 64px 0 88px;
+  border-top: 0;
+  background: #000;
+  color: #fff;
+  box-shadow: 0 0 0 100vmax #000;
+  clip-path: inset(0 -100vmax);
+}
+
+.contact-heading {
+  grid-column: 1 / -1;
+}
+
+.contact-heading h2 {
+  margin-bottom: 3px;
+  font-size: var(--step-3);
+  font-weight: 450;
+  line-height: 1;
+}
+
+.contact-name {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: var(--step-1);
 }
 
 .contact-content {
-  grid-column: 5 / span 6;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--gutter);
+  margin-top: 84px;
 }
 
-.contact-content p {
+.contact-intro {
+  grid-column: 1 / span 6;
   max-width: 38rem;
-  margin-bottom: 42px;
+  margin-bottom: 0;
+  color: var(--muted);
   font-size: var(--step-2);
   font-weight: 400;
   line-height: 1.12;
 }
 
 .contact-content a {
-  display: inline-block;
+  display: block;
   font-size: var(--step-1);
   font-weight: 500;
   line-height: 1.15;
@@ -473,9 +500,7 @@ p:last-child {
 }
 
 .contact-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 32px;
+  grid-column: 8 / span 4;
 }
 
 .content-status {
@@ -530,7 +555,7 @@ p:last-child {
   }
 
   .contact-section {
-    padding-top: 100px;
+    padding-top: 72px;
     padding-bottom: 120px;
   }
 }
@@ -693,11 +718,24 @@ p:last-child {
   }
 
   .contact-section {
-    padding: 70px 0 86px;
+    padding: 56px 0 72px;
   }
 
-  .contact-content p {
-    margin-bottom: 32px;
+  .contact-heading h2 {
+    font-size: var(--step-2);
+  }
+
+  .contact-name {
+    font-size: var(--step-0);
+  }
+
+  .contact-content {
+    display: block;
+    margin-top: 64px;
+  }
+
+  .contact-intro {
+    margin-bottom: 38px;
     font-size: var(--step-1);
     line-height: 1.18;
   }
