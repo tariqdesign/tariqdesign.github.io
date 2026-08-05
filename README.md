@@ -12,7 +12,6 @@ This is a framework-free static website for GitHub Pages. Content is stored in J
 - `.pages.yml` — Pages CMS fields and media settings
 - `assets/images/uploads/` — images uploaded through Pages CMS
 - `assets/fonts/` — locally hosted Overused Grotesk font and license
-- `CNAME` — the `tariqdesign.com` custom domain
 
 ## Connect the repository to Pages CMS
 
@@ -45,9 +44,9 @@ The browser converts CMS image paths to page-relative URLs at runtime. This keep
 1. In GitHub, open **Settings → Pages**.
 2. Under **Build and deployment**, choose **Deploy from a branch**, then select the CMS branch (normally `main`) and `/root`.
 3. After a Pages CMS commit, open the repository’s **Actions** tab and wait for the `pages build and deployment` workflow to finish successfully.
-4. Open `https://tariqdesign.com/` in a private browser window and confirm the edited content is live. GitHub Pages deployments can take a few minutes after the commit.
+4. Open `https://tariqdesign.github.io/` in a private browser window and confirm the edited content is live. GitHub Pages deployments can take a few minutes after the commit.
 
-For initial domain setup, enter `tariqdesign.com` under **Settings → Pages → Custom domain** and enable **Enforce HTTPS** after GitHub verifies the DNS records. The included `CNAME` file already contains the domain.
+When you are ready to move the custom domain, enter `tariqdesign.com` under **Settings → Pages → Custom domain** and enable **Enforce HTTPS** after GitHub verifies the DNS records. Do not change the domain’s DNS until you are ready to replace the current Hostinger website.
 
 ## Local preview
 
