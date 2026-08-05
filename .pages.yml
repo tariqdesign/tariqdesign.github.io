@@ -43,7 +43,7 @@ content:
       - name: heroImages
         label: Featured visual feed images
         type: object
-        description: The first three images appear on the homepage. Every image remains available in the lightbox.
+        description: Published project covers appear first. These images fill the remaining homepage slots, up to 14 images total, and remain available in the lightbox.
         list:
           collapsible:
             collapsed: true
