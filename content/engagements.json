@@ -2,9 +2,7 @@
   {
     "title": "10events",
     "clientOrProjectName": "10events",
-    "problem": "<p></p>",
-    "decision": "<p></p>",
-    "outcome": "<p></p>",
+    "description": "",
     "coverImage": "/assets/images/uploads/untitled-7-768x430.jpg",
     "supportingImages": [
       "/assets/images/uploads/color-1536x860bk.png",
@@ -16,27 +14,21 @@
   {
     "title": "Alinma Bank",
     "clientOrProjectName": "Alinma Bank",
-    "problem": "<p></p>",
-    "decision": "<p></p>",
-    "outcome": "<p></p>",
+    "description": "",
     "displayOrder": 2,
     "published": true
   },
   {
     "title": "Cooldra",
     "clientOrProjectName": "Cooldra",
-    "problem": "<p></p>",
-    "decision": "<p></p>",
-    "outcome": "<p></p>",
+    "description": "",
     "displayOrder": 3,
     "published": true
   },
   {
     "title": "Big ideas",
     "clientOrProjectName": "dddddd",
-    "problem": "<p>zxczxczxczxcz</p>",
-    "decision": "<p>zxczxczxczx</p>",
-    "outcome": "<p></p>",
+    "description": "<p>zxczxczxczxcz</p><p>zxczxczxczx</p>",
     "coverImage": "/assets/images/uploads/vlcsnap-2023-07-10-00h16m34s479.png",
     "displayOrder": 4,
     "published": true
@@ -44,9 +36,7 @@
   {
     "title": "xxx",
     "clientOrProjectName": "xxx",
-    "problem": "<p></p>",
-    "decision": "<p></p>",
-    "outcome": "<p></p>",
+    "description": "",
     "displayOrder": 0,
     "published": false
   }

@@ -147,20 +147,8 @@ content:
       - name: role
         label: Role
         type: string
-      - name: problem
-        label: Problem
-        type: rich-text
-        options:
-          format: html
-          media: false
-      - name: decision
-        label: Creative decision
-        type: rich-text
-        options:
-          format: html
-          media: false
-      - name: outcome
-        label: Business or design outcome
+      - name: description
+        label: Description
         type: rich-text
         options:
           format: html
@@ -181,7 +169,7 @@ content:
           extensions: [webp, jpg, jpeg, png]
           rename: safe
       - name: displayOrder
-        label: Display order
+        label: Order
         type: number
         required: true
         options:

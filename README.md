@@ -25,7 +25,7 @@ This is a framework-free static website for GitHub Pages. Content is stored in J
 ## Edit and publish content
 
 1. Change a field in Pages CMS. Keep required fields filled in.
-2. For an engagement, set **Published** off to hide it. Published engagements appear in ascending **Display order**; equal order values keep their JSON order.
+2. For an engagement, set **Published** off to hide it. Published engagements appear in ascending **Order**; equal order values keep their JSON order.
 3. Leave an optional field empty when the information is not available. Empty metadata and images are omitted from the page.
 4. Save/publish the entry in Pages CMS. Pages CMS commits the JSON change directly to the selected GitHub branch—no CMS password or token is stored in this repository.
 5. Open the repository on GitHub and confirm the new Pages CMS commit appears in the branch history.

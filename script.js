@@ -170,18 +170,6 @@ const createImage = (path, alt, className) => {
   return image;
 };
 
-const appendDetail = (container, label, value) => {
-  if (!isNonEmptyString(value)) return;
-  const group = document.createElement('div');
-  const heading = document.createElement('h4');
-  const copy = document.createElement('div');
-  copy.className = 'engagement-copy';
-  setText(heading, label);
-  copy.append(sanitiseRichText(value));
-  group.append(heading, copy);
-  container.append(group);
-};
-
 const renderEngagements = (data) => {
   if (!Array.isArray(data)) throw new TypeError('Selected engagements must be a JSON array.');
   const container = document.querySelector('[data-list="engagements"]');
@@ -224,12 +212,12 @@ const renderEngagements = (data) => {
     }
     article.append(summary);
 
-    const details = document.createElement('div');
-    details.className = 'engagement-details';
-    appendDetail(details, 'Problem', item.problem);
-    appendDetail(details, 'Creative decision', item.decision);
-    appendDetail(details, 'Business or design outcome', item.outcome);
-    if (details.childElementCount) article.append(details);
+    if (isNonEmptyString(item.description)) {
+      const description = document.createElement('div');
+      description.className = 'engagement-description';
+      description.append(sanitiseRichText(item.description));
+      article.append(description);
+    }
 
     const supportingImages = Array.isArray(item.supportingImages) ? item.supportingImages : [];
     const galleryImages = supportingImages.map((path, index) => createImage(path, `${item.title || 'Project'} supporting image ${index + 1}`, 'engagement-supporting-image')).filter(Boolean);

@@ -422,21 +422,9 @@ p:last-child {
   color: var(--muted);
 }
 
-.engagement-details {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: calc(var(--gutter) * 2);
+.engagement-description {
+  max-width: 64ch;
   margin-top: 38px;
-}
-
-.engagement-details h4 {
-  margin: 0 0 5px;
-  font-size: var(--step-0);
-  font-weight: 650;
-  line-height: 1.12;
-}
-
-.engagement-copy {
   color: var(--muted);
   font-size: var(--step-0);
   line-height: 1.18;
@@ -675,13 +663,11 @@ p:last-child {
   .practice-context,
   .practice-context > dl,
   .engagement-summary,
-  .engagement-details,
   .engagement-gallery {
     display: block;
   }
 
   .practice-context > dl + dl,
-  .engagement-details > div,
   .engagement-gallery figure + figure {
     margin-top: 24px;
   }
