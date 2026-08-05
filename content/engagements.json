@@ -2,7 +2,7 @@
   {
     "title": "10events",
     "clientOrProjectName": "10events",
-    "description": "",
+    "description": "<p></p>",
     "coverImage": "/assets/images/uploads/untitled-7-768x430.jpg",
     "supportingImages": [
       "/assets/images/uploads/color-1536x860bk.png",
@@ -14,14 +14,18 @@
   {
     "title": "Alinma Bank",
     "clientOrProjectName": "Alinma Bank",
-    "description": "",
+    "description": "<p></p>",
+    "coverImage": "/assets/images/uploads/slidesrewireo2.jpg",
+    "supportingImages": [
+      "/assets/images/uploads/1-copy-2048x1365.png"
+    ],
     "displayOrder": 2,
     "published": true
   },
   {
     "title": "Cooldra",
     "clientOrProjectName": "Cooldra",
-    "description": "",
+    "description": "<p></p>",
     "displayOrder": 3,
     "published": true
   },
@@ -36,7 +40,7 @@
   {
     "title": "xxx",
     "clientOrProjectName": "xxx",
-    "description": "",
+    "description": "<p></p>",
     "displayOrder": 0,
     "published": false
   }
