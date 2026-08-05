@@ -1,16 +1,21 @@
-const CONTENT_PATHS = {
-  site: './content/site.json',
-  engagements: './content/engagements.json'
+const SITE_ROOT = new URL('./', document.currentScript.src);
+const PATHS = {
+  site: new URL('content/site.json', SITE_ROOT),
+  engagements: new URL('content/engagements.json', SITE_ROOT)
 };
 
-const isNonEmptyString = (value) => typeof value === 'string' && value.trim() !== '';
+const INDEX_IMAGE_LIMIT = 3;
+const hasText = (value) => typeof value === 'string' && value.trim() !== '';
+const toText = (value) => value === null || value === undefined ? '' : String(value).trim();
 
-const setText = (element, value) => {
-  if (element) element.textContent = isNonEmptyString(value) ? value : '';
+const stripHtml = (value) => {
+  const template = document.createElement('template');
+  template.innerHTML = hasText(value) ? value : '';
+  return template.content.textContent.trim();
 };
 
-const safeExternalUrl = (value) => {
-  if (!isNonEmptyString(value)) return '';
+const safeUrl = (value) => {
+  if (!hasText(value)) return '';
   try {
     const url = new URL(value, window.location.href);
     return ['http:', 'https:'].includes(url.protocol) ? url.href : '';
@@ -19,315 +24,281 @@ const safeExternalUrl = (value) => {
   }
 };
 
-const publicAssetUrl = (value) => {
-  if (!isNonEmptyString(value)) return '';
-  const path = value.trim();
-  if (/^https?:\/\//i.test(path)) return safeExternalUrl(path);
-  return new URL(path.replace(/^\/+/, ''), document.baseURI).href;
+const assetUrl = (value) => {
+  if (!hasText(value)) return '';
+  if (/^https?:\/\//i.test(value)) return safeUrl(value);
+  return new URL(value.replace(/^\/+/, ''), SITE_ROOT).href;
 };
 
-const sanitiseRichText = (html) => {
-  const template = document.createElement('template');
-  template.innerHTML = isNonEmptyString(html) ? html : '';
-  const allowedTags = new Set(['P', 'BR', 'STRONG', 'EM', 'CITE', 'A']);
+let galleryItems = [];
+let activeImageIndex = 0;
+let lightboxReturnFocus = null;
 
-  [...template.content.querySelectorAll('*')].forEach((element) => {
-    if (!allowedTags.has(element.tagName)) {
-      element.replaceWith(...element.childNodes);
-      return;
-    }
-
-    const originalHref = element.tagName === 'A' ? element.getAttribute('href') : '';
-    [...element.attributes].forEach((attribute) => element.removeAttribute(attribute.name));
-    if (element.tagName === 'A') {
-      const href = safeExternalUrl(originalHref);
-      if (href) {
-        element.href = href;
-        element.rel = 'noopener noreferrer';
-      } else {
-        element.replaceWith(...element.childNodes);
-      }
-    }
+const renderInformation = (site) => {
+  document.querySelectorAll('[data-site="name"]').forEach((element) => {
+    element.textContent = hasText(site.name) ? site.name.trim() : 'Tariq Yosef';
   });
-
-  return template.content;
-};
-
-const renderSite = (site) => {
-  if (!site || typeof site !== 'object' || Array.isArray(site)) {
-    throw new TypeError('General website content must be a JSON object.');
-  }
-
-  document.querySelectorAll('[data-site]').forEach((element) => {
-    setText(element, site[element.dataset.site]);
+  document.querySelectorAll('[data-year]').forEach((element) => {
+    element.textContent = String(new Date().getFullYear());
   });
-
-  document.querySelectorAll('[data-rich-text]').forEach((element) => {
-    element.replaceChildren(sanitiseRichText(site[element.dataset.richText]));
+  document.querySelectorAll('[data-professional-title]').forEach((element) => {
+    element.textContent = hasText(site.professionalTitle) ? site.professionalTitle.trim() : 'Design Director';
   });
 
   const labels = site.labels && typeof site.labels === 'object' ? site.labels : {};
   document.querySelectorAll('[data-label]').forEach((element) => {
-    setText(element, labels[element.dataset.label]);
+    const label = labels[element.dataset.label];
+    if (hasText(label)) element.textContent = label;
   });
 
-  document.querySelectorAll('[data-optional-content]').forEach((element) => {
-    element.hidden = !isNonEmptyString(site[element.dataset.optionalContent]);
+  const capabilities = Array.isArray(site.capabilities) ? site.capabilities.filter((item) => item && hasText(item.title)) : [];
+  const focus = document.querySelector('[data-focus]');
+  focus.textContent = capabilities.slice(0, 3).map((item) => item.title).join(' / ');
+
+  const capabilityList = document.querySelector('[data-capabilities]');
+  capabilityList.replaceChildren(...capabilities.map((item) => {
+    const listItem = document.createElement('li');
+    const title = document.createElement('span');
+    title.className = 'capability-title';
+    title.textContent = item.title;
+    listItem.append(title);
+    if (hasText(item.description)) {
+      const description = document.createElement('span');
+      description.className = 'capability-description';
+      description.textContent = item.description;
+      listItem.append(description);
+    }
+    return listItem;
+  }));
+
+  const introduction = document.querySelector('[data-introduction]');
+  introduction.textContent = stripHtml(site.introduction);
+
+  const practiceItems = [
+    Array.isArray(site.markets) && site.markets.some(hasText) ? `Markets / ${site.markets.filter(hasText).join(', ')}` : '',
+    Array.isArray(site.sectors) && site.sectors.some(hasText) ? `Sectors / ${site.sectors.filter(hasText).join(', ')}` : ''
+  ].filter(hasText);
+  const practiceList = document.querySelector('[data-practice]');
+  practiceList.replaceChildren(...practiceItems.map((value) => {
+    const listItem = document.createElement('li');
+    listItem.textContent = value;
+    return listItem;
+  }));
+
+  const approachItems = [site.leadershipStatement, site.pointOfViewText, site.systemsStatement].filter(hasText);
+  const approachList = document.querySelector('[data-approach]');
+  approachList.replaceChildren(...approachItems.map((value) => {
+    const listItem = document.createElement('li');
+    listItem.textContent = value;
+    return listItem;
+  }));
+
+  const recognition = Array.isArray(site.recognition) ? site.recognition : [];
+  const recognitionList = document.querySelector('[data-recognition]');
+  recognitionList.replaceChildren(...recognition.map((item) => {
+    const listItem = document.createElement('li');
+    listItem.textContent = [item.name, stripHtml(item.detail)].filter(hasText).join(' / ');
+    return listItem;
+  }));
+
+  const summary = document.querySelector('[data-summary]');
+  summary.textContent = stripHtml(site.mainPositioningStatement) || stripHtml(site.introduction);
+
+  const footerText = document.querySelector('[data-footer-text]');
+  footerText.textContent = hasText(site.footerText) ? site.footerText.trim() : '';
+  footerText.hidden = !footerText.textContent;
+
+  const externalLinks = {
+    linkedInUrl: safeUrl(site.linkedInUrl),
+    behanceUrl: safeUrl(site.behanceUrl)
+  };
+  Object.entries(externalLinks).forEach(([name, href]) => {
+    document.querySelectorAll(`[data-link="${name}"]`).forEach((link) => {
+      link.hidden = !href;
+      if (href) link.href = href;
+    });
   });
 
-  document.querySelectorAll('[data-list-text]').forEach((element) => {
-    const values = site[element.dataset.listText];
-    setText(element, Array.isArray(values) ? values.filter(isNonEmptyString).join(', ') : '');
-  });
-
-  let hasPracticeContext = false;
-  document.querySelectorAll('[data-optional-list]').forEach((element) => {
-    const values = site[element.dataset.optionalList];
-    const hasValues = Array.isArray(values) && values.some(isNonEmptyString);
-    element.hidden = !hasValues;
-    hasPracticeContext ||= hasValues;
-  });
-  const practiceContext = document.querySelector('[data-practice-context]');
-  if (practiceContext) practiceContext.hidden = !hasPracticeContext;
-
-  const capabilities = document.querySelector('[data-list="capabilities"]');
-  if (capabilities) {
-    const items = Array.isArray(site.capabilities) ? site.capabilities : [];
-    capabilities.replaceChildren(...items.filter((item) => item && isNonEmptyString(item.title)).map((item) => {
-      const article = document.createElement('article');
-      const heading = document.createElement('h3');
-      const description = document.createElement('p');
-      setText(heading, item.title);
-      setText(description, item.description);
-      article.append(heading);
-      if (description.textContent) article.append(description);
-      return article;
-    }));
+  const portfolioLink = document.querySelector('[data-portfolio-link]');
+  const portfolioText = hasText(site.privatePortfolioRequestText) ? site.privatePortfolioRequestText.trim() : '';
+  portfolioLink.hidden = !externalLinks.behanceUrl || !portfolioText;
+  if (!portfolioLink.hidden) {
+    portfolioLink.href = externalLinks.behanceUrl;
+    portfolioLink.textContent = `${portfolioText} ↗`;
   }
 
-  const recognition = document.querySelector('[data-list="recognition"]');
-  if (recognition) {
-    const items = Array.isArray(site.recognition) ? site.recognition : [];
-    recognition.replaceChildren(...items.filter((item) => item && (isNonEmptyString(item.name) || isNonEmptyString(item.detail))).map((item) => {
-      const row = document.createElement('li');
-      const name = document.createElement('span');
-      const detail = document.createElement('span');
-      setText(name, item.name);
-      detail.append(sanitiseRichText(item.detail));
-      row.append(name, detail);
-      return row;
-    }));
-  }
-
-  const email = isNonEmptyString(site.email) ? site.email.trim() : '';
+  const email = hasText(site.email) ? site.email.trim() : '';
   document.querySelectorAll('[data-link="email"]').forEach((link) => {
     link.hidden = !email;
     if (email) {
       link.href = `mailto:${email}`;
-      link.textContent = email;
+      link.textContent = 'E-mail';
     }
   });
 
-  const socialLinks = {
-    linkedInUrl: { url: safeExternalUrl(site.linkedInUrl), label: labels.linkedInLink },
-    behanceUrl: { url: safeExternalUrl(site.behanceUrl), label: labels.behanceContactLink }
-  };
-
-  Object.entries(socialLinks).forEach(([name, details]) => {
-    document.querySelectorAll(`[data-link="${name}"]`).forEach((link) => {
-      link.hidden = !details.url;
-      if (!details.url) return;
-      link.href = details.url;
-      if (link.classList.contains('about-work-link')) setText(link, labels.behanceLink);
-      else if (!link.classList.contains('work-link')) setText(link, details.label);
-    });
-  });
-
-  const workLink = document.querySelector('.work-link');
-  if (workLink) {
-    workLink.hidden = !socialLinks.behanceUrl.url || !isNonEmptyString(site.privatePortfolioRequestText);
-  }
-
-  const title = site.seo?.title || `${site.name || ''} — ${site.professionalTitle || ''}`;
-  if (isNonEmptyString(title)) document.title = title;
-  const description = isNonEmptyString(site.seo?.description) ? site.seo.description : '';
-  const socialDescription = isNonEmptyString(site.seo?.socialDescription) ? site.seo.socialDescription : description;
-  document.querySelector('meta[name="description"]')?.setAttribute('content', description);
-  document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
+  const seoTitle = hasText(site.seo?.title) ? site.seo.title.trim() : `${site.name || 'Tariq Yosef'} — ${site.professionalTitle || 'Design Director'}`;
+  const seoDescription = hasText(site.seo?.description) ? site.seo.description.trim() : stripHtml(site.introduction);
+  const socialDescription = hasText(site.seo?.socialDescription) ? site.seo.socialDescription.trim() : seoDescription;
+  document.title = seoTitle;
+  document.querySelector('meta[name="description"]')?.setAttribute('content', seoDescription);
+  document.querySelector('meta[property="og:title"]')?.setAttribute('content', seoTitle);
   document.querySelector('meta[property="og:description"]')?.setAttribute('content', socialDescription);
 };
 
-const createImage = (path, alt, className) => {
-  const src = publicAssetUrl(path);
-  if (!src) return null;
-  const image = document.createElement('img');
-  image.className = className;
-  image.src = src;
-  image.alt = alt;
-  image.loading = 'lazy';
-  image.decoding = 'async';
-  image.addEventListener('error', () => image.closest('figure')?.remove(), { once: true });
-  return image;
+const buildGallery = (site, engagements) => {
+  const projects = Array.isArray(engagements)
+    ? engagements
+      .filter((item) => item && item.published === true)
+      .map((item, originalIndex) => ({ item, originalIndex }))
+      .sort((a, b) => Number(a.item.displayOrder ?? 999) - Number(b.item.displayOrder ?? 999) || a.originalIndex - b.originalIndex)
+      .map(({ item }) => item)
+    : [];
+
+  const projectByImage = new Map();
+  projects.forEach((project) => {
+    const images = [project.coverImage, ...(Array.isArray(project.supportingImages) ? project.supportingImages : [])].filter(hasText);
+    images.forEach((path) => projectByImage.set(path, project));
+  });
+
+  const candidates = [];
+  const heroImages = Array.isArray(site.heroImages) ? site.heroImages : [];
+  heroImages.forEach((entry) => {
+    const path = typeof entry === 'string' ? entry : entry?.image;
+    if (!hasText(path)) return;
+    const project = projectByImage.get(path);
+    candidates.push({
+      path,
+      title: project?.title || project?.clientOrProjectName || (typeof entry === 'object' ? entry.alt : '') || 'Selected work',
+      caption: [project?.title || project?.clientOrProjectName, project?.sector, project?.year].map(toText).filter(hasText).join(' / ') || (typeof entry === 'object' ? entry.alt : 'Selected work'),
+      meta: [project?.clientOrProjectName, project?.role, project?.location, project?.year].map(toText).filter(hasText).join(' / '),
+      description: stripHtml(project?.description)
+    });
+  });
+
+  projects.forEach((project) => {
+    const title = project.title || project.clientOrProjectName || 'Selected work';
+    const paths = [project.coverImage, ...(Array.isArray(project.supportingImages) ? project.supportingImages : [])].filter(hasText);
+    paths.forEach((path) => candidates.push({
+      path,
+      title,
+      caption: [title, project.sector, project.year].map(toText).filter(hasText).join(' / '),
+      meta: [project.clientOrProjectName, project.role, project.location, project.year].map(toText).filter(hasText).join(' / '),
+      description: stripHtml(project.description)
+    }));
+  });
+
+  const seen = new Set();
+  galleryItems = candidates.filter((item) => {
+    if (seen.has(item.path)) return false;
+    seen.add(item.path);
+    return true;
+  });
 };
 
-const renderEngagements = (data) => {
-  if (!Array.isArray(data)) throw new TypeError('Selected engagements must be a JSON array.');
-  const container = document.querySelector('[data-list="engagements"]');
-  if (!container) return;
-
-  const items = data
-    .filter((item) => item && item.published === true)
-    .map((item, index) => ({ item, index }))
-    .sort((a, b) => {
-      const orderA = Number.isFinite(Number(a.item.displayOrder)) ? Number(a.item.displayOrder) : Number.MAX_SAFE_INTEGER;
-      const orderB = Number.isFinite(Number(b.item.displayOrder)) ? Number(b.item.displayOrder) : Number.MAX_SAFE_INTEGER;
-      return orderA - orderB || a.index - b.index;
-    });
-
-  container.replaceChildren(...items.map(({ item }) => {
-    const article = document.createElement('article');
-    article.className = 'engagement';
-
-    const cover = createImage(item.coverImage, `${item.title || item.clientOrProjectName || 'Project'} cover`, 'engagement-cover');
-    if (cover) {
-      const figure = document.createElement('figure');
-      figure.append(cover);
-      article.append(figure);
-    }
-
-    const summary = document.createElement('div');
-    summary.className = 'engagement-summary';
-    const heading = document.createElement('h3');
-    setText(heading, item.title || item.clientOrProjectName);
-    summary.append(heading);
-
-    const titleValue = String(item.title || item.clientOrProjectName || '').trim();
-    const metadataValues = [item.clientOrProjectName, item.sector, item.location, item.year, item.role]
-      .filter((value, index, values) => value !== null && value !== undefined && String(value).trim() !== '' && String(value).trim() !== titleValue && values.indexOf(value) === index);
-    if (metadataValues.length) {
-      const metadata = document.createElement('p');
-      metadata.className = 'engagement-meta';
-      metadata.textContent = metadataValues.join(' · ');
-      summary.append(metadata);
-    }
-    article.append(summary);
-
-    if (isNonEmptyString(item.description)) {
-      const description = document.createElement('div');
-      description.className = 'engagement-description';
-      description.append(sanitiseRichText(item.description));
-      article.append(description);
-    }
-
-    const supportingImages = Array.isArray(item.supportingImages) ? item.supportingImages : [];
-    const galleryImages = supportingImages.map((path, index) => createImage(path, `${item.title || 'Project'} supporting image ${index + 1}`, 'engagement-supporting-image')).filter(Boolean);
-    if (galleryImages.length) {
-      const gallery = document.createElement('div');
-      gallery.className = 'engagement-gallery';
-      galleryImages.forEach((image) => {
-        const figure = document.createElement('figure');
-        figure.append(image);
-        gallery.append(figure);
-      });
-      article.append(gallery);
-    }
-
-    return article;
+const renderFeed = () => {
+  const feed = document.querySelector('[data-feed]');
+  feed.replaceChildren(...galleryItems.slice(0, INDEX_IMAGE_LIMIT).map((item, index) => {
+    const figure = document.createElement('figure');
+    figure.className = 'feed-item';
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'feed-image-button';
+    button.setAttribute('aria-label', `Open ${item.title} in image viewer`);
+    const image = document.createElement('img');
+    image.src = assetUrl(item.path);
+    image.alt = item.title;
+    image.loading = index < 2 ? 'eager' : 'lazy';
+    image.decoding = 'async';
+    const caption = document.createElement('figcaption');
+    caption.textContent = item.caption;
+    button.append(image);
+    button.addEventListener('click', () => openLightbox(index, button));
+    figure.append(button, caption);
+    return figure;
   }));
 };
 
-const showContentError = (message) => {
-  const status = document.querySelector('[data-content-status]');
-  if (!status) return;
-  status.hidden = false;
-  status.textContent = message;
+const updateLightbox = () => {
+  const item = galleryItems[activeImageIndex];
+  const lightbox = document.querySelector('[data-lightbox]');
+  if (!item || !lightbox) return;
+  const image = lightbox.querySelector('[data-lightbox-image]');
+  image.src = assetUrl(item.path);
+  image.alt = `${item.title} — image ${activeImageIndex + 1} of ${galleryItems.length}`;
+  lightbox.querySelector('[data-lightbox-caption]').textContent = item.caption;
+  const meta = lightbox.querySelector('[data-lightbox-meta]');
+  meta.textContent = item.meta;
+  meta.hidden = !item.meta;
+  const description = lightbox.querySelector('[data-lightbox-description]');
+  description.textContent = item.description;
+  description.hidden = !item.description;
+  lightbox.querySelector('[data-lightbox-current]').textContent = String(activeImageIndex + 1);
+  lightbox.querySelector('[data-lightbox-total]').textContent = String(galleryItems.length);
+  const hasMultiple = galleryItems.length > 1;
+  lightbox.querySelector('[data-lightbox-previous]').hidden = !hasMultiple;
+  lightbox.querySelector('[data-lightbox-next]').hidden = !hasMultiple;
 };
 
-const loadJson = async (path) => {
-  const response = await fetch(path, { cache: 'no-cache' });
-  if (!response.ok) throw new Error(`${path} returned ${response.status}`);
-  return response.json();
+const moveLightbox = (direction) => {
+  if (!galleryItems.length) return;
+  activeImageIndex = (activeImageIndex + direction + galleryItems.length) % galleryItems.length;
+  updateLightbox();
 };
 
-const initialiseContent = async () => {
-  const [siteResult, engagementsResult] = await Promise.allSettled([
-    loadJson(CONTENT_PATHS.site),
-    loadJson(CONTENT_PATHS.engagements)
-  ]);
-
-  const failures = [];
-  if (siteResult.status === 'fulfilled') {
-    try { renderSite(siteResult.value); } catch (error) { failures.push('general website content'); console.error(error); }
-  } else {
-    failures.push('general website content');
-    console.error(siteResult.reason);
-  }
-
-  if (engagementsResult.status === 'fulfilled') {
-    try { renderEngagements(engagementsResult.value); } catch (error) { failures.push('selected engagements'); console.error(error); }
-  } else {
-    failures.push('selected engagements');
-    console.error(engagementsResult.reason);
-  }
-
-  if (failures.length) showContentError(`Some ${failures.join(' and ')} could not be loaded. Please try again later.`);
-  initialiseNavigation();
+const openLightbox = (index, trigger) => {
+  const lightbox = document.querySelector('[data-lightbox]');
+  if (!lightbox || !galleryItems[index]) return;
+  activeImageIndex = index;
+  lightboxReturnFocus = trigger;
+  updateLightbox();
+  document.body.classList.add('quick-view-open');
+  if (typeof lightbox.showModal === 'function') lightbox.showModal();
+  else lightbox.setAttribute('open', '');
+  lightbox.querySelector('[data-lightbox-close]').focus();
 };
 
-const initialiseNavigation = () => {
-  const menuButton = document.querySelector('[data-menu-button]');
-  const nav = document.querySelector('[data-nav]');
-  if (!menuButton || !nav) return;
+const closeLightbox = () => {
+  const lightbox = document.querySelector('[data-lightbox]');
+  if (!lightbox?.open) return;
+  if (typeof lightbox.close === 'function') lightbox.close();
+  else lightbox.removeAttribute('open');
+  document.body.classList.remove('quick-view-open');
+  lightboxReturnFocus?.focus();
+};
 
-  const sectionLinks = [...nav.querySelectorAll('a[href^="#"]')];
-  const sections = sectionLinks
-    .map((link) => ({ link, section: document.querySelector(link.getAttribute('href')) }))
-    .filter(({ section }) => section);
-
-  const closeMenu = () => {
-    menuButton.setAttribute('aria-expanded', 'false');
-    menuButton.textContent = 'Menu';
-    nav.classList.remove('is-open');
-    document.body.classList.remove('menu-open');
-  };
-
-  menuButton.addEventListener('click', () => {
-    const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
-    menuButton.setAttribute('aria-expanded', String(!isOpen));
-    menuButton.textContent = isOpen ? 'Menu' : 'Close';
-    nav.classList.toggle('is-open', !isOpen);
-    document.body.classList.toggle('menu-open', !isOpen);
+const setupLightbox = () => {
+  const lightbox = document.querySelector('[data-lightbox]');
+  lightbox.querySelector('[data-lightbox-close]').addEventListener('click', closeLightbox);
+  lightbox.querySelector('[data-lightbox-previous]').addEventListener('click', () => moveLightbox(-1));
+  lightbox.querySelector('[data-lightbox-next]').addEventListener('click', () => moveLightbox(1));
+  lightbox.addEventListener('click', (event) => {
+    if (event.target === lightbox) closeLightbox();
   });
-
-  nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
-  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeMenu(); });
-  window.addEventListener('resize', () => { if (window.innerWidth > 800) closeMenu(); });
-
-  let activeFrame;
-  const updateActiveLink = () => {
-    const readingLine = window.scrollY + (window.innerHeight * 0.35);
-    let current = sections[0];
-    sections.forEach((item) => { if (item.section.offsetTop <= readingLine) current = item; });
-    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) current = sections.at(-1);
-    sections.forEach(({ link }) => {
-      const isCurrent = link === current.link;
-      link.classList.toggle('is-active', isCurrent);
-      if (isCurrent) link.setAttribute('aria-current', 'location');
-      else link.removeAttribute('aria-current');
-    });
-  };
-
-  const requestActiveLinkUpdate = () => {
-    if (activeFrame) return;
-    activeFrame = window.requestAnimationFrame(() => {
-      updateActiveLink();
-      activeFrame = null;
-    });
-  };
-
-  updateActiveLink();
-  window.addEventListener('scroll', requestActiveLinkUpdate, { passive: true });
-  window.addEventListener('resize', requestActiveLinkUpdate);
+  lightbox.addEventListener('close', () => document.body.classList.remove('quick-view-open'));
+  document.addEventListener('keydown', (event) => {
+    if (!lightbox.open) return;
+    if (event.key === 'ArrowLeft') moveLightbox(-1);
+    if (event.key === 'ArrowRight') moveLightbox(1);
+  });
 };
 
-initialiseContent();
+const initialise = async () => {
+  try {
+    const [siteResponse, engagementResponse] = await Promise.all([
+      fetch(PATHS.site, { cache: 'no-cache' }),
+      fetch(PATHS.engagements, { cache: 'no-cache' })
+    ]);
+    if (!siteResponse.ok || !engagementResponse.ok) throw new Error('Content could not be loaded.');
+    const [site, engagements] = await Promise.all([siteResponse.json(), engagementResponse.json()]);
+    renderInformation(site);
+    buildGallery(site, engagements);
+    renderFeed();
+    setupLightbox();
+  } catch (error) {
+    const status = document.querySelector('[data-error]');
+    status.hidden = false;
+    status.textContent = error.message;
+  }
+};
+
+initialise();

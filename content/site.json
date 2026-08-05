@@ -1,8 +1,26 @@
 {
   "name": "Tariq Yosef",
   "professionalTitle": "Design Director",
-  "mainPositioningStatement": "<p>I’ve led visual communication and identity system work for regional organisations, often working directly with founders, executives, and senior teams.</p><p>This usually involves translating strategic intent into practical design frameworks that people can actually use — not guidelines that sit on a shelf.</p>",
+  "mainPositioningStatement": "<p>I help regional organisations turn strategic intent into practical identity systems, working directly with founders, executives, and senior teams.</p>",
   "introduction": "<p>I help organisations build brands with clarity, structure, and long-term consistency. With 16+ years across government, private sector, and agencies, I bridge brand strategy and visual identity—translating direction into practical architectures, guidelines, and design languages that teams can apply consistently across every touchpoint.</p>",
+  "heroImages": [
+    {
+      "image": "/assets/images/uploads/untitled-7-768x430.jpg",
+      "alt": "Selected identity design work"
+    },
+    {
+      "image": "/assets/images/uploads/color-1536x860bk.png",
+      "alt": "Colour system from a selected identity project"
+    },
+    {
+      "image": "/assets/images/uploads/typocolor-scaled.jpg",
+      "alt": "Typography and colour study"
+    },
+    {
+      "image": "/assets/images/uploads/vlcsnap-2023-07-10-00h16m34s479.png",
+      "alt": "Selected motion design frame"
+    }
+  ],
   "leadershipStatement": "Working directly with founders, executives, and senior teams to provide clear creative ownership.",
   "pointOfViewText": "Each engagement is structured around what the brand actually needs—not a fixed package.",
   "systemsStatement": "Turning strategic intent into practical frameworks teams can use across every touchpoint.",
@@ -33,6 +51,7 @@
   "labels": {
     "about": "About",
     "services": "Services",
+    "information": "Information",
     "recognition": "Recognition",
     "work": "Work",
     "contact": "Contact",
@@ -48,8 +67,8 @@
     "workHeading": "Selected work",
     "contactHeading": "Tariq Design",
     "behanceLink": "View selected work on Behance ↗",
-    "linkedInLink": "LinkedIn ↗",
-    "behanceContactLink": "Behance ↗"
+    "linkedInLink": "LinkedIn",
+    "behanceContactLink": "Behance"
   },
   "seo": {
     "title": "Tariq Yosef — Design Director",
