@@ -26,7 +26,7 @@ This is a framework-free static website for GitHub Pages. Content is stored in J
 
 1. Change a field in Pages CMS. Keep required fields filled in.
 2. For an engagement, set **Published** off to hide it. Published engagements appear in ascending **Order**; equal order values keep their JSON order.
-3. In **General website content → Featured visual feed images**, add, remove, or drag images into the preferred order. The first three appear on the homepage and the complete set remains available in the lightbox. Add a short **Image description** for accessibility.
+3. In **General website content → Featured visual feed images**, add, remove, or drag images into the preferred order. Published project covers appear first; these images fill the remaining homepage slots up to 14 images, and the complete set remains available in the lightbox. Add a short **Image description** for accessibility.
 4. Leave an optional field empty when the information is not available. Empty metadata and images are omitted from the page.
 5. Save/publish the entry in Pages CMS. Pages CMS commits the JSON change directly to the selected GitHub branch—no CMS password or token is stored in this repository.
 6. Open the repository on GitHub and confirm the new Pages CMS commit appears in the branch history.

@@ -4,7 +4,7 @@ const PATHS = {
   engagements: new URL('content/engagements.json', SITE_ROOT)
 };
 
-const INDEX_IMAGE_LIMIT = 3;
+const INDEX_IMAGE_LIMIT = 14;
 const hasText = (value) => typeof value === 'string' && value.trim() !== '';
 const toText = (value) => value === null || value === undefined ? '' : String(value).trim();
 
@@ -161,6 +161,29 @@ const buildGallery = (site, engagements) => {
   });
 
   const candidates = [];
+  const projectItem = (project, path) => {
+    const title = project.title || project.clientOrProjectName || 'Selected work';
+    return {
+      path,
+      title,
+      caption: [title, project.sector, project.year].map(toText).filter(hasText).join(' / '),
+      meta: [project.clientOrProjectName, project.role, project.location, project.year].map(toText).filter(hasText).join(' / '),
+      description: stripHtml(project.description)
+    };
+  };
+
+  // Published project covers lead the index so every new CMS project is visible.
+  projects.forEach((project) => {
+    if (hasText(project.coverImage)) candidates.push(projectItem(project, project.coverImage));
+  });
+
+  // Supporting project imagery follows its covers and remains available in the lightbox.
+  projects.forEach((project) => {
+    const supportingImages = Array.isArray(project.supportingImages) ? project.supportingImages.filter(hasText) : [];
+    supportingImages.forEach((path) => candidates.push(projectItem(project, path)));
+  });
+
+  // General featured images fill any remaining index slots.
   const heroImages = Array.isArray(site.heroImages) ? site.heroImages : [];
   heroImages.forEach((entry) => {
     const path = typeof entry === 'string' ? entry : entry?.image;
@@ -173,18 +196,6 @@ const buildGallery = (site, engagements) => {
       meta: [project?.clientOrProjectName, project?.role, project?.location, project?.year].map(toText).filter(hasText).join(' / '),
       description: stripHtml(project?.description)
     });
-  });
-
-  projects.forEach((project) => {
-    const title = project.title || project.clientOrProjectName || 'Selected work';
-    const paths = [project.coverImage, ...(Array.isArray(project.supportingImages) ? project.supportingImages : [])].filter(hasText);
-    paths.forEach((path) => candidates.push({
-      path,
-      title,
-      caption: [title, project.sector, project.year].map(toText).filter(hasText).join(' / '),
-      meta: [project.clientOrProjectName, project.role, project.location, project.year].map(toText).filter(hasText).join(' / '),
-      description: stripHtml(project.description)
-    }));
   });
 
   const seen = new Set();
