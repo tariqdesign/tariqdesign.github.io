@@ -53,6 +53,17 @@ When you are ready to move the custom domain, enter `tariqdesign.com` under **Se
 
 JSON loading requires an HTTP server rather than opening `index.html` directly from disk. From the repository root, run a small static server such as `python3 -m http.server 8000`, then open `http://localhost:8000/`.
 
+## Layout system
+
+The site uses one Swiss-style outer grid defined by reusable CSS variables at the top of `styles.css`:
+
+- `--site-grid` is the shared page grid: four equal columns on desktop and two on mobile.
+- `--edge` controls the common left and right page margin.
+- `--gap` controls the common space between columns.
+- `--type-body` sets the primary reading size to 14pt.
+
+Use `var(--site-grid)` for new page-level sections so their edges align with the header, profile, and footer. Image galleries and multi-column text inside a section may use a smaller nested grid, but the section itself should always sit on the shared outer grid. Editing these variables updates the system consistently across the website.
+
 ## Geist Sans
 
 The website uses the locally hosted `Geist-VF.woff2` variable font under the SIL Open Font License 1.1. The license is in `assets/fonts/OFL-1.1.txt`.
