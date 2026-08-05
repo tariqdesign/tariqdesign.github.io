@@ -99,6 +99,12 @@ a:focus-visible {
   grid-column: 2;
 }
 
+.information-column,
+.profile-details > div,
+.profile-details > div > :not(.detail-heading) {
+  min-width: 0;
+}
+
 .information-layer p {
   margin: 0 0 20px;
 }
@@ -507,9 +513,15 @@ a:focus-visible {
   }
 
   .information-layer {
-    inset: 7px 7px auto;
+    position: relative;
+    inset: auto;
     width: auto;
+    margin: 7px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .information-column {
+    overflow-wrap: anywhere;
   }
 
   .information-layer p {
@@ -519,7 +531,7 @@ a:focus-visible {
   .profile-panel {
     min-height: 100svh;
     display: block;
-    padding: 96px 7px 90px;
+    padding: 48px 7px 90px;
   }
 
   .profile-mark {
@@ -546,6 +558,7 @@ a:focus-visible {
   .profile-details > div > :not(.detail-heading),
   [data-recognition] {
     grid-column: 2 !important;
+    overflow-wrap: anywhere;
   }
 
   [data-approach] {
