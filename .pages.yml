@@ -40,6 +40,26 @@ content:
         options:
           format: html
           media: false
+      - name: heroImages
+        label: Featured visual feed images
+        type: object
+        description: The first three images appear on the homepage. Every image remains available in the lightbox.
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{alt}"
+        fields:
+          - name: image
+            label: Image
+            type: image
+            required: true
+            options:
+              extensions: [webp, jpg, jpeg, png]
+              rename: safe
+          - name: alt
+            label: Image description
+            type: string
+            description: Briefly describe the image for visitors using screen readers.
       - name: leadershipStatement
         label: Leadership statement
         type: text
@@ -109,11 +129,37 @@ content:
           regex: "^$|^https://(www\\.)?behance\\.net/.*$"
           message: Use a full Behance URL beginning with https://.
       - name: privatePortfolioRequestText
-        label: Private portfolio request text
+        label: Portfolio link text
         type: string
       - name: footerText
         label: Footer text
         type: text
+      - name: labels
+        label: Section labels
+        type: object
+        fields:
+          - name: about
+            label: About label
+            type: string
+          - name: capabilities
+            label: Capabilities label
+            type: string
+          - name: recognition
+            label: Recognition label
+            type: string
+      - name: seo
+        label: Search and social sharing
+        type: object
+        fields:
+          - name: title
+            label: Browser and search title
+            type: string
+          - name: description
+            label: Search description
+            type: text
+          - name: socialDescription
+            label: Social sharing description
+            type: text
 
   - name: engagements
     label: Selected engagements
@@ -148,7 +194,7 @@ content:
         label: Role
         type: string
       - name: description
-        label: Description
+        label: Lightbox description
         type: rich-text
         options:
           format: html
@@ -160,7 +206,7 @@ content:
           extensions: [webp, jpg, jpeg, png]
           rename: safe
       - name: supportingImages
-        label: Supporting images
+        label: Lightbox supporting images
         type: image
         options:
           multiple:

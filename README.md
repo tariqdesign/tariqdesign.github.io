@@ -6,12 +6,12 @@ This is a framework-free static website for GitHub Pages. Content is stored in J
 
 - `index.html` — semantic page shell
 - `styles.css` — existing layout, typography, animation, and responsive rules
-- `script.js` — loads JSON content, renders engagements, and controls mobile navigation
+- `script.js` — loads JSON content, renders the visual feed and lightbox, and connects the CMS content to the homepage
 - `content/site.json` — general website content
-- `content/engagements.json` — the three selected engagements
+- `content/engagements.json` — selected engagement records
 - `.pages.yml` — Pages CMS fields and media settings
 - `assets/images/uploads/` — images uploaded through Pages CMS
-- `assets/fonts/` — locally hosted Overused Grotesk font and license
+- `assets/fonts/` — locally hosted Geist Sans font and license
 
 ## Connect the repository to Pages CMS
 
@@ -26,16 +26,17 @@ This is a framework-free static website for GitHub Pages. Content is stored in J
 
 1. Change a field in Pages CMS. Keep required fields filled in.
 2. For an engagement, set **Published** off to hide it. Published engagements appear in ascending **Order**; equal order values keep their JSON order.
-3. Leave an optional field empty when the information is not available. Empty metadata and images are omitted from the page.
-4. Save/publish the entry in Pages CMS. Pages CMS commits the JSON change directly to the selected GitHub branch—no CMS password or token is stored in this repository.
-5. Open the repository on GitHub and confirm the new Pages CMS commit appears in the branch history.
+3. In **General website content → Featured visual feed images**, add, remove, or drag images into the preferred order. The first three appear on the homepage and the complete set remains available in the lightbox. Add a short **Image description** for accessibility.
+4. Leave an optional field empty when the information is not available. Empty metadata and images are omitted from the page.
+5. Save/publish the entry in Pages CMS. Pages CMS commits the JSON change directly to the selected GitHub branch—no CMS password or token is stored in this repository.
+6. Open the repository on GitHub and confirm the new Pages CMS commit appears in the branch history.
 
 ## Upload images
 
-1. In an engagement, choose **Cover image** or **Supporting images**.
+1. Choose **Featured visual feed images** in General website content, or choose **Cover image** or **Lightbox supporting images** in an engagement.
 2. Select an existing media item or upload a WebP, JPG, JPEG, or PNG file.
-3. Pages CMS stores uploads in `assets/images/uploads` and writes the public path as `/assets/images/uploads/...` in `content/engagements.json`.
-4. Save/publish the engagement. Use concise descriptive filenames; Pages CMS safely normalises uploaded filenames.
+3. Pages CMS stores uploads in `assets/images/uploads` and writes the public path as `/assets/images/uploads/...` in the relevant JSON file.
+4. Save/publish the content. Use concise descriptive filenames; Pages CMS safely normalises uploaded filenames.
 
 The browser converts CMS image paths to page-relative URLs at runtime. This keeps uploads working at `https://tariqdesign.com/` and in GitHub Pages project-site previews. If an image cannot load, it is removed cleanly instead of showing a broken-image icon.
 
@@ -52,6 +53,6 @@ When you are ready to move the custom domain, enter `tariqdesign.com` under **Se
 
 JSON loading requires an HTTP server rather than opening `index.html` directly from disk. From the repository root, run a small static server such as `python3 -m http.server 8000`, then open `http://localhost:8000/`.
 
-## Overused Grotesk
+## Geist Sans
 
-The website uses the locally hosted `OverusedGrotesk-VF.woff2` variable font under the SIL Open Font License 1.1. The license is in `assets/fonts/OFL-1.1.txt`.
+The website uses the locally hosted `Geist-VF.woff2` variable font under the SIL Open Font License 1.1. The license is in `assets/fonts/OFL-1.1.txt`.

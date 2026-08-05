@@ -3,108 +3,90 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Portfolio</title>
-  <meta name="description" content="">
+  <title>Tariq Yosef — Design Director</title>
+  <meta name="description" content="Tariq Yosef is an independent Design Director focused on practical identity systems across Saudi Arabia and MENA.">
   <meta name="theme-color" content="#ffffff">
-  <meta property="og:title" content="">
-  <meta property="og:description" content="">
+  <meta property="og:title" content="Tariq Yosef — Design Director">
+  <meta property="og:description" content="Independent design direction, identity systems and brand governance across Saudi Arabia and MENA.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tariqdesign.com/">
   <link rel="canonical" href="https://tariqdesign.com/">
-  <link rel="stylesheet" href="styles.css?v=20260805-1">
-  <script defer src="script.js?v=20260805-1"></script>
+  <link rel="stylesheet" href="styles.css?v=19">
+  <script defer src="script.js?v=9"></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="skip-link" href="#feed">Skip to selected work</a>
 
-  <header class="site-header" data-header>
-    <a class="brand" href="#about" aria-label="Home">
-      <span data-site="name"></span>
-      <span data-site="professionalTitle"></span>
-    </a>
-
-    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-button>
-      Menu
-    </button>
-
-    <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-nav>
-      <a class="is-active" href="#about" data-label="about"></a>
-      <a href="#services" data-label="services"></a>
-      <a href="#recognition" data-label="recognition"></a>
-      <a href="#work" data-label="work"></a>
-      <a href="#contact" data-label="contact"></a>
-    </nav>
+  <header class="information-layer" aria-label="Portfolio information">
+    <div class="information-column">
+      <p><span data-site="name">Tariq Yosef</span><br>© <span data-year></span> All rights reserved.</p>
+    </div>
+    <div class="information-column">
+      <p><span data-professional-title>Design Director</span>.<br>Independent design direction.</p>
+      <p>Focused on:<br><span data-focus>Brand systems / Identity / Direction</span></p>
+      <p>Contact:<br><a data-link="email" hidden></a><br><a data-link="linkedInUrl" target="_blank" rel="noopener noreferrer" hidden>LinkedIn</a><br><a data-link="behanceUrl" target="_blank" rel="noopener noreferrer" hidden>Behance</a></p>
+    </div>
   </header>
 
-  <main id="main">
-    <p class="content-status" role="status" data-content-status hidden></p>
-
-    <section class="about-section" id="about" aria-labelledby="about-title">
-      <h1 class="visually-hidden" id="about-title" data-label="aboutHeading"></h1>
-      <div class="about-lead" data-rich-text="mainPositioningStatement"></div>
-      <div class="about-intro">
-        <div data-rich-text="introduction"></div>
-        <a class="about-work-link" data-link="behanceUrl" rel="noopener noreferrer" hidden></a>
+  <main>
+    <section class="profile-panel" aria-label="Practice profile">
+      <div class="profile-mark" aria-hidden="true">T—Y</div>
+      <div class="profile-details">
+        <div>
+          <p class="detail-heading"><span data-label="about">About</span>:</p>
+          <p class="profile-copy" data-introduction></p>
+        </div>
+        <div>
+          <p class="detail-heading"><span data-label="capabilities">Capabilities</span>:</p>
+          <ul data-capabilities></ul>
+        </div>
+        <div>
+          <p class="detail-heading">Practice:</p>
+          <ul data-practice></ul>
+        </div>
+        <div>
+          <p class="detail-heading">Approach:</p>
+          <ul data-approach></ul>
+        </div>
+        <div>
+          <p class="detail-heading">Selected <span data-label="recognition">recognition</span>:</p>
+          <ul data-recognition></ul>
+        </div>
       </div>
     </section>
 
-    <section class="capabilities-section" id="services" aria-labelledby="services-title">
-      <h2 id="services-title" data-label="capabilities"></h2>
-      <div class="capabilities-list" data-list="capabilities"></div>
+    <section class="visual-feed" id="feed" aria-label="Selected visual work">
+      <div class="feed-grid" data-feed></div>
     </section>
 
-    <section class="recognition-section" id="recognition" aria-labelledby="recognition-title">
-      <h2 id="recognition-title" data-label="recognitionHeading"></h2>
-      <ul class="recognition-list" aria-label="Selected recognition and publications" data-list="recognition"></ul>
-    </section>
-
-    <section class="expertise-section" aria-labelledby="expertise-title">
-      <h2 id="expertise-title" data-label="expertise"></h2>
-      <div class="expertise-list">
-        <article data-optional-content="leadershipStatement">
-          <h3 data-label="leadership"></h3>
-          <p data-site="leadershipStatement"></p>
-        </article>
-        <article data-optional-content="pointOfViewText">
-          <h3 data-label="pointOfView"></h3>
-          <p data-site="pointOfViewText"></p>
-        </article>
-        <article data-optional-content="systemsStatement">
-          <h3 data-label="systems"></h3>
-          <p data-site="systemsStatement"></p>
-        </article>
+    <footer class="feed-footer">
+      <div class="footer-copy">
+        <p data-summary></p>
+        <p data-footer-text hidden></p>
       </div>
-      <div class="practice-context" data-practice-context hidden>
-        <dl data-optional-list="markets">
-          <dt data-label="markets"></dt>
-          <dd data-list-text="markets"></dd>
-        </dl>
-        <dl data-optional-list="sectors">
-          <dt data-label="sectors"></dt>
-          <dd data-list-text="sectors"></dd>
-        </dl>
+      <div class="footer-actions">
+        <a data-portfolio-link target="_blank" rel="noopener noreferrer" hidden></a>
+        <a href="#feed">Back to feed ↑</a>
       </div>
-    </section>
-
-    <section class="work-section" id="work" aria-labelledby="work-title">
-      <h2 id="work-title" data-label="workHeading"></h2>
-      <div class="engagements-list" data-list="engagements"></div>
-      <a class="work-link" data-link="behanceUrl" rel="noopener noreferrer" hidden>
-        <span data-site="privatePortfolioRequestText"></span>
-        <span aria-hidden="true">↗</span>
-      </a>
-    </section>
+    </footer>
   </main>
 
-  <footer class="contact-section" id="contact" aria-labelledby="contact-title">
-    <h2 id="contact-title" data-label="contactHeading"></h2>
-    <div class="contact-content">
-      <p data-site="footerText"></p>
-      <div class="contact-links">
-        <a data-link="email" hidden></a>
-        <a data-link="linkedInUrl" rel="noopener noreferrer" hidden></a>
-      </div>
-    </div>
-  </footer>
+  <dialog class="quick-view" data-lightbox aria-labelledby="quick-view-title">
+    <h2 class="visually-hidden" id="quick-view-title">Selected work image viewer</h2>
+    <button type="button" class="quick-close" data-lightbox-close aria-label="Close image viewer">×</button>
+    <button type="button" class="quick-arrow quick-previous" data-lightbox-previous aria-label="Previous image">←</button>
+    <figure class="quick-media">
+      <img data-lightbox-image alt="">
+      <figcaption class="quick-caption">
+        <span data-lightbox-caption></span>
+        <span data-lightbox-meta hidden></span>
+        <span data-lightbox-description hidden></span>
+      </figcaption>
+    </figure>
+    <button type="button" class="quick-arrow quick-next" data-lightbox-next aria-label="Next image">→</button>
+    <p class="quick-count" aria-live="polite"><span data-lightbox-current>1</span> / <span data-lightbox-total>1</span></p>
+  </dialog>
+
+  <p class="content-error" data-error role="status" hidden></p>
 </body>
 </html>
