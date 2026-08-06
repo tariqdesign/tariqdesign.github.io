@@ -303,6 +303,34 @@ a:focus-visible {
   background: #111;
 }
 
+.project-video.has-fallback {
+  position: relative;
+  background: #e8e8e8;
+}
+
+.project-video-fallback {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.project-video.has-fallback video {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.project-video.has-fallback.is-video-ready video {
+  opacity: 1;
+}
+
+.project-video.has-video-error video {
+  display: none;
+}
+
 .project-slider {
   position: relative;
   min-width: 0;

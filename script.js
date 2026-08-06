@@ -282,8 +282,21 @@ const createProjectImage = (project, item, projectIndex, imageIndex, totalImages
 const createProjectVideo = (project, block) => {
   const figure = document.createElement('figure');
   figure.className = 'project-video';
+
+  const fallbackPath = hasText(block.poster) ? block.poster : '';
+  let fallback = null;
+  if (fallbackPath) {
+    fallback = document.createElement('img');
+    fallback.className = 'project-video-fallback';
+    fallback.src = assetUrl(fallbackPath);
+    fallback.alt = block.description || `${project.title} video fallback image`;
+    fallback.loading = 'lazy';
+    fallback.decoding = 'async';
+    figure.classList.add('has-fallback');
+    figure.append(fallback);
+  }
+
   const video = document.createElement('video');
-  video.src = assetUrl(block.path);
   video.autoplay = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   video.controls = true;
   video.loop = true;
@@ -291,8 +304,26 @@ const createProjectVideo = (project, block) => {
   video.playsInline = true;
   video.preload = 'metadata';
   video.setAttribute('aria-label', block.description || `${project.title} project video`);
-  if (hasText(block.poster)) video.poster = assetUrl(block.poster);
+  if (fallbackPath) video.poster = assetUrl(fallbackPath);
+
+  const source = document.createElement('source');
+  source.src = assetUrl(block.path);
+  source.type = block.path.toLowerCase().split('?')[0].endsWith('.webm') ? 'video/webm' : 'video/mp4';
+  video.append(source);
   video.append(document.createTextNode('Your browser does not support embedded video.'));
+
+  const showVideo = () => {
+    figure.classList.add('is-video-ready');
+    fallback?.setAttribute('aria-hidden', 'true');
+  };
+  const showFallback = () => {
+    figure.classList.remove('is-video-ready');
+    figure.classList.add('has-video-error');
+    fallback?.removeAttribute('aria-hidden');
+  };
+  video.addEventListener('loadeddata', showVideo, { once: true });
+  video.addEventListener('error', showFallback);
+  source.addEventListener('error', showFallback);
   figure.append(video);
   return figure;
 };
@@ -403,7 +434,6 @@ const setupSliders = () => {
     const dots = [...slider.querySelectorAll('.slider-dot')];
     let active = 0;
     let timer = null;
-    let interactionPaused = false;
     let pointerStart = null;
 
     const show = (index) => {
@@ -425,7 +455,7 @@ const setupSliders = () => {
     };
     const start = () => {
       stop();
-      if (!reducedMotion && !interactionPaused) {
+      if (!reducedMotion) {
         timer = window.setInterval(() => show(active + 1), 1000);
       }
     };
@@ -439,23 +469,6 @@ const setupSliders = () => {
         show(dotIndex);
         start();
       });
-    });
-    slider.addEventListener('mouseenter', () => {
-      interactionPaused = true;
-      stop();
-    });
-    slider.addEventListener('mouseleave', () => {
-      interactionPaused = false;
-      start();
-    });
-    slider.addEventListener('focusin', () => {
-      interactionPaused = true;
-      stop();
-    });
-    slider.addEventListener('focusout', (event) => {
-      if (slider.contains(event.relatedTarget)) return;
-      interactionPaused = false;
-      start();
     });
     slider.addEventListener('pointerdown', (event) => {
       pointerStart = event.clientX;

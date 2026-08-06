@@ -265,8 +265,10 @@ content:
                   categories: [video]
                   rename: safe
               - name: poster
-                label: Poster image
+                label: Fallback still image
                 type: image
+                required: true
+                description: Shown while the video loads and whenever the MP4 cannot play.
                 options:
                   media: images
                   extensions: [webp, jpg, jpeg, png]
