@@ -1,13 +1,15 @@
 [
   {
     "title": "10events",
-    "clientOrProjectName": "10events",
-    "description": "<p></p>",
-    "coverImage": "/assets/images/uploads/untitled-7-768x430.jpg",
+    "clientOrProjectName": "Alinma investment",
+    "location": "Saudi",
+    "year": 2027,
+    "role": "design Director , Concept development ",
+    "description": "<p>An editorial design exploration developed as part of a strategic proposal for Alinma Bank. The project explored layout systems, typographic hierarchy, and visual structure aligned with institutional and financial communication standards.</p>",
+    "coverImage": "/assets/images/uploads/inmathum-1.jpg",
     "supportingImages": [
-      "/assets/images/uploads/color-1536x860bk.png",
-      "/assets/images/uploads/325x-100-2048x2048.jpg",
-      "/assets/images/uploads/365g01-copy-300x200.jpg"
+      "/assets/images/uploads/artboard-1-copy-415x.jpg",
+      "/assets/images/uploads/artboard-1-copy-515x.jpg"
     ],
     "displayOrder": 0,
     "published": true
