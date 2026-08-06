@@ -255,37 +255,48 @@ const renderFeed = () => {
 
 const layoutProjectImages = (container) => {
   const figures = [...container.querySelectorAll('.project-image')];
-  const fragment = document.createDocumentFragment();
-  let index = 0;
+  const containerWidth = container.clientWidth;
+  if (!figures.length || !containerWidth) return;
 
-  const appendRow = (items, modifier = '') => {
+  const styles = window.getComputedStyle(container);
+  const gap = Number.parseFloat(styles.columnGap) || 0;
+  const targetRatio = Number.parseFloat(styles.getPropertyValue('--gallery-target-ratio')) || 0.56;
+  const maxItems = Number.parseInt(styles.getPropertyValue('--gallery-max-items'), 10) || 3;
+  const targetHeight = containerWidth * targetRatio;
+  const fragment = document.createDocumentFragment();
+  let pending = [];
+  let pendingRatio = 0;
+
+  const appendRow = (items, complete = true) => {
     const row = document.createElement('div');
-    row.className = ['project-row', modifier].filter(Boolean).join(' ');
-    items.forEach((figure) => row.append(figure));
+    row.className = complete ? 'project-row' : 'project-row project-row--incomplete';
+    items.forEach((figure) => {
+      if (complete) {
+        figure.style.removeProperty('--incomplete-width');
+      } else {
+        const ratio = Number(figure.dataset.ratio) || 1.25;
+        const itemWidth = Math.min(containerWidth, targetHeight * ratio);
+        figure.style.setProperty('--incomplete-width', `${itemWidth}px`);
+      }
+      row.append(figure);
+    });
     fragment.append(row);
   };
 
-  while (index < figures.length) {
-    const current = figures[index];
-    const currentRatio = Number(current.dataset.ratio) || 1.25;
-
-    if (currentRatio >= 1.5) {
-      appendRow([current], 'project-row--wide');
-      index += 1;
-      continue;
+  figures.forEach((figure) => {
+    const ratio = Number(figure.dataset.ratio) || 1.25;
+    pending.push(figure);
+    pendingRatio += ratio;
+    const projectedWidth = (pendingRatio * targetHeight) + (gap * (pending.length - 1));
+    const wideSingle = pending.length === 1 && ratio >= 1.45;
+    if (wideSingle || projectedWidth >= containerWidth || pending.length >= maxItems) {
+      appendRow(pending);
+      pending = [];
+      pendingRatio = 0;
     }
+  });
 
-    const next = figures[index + 1];
-    const nextRatio = next ? Number(next.dataset.ratio) || 1.25 : 0;
-    if (next && nextRatio < 1.5) {
-      appendRow([current, next]);
-      index += 2;
-      continue;
-    }
-
-    appendRow([current], 'project-row--incomplete');
-    index += 1;
-  }
+  if (pending.length) appendRow(pending, false);
 
   container.replaceChildren(fragment);
 };
@@ -313,6 +324,17 @@ const setupJustifiedGalleries = () => {
       }
     });
     layoutProjectImages(container);
+
+    if ('ResizeObserver' in window) {
+      let previousWidth = container.clientWidth;
+      const observer = new ResizeObserver(([entry]) => {
+        const nextWidth = entry.contentRect.width;
+        if (Math.abs(nextWidth - previousWidth) < 1) return;
+        previousWidth = nextWidth;
+        layoutProjectImages(container);
+      });
+      observer.observe(container);
+    }
   });
 };
 
