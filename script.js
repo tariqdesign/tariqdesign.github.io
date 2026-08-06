@@ -253,6 +253,69 @@ const renderFeed = () => {
   }));
 };
 
+const layoutProjectImages = (container) => {
+  const figures = [...container.querySelectorAll('.project-image')];
+  const fragment = document.createDocumentFragment();
+  let index = 0;
+
+  const appendRow = (items, modifier = '') => {
+    const row = document.createElement('div');
+    row.className = ['project-row', modifier].filter(Boolean).join(' ');
+    items.forEach((figure) => row.append(figure));
+    fragment.append(row);
+  };
+
+  while (index < figures.length) {
+    const current = figures[index];
+    const currentRatio = Number(current.dataset.ratio) || 1.25;
+
+    if (currentRatio >= 1.5) {
+      appendRow([current], 'project-row--wide');
+      index += 1;
+      continue;
+    }
+
+    const next = figures[index + 1];
+    const nextRatio = next ? Number(next.dataset.ratio) || 1.25 : 0;
+    if (next && nextRatio < 1.5) {
+      appendRow([current, next]);
+      index += 2;
+      continue;
+    }
+
+    appendRow([current], 'project-row--incomplete');
+    index += 1;
+  }
+
+  container.replaceChildren(fragment);
+};
+
+const setupJustifiedGalleries = () => {
+  document.querySelectorAll('.project-images').forEach((container) => {
+    const figures = [...container.querySelectorAll('.project-image')];
+    figures.forEach((figure) => {
+      const image = figure.querySelector('img');
+      const updateRatio = () => {
+        if (!image.naturalWidth || !image.naturalHeight) {
+          figure.remove();
+        } else {
+          const ratio = image.naturalWidth / image.naturalHeight;
+          figure.dataset.ratio = ratio.toFixed(4);
+          figure.style.setProperty('--image-ratio', ratio.toFixed(4));
+        }
+        layoutProjectImages(container);
+      };
+
+      if (image.complete) updateRatio();
+      else {
+        image.addEventListener('load', updateRatio, { once: true });
+        image.addEventListener('error', updateRatio, { once: true });
+      }
+    });
+    layoutProjectImages(container);
+  });
+};
+
 const setupParallax = () => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const images = [...document.querySelectorAll('.feed-image-button img')];
@@ -353,6 +416,7 @@ const initialise = async () => {
     renderInformation(site);
     buildGallery(site, engagements);
     renderFeed();
+    setupJustifiedGalleries();
     setupParallax();
     setupLightbox();
   } catch (error) {

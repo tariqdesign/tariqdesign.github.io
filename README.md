@@ -27,6 +27,7 @@ This is a framework-free static website for GitHub Pages. Content is stored in J
 1. Change a field in Pages CMS. Keep required fields filled in.
 2. For an engagement, set **Published** off to hide it. Published engagements appear in ascending **Order**; equal order values keep their JSON order.
 3. Add up to 14 published projects in **Selected engagements**. Each project appears once with its cover and supporting images grouped beneath one project name. **Additional lightbox images** remain available after the project images in the full-screen viewer.
+   The homepage arranges each project automatically from the images’ natural proportions: wide images use a full-width row, portrait or square images pair in a justified two-image row, and an unmatched final portrait remains half-width. Mobile uses one image per row.
 4. Leave an optional field empty when the information is not available. Empty metadata and images are omitted from the page.
 5. Save/publish the entry in Pages CMS. Pages CMS commits the JSON change directly to the selected GitHub branch—no CMS password or token is stored in this repository.
 6. Open the repository on GitHub and confirm the new Pages CMS commit appears in the branch history.
