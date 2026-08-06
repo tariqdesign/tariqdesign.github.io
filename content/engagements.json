@@ -44,8 +44,7 @@
     "coverImage": "/assets/images/uploads/10event11-1.png",
     "displayOrder": 3,
     "published": true
-  }
-  ,
+  },
   {
     "title": "Placeholder Project",
     "clientOrProjectName": "Placeholder Client",
@@ -56,5 +55,13 @@
     ],
     "displayOrder": 3,
     "published": true
+  },
+  {
+    "title": "xx",
+    "clientOrProjectName": "xx",
+    "description": "<p></p>",
+    "coverImage": "/assets/images/uploads/slides-togather02.jpg",
+    "displayOrder": 4,
+    "published": false
   }
 ]
