@@ -27,7 +27,7 @@ This is a framework-free static website for GitHub Pages. Content is stored in J
 1. Change a field in Pages CMS. Keep required fields filled in.
 2. For an engagement, set **Published** off to hide it. Published engagements appear in ascending **Order**; equal order values keep their JSON order.
 3. Add up to 14 published projects in **Selected engagements**. Each project appears once with its cover and supporting images grouped beneath one project name. **Additional lightbox images** remain available after the project images in the full-screen viewer.
-   The homepage arranges each project automatically from the images’ natural proportions: wide images use a full-width row, portrait or square images pair in a justified two-image row, and an unmatched final portrait remains half-width. Mobile uses one image per row.
+   The homepage builds justified rows automatically from the images’ natural proportions and a shared target height. Depending on the image shapes, a desktop row may contain one landscape, two square, or three portrait images; completed rows fill the available width at equal height. The final incomplete row keeps the target height and natural widths. Mobile recalculates the same system with a maximum of two images per row.
 4. Leave an optional field empty when the information is not available. Empty metadata and images are omitted from the page.
 5. Save/publish the entry in Pages CMS. Pages CMS commits the JSON change directly to the selected GitHub branch—no CMS password or token is stored in this repository.
 6. Open the repository on GitHub and confirm the new Pages CMS commit appears in the branch history.
@@ -63,6 +63,8 @@ The site uses one Swiss-style outer grid defined by reusable CSS variables at th
 - `--gap` controls the common space between columns.
 - `--type-body` sets the primary reading size to 14pt.
 - `--type-header` compensates for the greater visual height of uppercase text so the header feels balanced with the 14pt reading text.
+- `--gallery-target-ratio` controls the preferred project-image row height relative to the available width.
+- `--gallery-max-items` limits how many images may share a justified row at each breakpoint.
 
 Use `var(--site-grid)` for new page-level sections so their edges align with the header, profile, and footer. Image galleries and multi-column text inside a section may use a smaller nested grid, but the section itself should always sit on the shared outer grid. Editing these variables updates the system consistently across the website.
 
