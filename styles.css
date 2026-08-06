@@ -351,6 +351,10 @@ a:focus-visible {
   transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.slider-viewport.is-resetting {
+  transition: none;
+}
+
 .slider-slide {
   position: relative;
   flex: 0 0 100%;
@@ -362,6 +366,10 @@ a:focus-visible {
   border: 0;
   background: transparent;
   cursor: zoom-in;
+}
+
+.slider-slide--clone {
+  pointer-events: none;
 }
 
 .slider-slide img {
