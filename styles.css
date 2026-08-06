@@ -280,6 +280,8 @@ a:focus-visible {
 .project-heading p {
   grid-column: 2 / span 2;
   color: var(--muted);
+  max-width: 72ch;
+  overflow-wrap: anywhere;
 }
 
 .project-media,
@@ -578,20 +580,6 @@ a:focus-visible {
 .quick-caption span {
   display: block;
   text-align: center;
-}
-
-.quick-caption [data-lightbox-meta] {
-  margin-top: 3px;
-  color: #bdbdbd;
-}
-
-.quick-caption [data-lightbox-description] {
-  max-width: 70ch;
-  margin: 8px auto 0;
-  font-size: 1.067rem;
-  line-height: 1.35;
-  letter-spacing: 0;
-  text-transform: none;
 }
 
 .quick-close,

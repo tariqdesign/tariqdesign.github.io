@@ -44,6 +44,8 @@ Available blocks:
 
 Drag blocks in Pages CMS to control their exact order. Static images and slider slides remain available in the full-screen lightbox; videos play directly in the project feed.
 
+Use **Project information** for the short description shown beside a project title in the work feed. The lightbox deliberately shows only the project title.
+
 ## Upload images
 
 1. Choose **Additional lightbox images** in General website content, choose a legacy project image field, or add an image/video inside **Ordered mixed-media blocks**.

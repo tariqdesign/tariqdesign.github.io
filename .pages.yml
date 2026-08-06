@@ -204,8 +204,9 @@ content:
         label: Role
         type: string
       - name: description
-        label: Lightbox description
+        label: Project information
         type: rich-text
+        description: Displayed beside the project name in the main work feed.
         options:
           format: html
           media: false
