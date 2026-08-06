@@ -202,9 +202,7 @@ const buildGallery = (site, engagements) => {
       path: entry.path,
       title,
       alt: entry.alt || `${title} project image`,
-      caption: [title, project.sector, project.year].map(toText).filter(hasText).join(' / '),
-      meta: [project.clientOrProjectName, project.role, project.location, project.year].map(toText).filter(hasText).join(' / '),
-      description: stripHtml(project.description)
+      caption: title
     };
   };
 
@@ -232,7 +230,7 @@ const buildGallery = (site, engagements) => {
     });
     feedProjects.push({
       title: project.title || project.clientOrProjectName || 'Selected work',
-      meta: [project.sector, project.location, project.year].map(toText).filter(hasText).join(' / '),
+      description: stripHtml(project.description),
       blocks: hydratedBlocks
     });
   });
@@ -246,9 +244,7 @@ const buildGallery = (site, engagements) => {
     candidates.push({
       path,
       title: project?.title || project?.clientOrProjectName || (typeof entry === 'object' ? entry.alt : '') || 'Selected work',
-      caption: [project?.title || project?.clientOrProjectName, project?.sector, project?.year].map(toText).filter(hasText).join(' / ') || (typeof entry === 'object' ? entry.alt : 'Selected work'),
-      meta: [project?.clientOrProjectName, project?.role, project?.location, project?.year].map(toText).filter(hasText).join(' / '),
-      description: stripHtml(project?.description)
+      caption: project?.title || project?.clientOrProjectName || (typeof entry === 'object' ? entry.alt : '') || 'Selected work'
     });
   });
 
@@ -387,10 +383,10 @@ const renderFeed = () => {
     const title = document.createElement('h2');
     title.textContent = project.title;
     header.append(title);
-    if (hasText(project.meta)) {
-      const meta = document.createElement('p');
-      meta.textContent = project.meta;
-      header.append(meta);
+    if (hasText(project.description)) {
+      const description = document.createElement('p');
+      description.textContent = project.description;
+      header.append(description);
     }
 
     const media = document.createElement('div');
@@ -636,12 +632,6 @@ const updateLightbox = () => {
   image.src = assetUrl(item.path);
   image.alt = item.alt;
   lightbox.querySelector('[data-lightbox-caption]').textContent = item.caption;
-  const meta = lightbox.querySelector('[data-lightbox-meta]');
-  meta.textContent = item.meta;
-  meta.hidden = !item.meta;
-  const description = lightbox.querySelector('[data-lightbox-description]');
-  description.textContent = item.description;
-  description.hidden = !item.description;
   lightbox.querySelector('[data-lightbox-current]').textContent = String(activeImageIndex + 1);
   lightbox.querySelector('[data-lightbox-total]').textContent = String(galleryItems.length);
   const hasMultiple = galleryItems.length > 1;
