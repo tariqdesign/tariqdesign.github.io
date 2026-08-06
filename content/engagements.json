@@ -22,7 +22,7 @@
         ]
       }
     ],
-    "displayOrder": 0,
+    "displayOrder": 1,
     "published": true
   },
   {
@@ -34,7 +34,7 @@
       "/assets/images/uploads/325x-100-scaled.jpg",
       "/assets/images/uploads/1-copy-2048x1365.png"
     ],
-    "displayOrder": 1,
+    "displayOrder": 2,
     "published": true
   }
 ]
