@@ -40,7 +40,7 @@ Available blocks:
 
 - **Single image** joins adjacent image blocks in the automatic justified gallery.
 - **Looping video** accepts MP4 or WebM, autoplays muted, loops, includes native controls, and can use a poster image. Convert MOV files before uploading.
-- **Image slider** accepts two to four slides, changes every four seconds, supports swipe and arrow controls, and includes pause/play and a slide counter. Use the same aspect ratio for every slide to avoid cropping changes.
+- **Image slider** accepts two to four slides, advances every second, supports swipe and clickable circle indicators, and pauses while hovered or keyboard-focused. Use the same aspect ratio for every slide to avoid cropping changes.
 
 Drag blocks in Pages CMS to control their exact order. Static images and slider slides remain available in the full-screen lightbox; videos play directly in the project feed.
 

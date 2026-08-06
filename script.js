@@ -329,29 +329,18 @@ const createProjectSlider = (project, block, projectIndex, startIndex, totalImag
     viewport.append(button);
   });
 
-  const controls = document.createElement('div');
-  controls.className = 'slider-controls';
-  const previous = document.createElement('button');
-  previous.type = 'button';
-  previous.className = 'slider-control slider-previous';
-  previous.setAttribute('aria-label', 'Previous slide');
-  previous.textContent = '←';
-  const counter = document.createElement('span');
-  counter.className = 'slider-counter';
-  counter.innerHTML = '<span data-slider-current>1</span> / <span data-slider-total></span>';
-  counter.querySelector('[data-slider-total]').textContent = String(block.slides.length);
-  const toggle = document.createElement('button');
-  toggle.type = 'button';
-  toggle.className = 'slider-control slider-toggle';
-  toggle.setAttribute('aria-label', 'Pause slideshow');
-  toggle.textContent = 'Ⅱ';
-  const next = document.createElement('button');
-  next.type = 'button';
-  next.className = 'slider-control slider-next';
-  next.setAttribute('aria-label', 'Next slide');
-  next.textContent = '→';
-  controls.append(previous, counter, toggle, next);
-  slider.append(viewport, controls);
+  const dots = document.createElement('div');
+  dots.className = 'slider-dots';
+  dots.setAttribute('aria-label', 'Choose slide');
+  block.slides.forEach((slide, slideIndex) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'slider-dot';
+    dot.dataset.sliderDot = String(slideIndex);
+    dot.setAttribute('aria-label', `Show slide ${slideIndex + 1} of ${block.slides.length}`);
+    dots.append(dot);
+  });
+  slider.append(viewport, dots);
   return slider;
 };
 
@@ -411,13 +400,9 @@ const setupSliders = () => {
   document.querySelectorAll('.project-slider').forEach((slider) => {
     const slides = [...slider.querySelectorAll('.slider-slide')];
     if (slides.length < 2) return;
-    const previous = slider.querySelector('.slider-previous');
-    const next = slider.querySelector('.slider-next');
-    const toggle = slider.querySelector('.slider-toggle');
-    const current = slider.querySelector('[data-slider-current]');
+    const dots = [...slider.querySelectorAll('.slider-dot')];
     let active = 0;
     let timer = null;
-    let userPaused = reducedMotion;
     let interactionPaused = false;
     let pointerStart = null;
 
@@ -428,8 +413,11 @@ const setupSliders = () => {
         slide.setAttribute('aria-hidden', String(!isActive));
         slide.tabIndex = isActive ? 0 : -1;
       });
+      dots.forEach((dot, dotIndex) => {
+        if (dotIndex === active) dot.setAttribute('aria-current', 'true');
+        else dot.removeAttribute('aria-current');
+      });
       slider.style.setProperty('--slider-offset', `${active * -100}%`);
-      current.textContent = String(active + 1);
     };
     const stop = () => {
       if (timer) window.clearInterval(timer);
@@ -437,25 +425,20 @@ const setupSliders = () => {
     };
     const start = () => {
       stop();
-      if (!userPaused && !interactionPaused) {
-        timer = window.setInterval(() => show(active + 1), 4000);
+      if (!reducedMotion && !interactionPaused) {
+        timer = window.setInterval(() => show(active + 1), 1000);
       }
-    };
-    const updateToggle = () => {
-      toggle.textContent = userPaused ? '▶' : 'Ⅱ';
-      toggle.setAttribute('aria-label', userPaused ? 'Play slideshow' : 'Pause slideshow');
     };
     const move = (direction) => {
       show(active + direction);
       start();
     };
 
-    previous.addEventListener('click', () => move(-1));
-    next.addEventListener('click', () => move(1));
-    toggle.addEventListener('click', () => {
-      userPaused = !userPaused;
-      updateToggle();
-      start();
+    dots.forEach((dot, dotIndex) => {
+      dot.addEventListener('click', () => {
+        show(dotIndex);
+        start();
+      });
     });
     slider.addEventListener('mouseenter', () => {
       interactionPaused = true;
@@ -485,7 +468,6 @@ const setupSliders = () => {
     });
 
     show(0);
-    updateToggle();
     start();
   });
 };
