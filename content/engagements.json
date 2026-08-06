@@ -1,5 +1,31 @@
 [
   {
+    "title": "Alinma investment",
+    "clientOrProjectName": "Alinma investment",
+    "year": 2027,
+    "role": "design Director , Concept development ",
+    "description": "<p>An editorial design exploration developed as part of a strategic proposal for Alinma Bank. The project explored layout systems, typographic hierarchy, and visual structure aligned with institutional and financial communication standards.</p>",
+    "coverImage": "/assets/images/uploads/inmathum-1.jpg",
+    "mediaBlocks": [
+      {
+        "type": "slider",
+        "slides": [
+          {
+            "image": "/assets/images/uploads/artboard-115x.jpg"
+          },
+          {
+            "image": "/assets/images/uploads/artboard-1-copy-515x-1.jpg"
+          },
+          {
+            "image": "/assets/images/uploads/artboard-1-copy-615x.jpg"
+          }
+        ]
+      }
+    ],
+    "displayOrder": 1,
+    "published": true
+  },
+  {
     "title": "Alinma Bank",
     "clientOrProjectName": "Alinma Bank",
     "description": "<p>An editorial design exploration developed as part of a strategic proposal for Alinma Bank. The project explored layout systems, typographic hierarchy, and visual structure aligned with institutional and financial communication standards.</p>",
@@ -17,25 +43,6 @@
     "description": "<p></p>",
     "coverImage": "/assets/images/uploads/10event11-1.png",
     "displayOrder": 3,
-    "published": true
-  },
-  {
-    "title": "Placeholder Project",
-    "clientOrProjectName": "Placeholder Client",
-    "description": "<p>This is a placeholder project added so three projects are visible.</p>",
-    "coverImage": "/assets/images/uploads/325x-100-scaled.jpg",
-    "supportingImages": [
-      "/assets/images/uploads/1-copy-2048x1365.png"
-    ],
-    "displayOrder": 3,
-    "published": true
-  },
-  {
-    "title": "xx",
-    "clientOrProjectName": "xx",
-    "description": "<p></p>",
-    "coverImage": "/assets/images/uploads/slides-togather02.jpg",
-    "displayOrder": 4,
     "published": true
   }
 ]
