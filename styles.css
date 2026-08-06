@@ -584,7 +584,9 @@ a:focus-visible {
   min-height: 60svh;
   display: grid;
   grid-template-columns: var(--site-grid);
-  gap: var(--gap);
+  grid-template-rows: auto auto;
+  column-gap: var(--gap);
+  row-gap: clamp(24px, 3vw, 48px);
   align-content: end;
   padding: 10rem var(--edge) 10px;
   font-family: "Geist Sans", "Helvetica Neue", Arial, sans-serif;
@@ -605,27 +607,33 @@ a:focus-visible {
 
 .footer-copy,
 .footer-actions {
-  display: grid;
-  gap: 12px;
+  display: contents;
 }
 
-.footer-copy {
+.footer-copy [data-summary] {
   grid-column: 1 / span 2;
+  grid-row: 1;
 }
 
-.footer-copy p + p {
+.footer-copy [data-footer-text] {
+  grid-column: 1 / span 2;
+  grid-row: 2;
   color: var(--muted);
+  font-weight: 420;
   text-transform: none;
 }
 
-.footer-actions {
+.footer-actions [data-portfolio-link] {
   grid-column: 3 / span 2;
-  justify-self: stretch;
+  grid-row: 1;
   align-self: end;
-  justify-items: start;
+  justify-self: start;
 }
 
 .back-to-top {
+  grid-column: 4;
+  grid-row: 2;
+  align-self: end;
   justify-self: end;
   font-size: 1.5em;
   line-height: 1;
@@ -868,21 +876,30 @@ a:focus-visible {
   .feed-footer {
     min-height: 50svh;
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 48px;
+    grid-template-columns: var(--site-grid);
+    grid-template-rows: none;
+    grid-auto-rows: auto;
+    row-gap: 32px;
     padding: 8rem var(--edge) var(--edge);
   }
 
-  .footer-copy,
-  .footer-actions {
-    grid-column: 1;
-    min-width: 0;
+  .footer-copy [data-summary],
+  .footer-copy [data-footer-text],
+  .footer-actions [data-portfolio-link],
+  .back-to-top {
+    grid-row: auto;
   }
 
-  .footer-copy p,
-  .footer-actions a {
+  .footer-copy [data-summary],
+  .footer-copy [data-footer-text],
+  .footer-actions [data-portfolio-link] {
+    grid-column: 1 / -1;
     max-width: 100%;
     overflow-wrap: anywhere;
+  }
+
+  .back-to-top {
+    grid-column: 2;
   }
 
   .feed-footer a {
