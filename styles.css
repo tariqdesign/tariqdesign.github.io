@@ -277,17 +277,23 @@ a:focus-visible {
 
 .project-images {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+}
+
+.project-row {
+  display: flex;
+  align-items: stretch;
   gap: var(--gap);
 }
 
 .project-image {
+  flex: var(--image-ratio, 1.25) 1 0;
   min-width: 0;
   margin: 0;
 }
 
-.project-image:first-child {
-  grid-column: 1 / -1;
+.project-row--incomplete .project-image {
+  flex: 0 1 calc(50% - (var(--gap) / 2));
 }
 
 .feed-image-button {
@@ -303,11 +309,7 @@ a:focus-visible {
 }
 
 .project-image .feed-image-button {
-  aspect-ratio: 4 / 5;
-}
-
-.project-image:first-child .feed-image-button {
-  aspect-ratio: 16 / 10;
+  aspect-ratio: var(--image-ratio, 5 / 4);
 }
 
 .feed-image-button img {
@@ -597,11 +599,16 @@ a:focus-visible {
   }
 
   .project-images {
-    grid-template-columns: 1fr;
+    gap: var(--gap);
   }
 
-  .project-image:first-child {
-    grid-column: auto;
+  .project-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .project-row--incomplete .project-image {
+    width: 100%;
   }
 
   .feed-footer {
