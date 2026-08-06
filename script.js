@@ -30,6 +30,100 @@ const assetUrl = (value) => {
   return new URL(value.replace(/^\/+/, ''), SITE_ROOT).href;
 };
 
+const normaliseOption = (value, allowed, fallback) => allowed.includes(value) ? value : fallback;
+
+const createSafeRichText = (value) => {
+  const template = document.createElement('template');
+  template.innerHTML = hasText(value) ? value : '';
+  const allowedTags = new Set(['P', 'BR', 'STRONG', 'B', 'EM', 'I', 'UL', 'OL', 'LI', 'A']);
+  const blockedTags = new Set(['SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'EMBED']);
+
+  [...template.content.querySelectorAll('*')].forEach((element) => {
+    if (blockedTags.has(element.tagName)) {
+      element.remove();
+      return;
+    }
+    if (!allowedTags.has(element.tagName)) {
+      element.replaceWith(...element.childNodes);
+      return;
+    }
+
+    const href = element.tagName === 'A' ? safeUrl(element.getAttribute('href')) : '';
+    [...element.attributes].forEach((attribute) => element.removeAttribute(attribute.name));
+    if (element.tagName !== 'A') return;
+    if (!href) {
+      element.replaceWith(...element.childNodes);
+      return;
+    }
+    element.href = href;
+    element.target = '_blank';
+    element.rel = 'noopener noreferrer';
+  });
+
+  return template.content;
+};
+
+const createAboutRichText = (block) => {
+  const textSize = normaliseOption(block.textSize, ['small', 'standard', 'large'], 'standard');
+  const container = document.createElement('div');
+  container.className = `about-rich-text about-rich-text--${textSize}`;
+  if (hasText(block.heading)) {
+    const heading = document.createElement('h3');
+    heading.textContent = block.heading.trim();
+    container.append(heading);
+  }
+  container.append(createSafeRichText(block.body));
+  return container;
+};
+
+const createAboutImage = (block) => {
+  const figure = document.createElement('figure');
+  figure.className = 'about-image';
+  const image = document.createElement('img');
+  image.src = assetUrl(block.image);
+  image.alt = hasText(block.alt) ? block.alt.trim() : '';
+  image.loading = 'lazy';
+  image.decoding = 'async';
+  figure.append(image);
+  if (hasText(block.caption)) {
+    const caption = document.createElement('figcaption');
+    caption.textContent = block.caption.trim();
+    figure.append(caption);
+  }
+  return figure;
+};
+
+const createAboutSection = (block) => {
+  if (!block || block.published === false || !hasText(block.type) || !hasText(block.label)) return null;
+  const isText = block.type === 'text' && hasText(block.body);
+  const isImage = block.type === 'image' && hasText(block.image);
+  const isTextImage = block.type === 'textImage' && hasText(block.body) && hasText(block.image);
+  if (!isText && !isImage && !isTextImage) return null;
+
+  const section = document.createElement('section');
+  section.className = `about-section about-section--${block.type}`;
+  const label = document.createElement('h2');
+  label.className = 'detail-heading';
+  label.textContent = `${block.label.trim()}:`;
+  const content = document.createElement('div');
+  content.className = 'about-section-content';
+
+  if (isText) content.append(createAboutRichText(block));
+  if (isImage) {
+    const imageWidth = normaliseOption(block.imageWidth, ['one', 'two', 'three'], 'two');
+    content.classList.add(`about-section-content--${imageWidth}`);
+    content.append(createAboutImage(block));
+  }
+  if (isTextImage) {
+    const imagePosition = normaliseOption(block.imagePosition, ['left', 'right'], 'right');
+    content.classList.add('about-section-content--split', `about-section-content--image-${imagePosition}`);
+    content.append(createAboutRichText(block), createAboutImage(block));
+  }
+
+  section.append(label, content);
+  return section;
+};
+
 let galleryItems = [];
 let feedProjects = [];
 let activeImageIndex = 0;
@@ -101,6 +195,13 @@ const renderInformation = (site) => {
     listItem.textContent = [item.name, stripHtml(item.detail)].filter(hasText).join(' / ');
     return listItem;
   }));
+
+  const aboutSections = document.querySelector('[data-about-sections]');
+  const additionalSections = Array.isArray(site.aboutSections)
+    ? site.aboutSections.map(createAboutSection).filter(Boolean)
+    : [];
+  aboutSections.replaceChildren(...additionalSections);
+  aboutSections.hidden = additionalSections.length === 0;
 
   const summary = document.querySelector('[data-summary]');
   summary.textContent = stripHtml(site.mainPositioningStatement) || stripHtml(site.introduction);

@@ -49,6 +49,129 @@ content:
         options:
           format: html
           media: false
+      - name: aboutSections
+        label: Additional About sections
+        type: block
+        blockKey: type
+        description: Optional sections shown after the existing About information. Drag blocks to reorder them. Typography and widths use the website grid automatically.
+        list:
+          max: 12
+          collapsible:
+            collapsed: true
+            summary: "{label} — {type}"
+        blocks:
+          - name: text
+            label: Text section
+            fields:
+              - name: published
+                label: Show section
+                type: boolean
+                default: true
+                description: Turn this off to keep the section in the CMS without showing it on the website.
+              - name: label
+                label: Section label
+                type: string
+                required: true
+              - name: heading
+                label: Optional heading
+                type: string
+              - name: body
+                label: Text
+                type: rich-text
+                required: true
+                options:
+                  format: html
+                  media: false
+              - name: textSize
+                label: Text size
+                type: select
+                default: standard
+                options:
+                  values: [small, standard, large]
+          - name: image
+            label: Image section
+            fields:
+              - name: published
+                label: Show section
+                type: boolean
+                default: true
+                description: Turn this off to keep the section in the CMS without showing it on the website.
+              - name: label
+                label: Section label
+                type: string
+                required: true
+              - name: image
+                label: Image
+                type: image
+                required: true
+                options:
+                  media: images
+                  extensions: [webp, jpg, jpeg, png]
+                  rename: safe
+              - name: alt
+                label: Image description
+                type: string
+                required: true
+                description: Briefly describe the image for visitors using screen readers.
+              - name: caption
+                label: Optional caption
+                type: string
+              - name: imageWidth
+                label: Image width in grid columns
+                type: select
+                default: two
+                options:
+                  values: [one, two, three]
+          - name: textImage
+            label: Text + image section
+            fields:
+              - name: published
+                label: Show section
+                type: boolean
+                default: true
+                description: Turn this off to keep the section in the CMS without showing it on the website.
+              - name: label
+                label: Section label
+                type: string
+                required: true
+              - name: heading
+                label: Optional heading
+                type: string
+              - name: body
+                label: Text
+                type: rich-text
+                required: true
+                options:
+                  format: html
+                  media: false
+              - name: textSize
+                label: Text size
+                type: select
+                default: standard
+                options:
+                  values: [small, standard, large]
+              - name: image
+                label: Image
+                type: image
+                required: true
+                options:
+                  media: images
+                  extensions: [webp, jpg, jpeg, png]
+                  rename: safe
+              - name: alt
+                label: Image description
+                type: string
+                required: true
+                description: Briefly describe the image for visitors using screen readers.
+              - name: caption
+                label: Optional caption
+                type: string
+              - name: imagePosition
+                label: Image position
+                type: select
+                default: right
+                options:
+                  values: [left, right]
       - name: heroImages
         label: Additional lightbox images
         type: object
