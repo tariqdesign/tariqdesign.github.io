@@ -7,9 +7,21 @@
     "role": "design Director , Concept development ",
     "description": "<p>An editorial design exploration developed as part of a strategic proposal for Alinma Bank. The project explored layout systems, typographic hierarchy, and visual structure aligned with institutional and financial communication standards.</p>",
     "coverImage": "/assets/images/uploads/inmathum-1.jpg",
-    "supportingImages": [
-      "/assets/images/uploads/artboard-1-copy-415x.jpg",
-      "/assets/images/uploads/artboard-1-copy-515x.jpg"
+    "mediaBlocks": [
+      {
+        "type": "slider",
+        "slides": [
+          {
+            "image": "/assets/images/uploads/artboard-115x.jpg"
+          },
+          {
+            "image": "/assets/images/uploads/artboard-1-copy-515x-1.jpg"
+          },
+          {
+            "image": "/assets/images/uploads/artboard-1-copy-615x.jpg"
+          }
+        ]
+      }
     ],
     "displayOrder": 0,
     "published": true
