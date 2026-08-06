@@ -46,6 +46,12 @@ Drag blocks in Pages CMS to control their exact order. Static images and slider 
 
 Use **Project information** for the short description shown beside a project title in the work feed. The lightbox deliberately shows only the project title.
 
+## Additional About sections
+
+Use **Additional About sections** in General website content to build future profile content without editing code. Available blocks are **Text section**, **Image section**, and **Text + image section**. Blocks can be reordered and temporarily hidden with **Show section**.
+
+Text supports headings, paragraphs, bold, italic, links, and lists, with controlled small, standard, or large type sizes. Images use one-, two-, or three-column grid widths and require an accessible image description. All blocks inherit Geist Sans, the shared four-column grid, responsive spacing, and mobile stacking rules.
+
 ## Upload images
 
 1. Choose **Additional lightbox images** in General website content, choose a legacy project image field, or add an image/video inside **Ordered mixed-media blocks**.
