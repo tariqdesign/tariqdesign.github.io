@@ -42,21 +42,6 @@
     "clientOrProjectName": "10 Event",
     "description": "<p></p>",
     "coverImage": "/assets/images/uploads/10event11-1.png",
-    "mediaBlocks": [
-      {
-        "type": "image",
-        "image": "/assets/images/uploads/10eventartboard-1.png"
-      },
-      {
-        "type": "image",
-        "image": "/assets/images/uploads/10eventartboard-2.png"
-      },
-      {
-        "type": "video",
-        "video": "/assets/videos/uploads/10even.mp4",
-        "poster": "/assets/images/uploads/colortypo.png"
-      }
-    ],
     "displayOrder": 2,
     "published": true
   }
