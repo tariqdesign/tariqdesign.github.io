@@ -39,8 +39,8 @@ Existing projects continue to use **Cover image** and **Lightbox supporting imag
 Available blocks:
 
 - **Single image** joins adjacent image blocks in the automatic justified gallery.
-- **Looping video** accepts MP4 or WebM, autoplays muted, loops, includes native controls, and can use a poster image. Convert MOV files before uploading.
-- **Image slider** accepts two to four slides, advances every second, supports swipe and clickable circle indicators, and pauses while hovered or keyboard-focused. Use the same aspect ratio for every slide to avoid cropping changes.
+- **Looping video** accepts MP4 or WebM, autoplays muted, loops, and includes native controls. Add the required fallback still image; it stays visible while the video loads and is used whenever playback is unavailable. Convert MOV files before uploading.
+- **Image slider** accepts two to four slides, advances every second, and repeats continuously in order (1, 2, 3, 4, then 1 again). It also supports swipe and clickable circle indicators. Use the same aspect ratio for every slide to avoid cropping changes.
 
 Drag blocks in Pages CMS to control their exact order. Static images and slider slides remain available in the full-screen lightbox; videos play directly in the project feed.
 
