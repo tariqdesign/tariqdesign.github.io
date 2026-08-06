@@ -45,4 +45,16 @@
     "displayOrder": 3,
     "published": true
   }
+  ,
+  {
+    "title": "Placeholder Project",
+    "clientOrProjectName": "Placeholder Client",
+    "description": "<p>This is a placeholder project added so three projects are visible.</p>",
+    "coverImage": "/assets/images/uploads/325x-100-scaled.jpg",
+    "supportingImages": [
+      "/assets/images/uploads/1-copy-2048x1365.png"
+    ],
+    "displayOrder": 3,
+    "published": true
+  }
 ]
