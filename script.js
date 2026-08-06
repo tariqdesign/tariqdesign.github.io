@@ -146,6 +146,45 @@ const renderInformation = (site) => {
   document.querySelector('meta[property="og:description"]')?.setAttribute('content', socialDescription);
 };
 
+const normaliseProjectBlocks = (project) => {
+  const mediaBlocks = Array.isArray(project.mediaBlocks) ? project.mediaBlocks.flatMap((block) => {
+    if (!block || !hasText(block.type)) return [];
+    if (block.type === 'image' && hasText(block.image)) {
+      return [{ type: 'image', path: block.image, alt: toText(block.alt) }];
+    }
+    if (block.type === 'video' && hasText(block.video)) {
+      return [{
+        type: 'video',
+        path: block.video,
+        poster: hasText(block.poster) ? block.poster : '',
+        description: toText(block.description)
+      }];
+    }
+    if (block.type === 'slider' && Array.isArray(block.slides)) {
+      const slides = block.slides
+        .map((slide) => typeof slide === 'string'
+          ? { path: slide, alt: '' }
+          : { path: slide?.image, alt: toText(slide?.alt) })
+        .filter((slide) => hasText(slide.path))
+        .slice(0, 4);
+      return slides.length ? [{ type: 'slider', slides }] : [];
+    }
+    return [];
+  }) : [];
+
+  if (mediaBlocks.length) return mediaBlocks;
+
+  return [project.coverImage, ...(Array.isArray(project.supportingImages) ? project.supportingImages : [])]
+    .filter(hasText)
+    .map((path) => ({ type: 'image', path, alt: '' }));
+};
+
+const getBlockImages = (block) => {
+  if (block.type === 'image') return [{ path: block.path, alt: block.alt }];
+  if (block.type === 'slider') return block.slides;
+  return [];
+};
+
 const buildGallery = (site, engagements) => {
   const projects = Array.isArray(engagements)
     ? engagements
@@ -155,18 +194,14 @@ const buildGallery = (site, engagements) => {
       .map(({ item }) => item)
     : [];
 
-  const projectByImage = new Map();
-  projects.forEach((project) => {
-    const images = [project.coverImage, ...(Array.isArray(project.supportingImages) ? project.supportingImages : [])].filter(hasText);
-    images.forEach((path) => projectByImage.set(path, project));
-  });
-
   const candidates = [];
-  const projectItem = (project, path) => {
+  const projectByImage = new Map();
+  const projectItem = (project, entry) => {
     const title = project.title || project.clientOrProjectName || 'Selected work';
     return {
-      path,
+      path: entry.path,
       title,
+      alt: entry.alt || `${title} project image`,
       caption: [title, project.sector, project.year].map(toText).filter(hasText).join(' / '),
       meta: [project.clientOrProjectName, project.role, project.location, project.year].map(toText).filter(hasText).join(' / '),
       description: stripHtml(project.description)
@@ -175,14 +210,30 @@ const buildGallery = (site, engagements) => {
 
   feedProjects = [];
   projects.forEach((project) => {
-    const paths = [project.coverImage, ...(Array.isArray(project.supportingImages) ? project.supportingImages : [])].filter(hasText);
-    if (!paths.length) return;
-    const items = paths.map((path) => projectItem(project, path));
-    candidates.push(...items);
+    const blocks = normaliseProjectBlocks(project);
+    if (!blocks.length) return;
+    const hydratedBlocks = blocks.map((block) => {
+      if (block.type === 'image') {
+        const item = projectItem(project, block);
+        candidates.push(item);
+        projectByImage.set(item.path, project);
+        return { ...block, item };
+      }
+      if (block.type === 'slider') {
+        const slides = block.slides.map((slide) => {
+          const item = projectItem(project, slide);
+          candidates.push(item);
+          projectByImage.set(item.path, project);
+          return { ...slide, item };
+        });
+        return { ...block, slides };
+      }
+      return block;
+    });
     feedProjects.push({
       title: project.title || project.clientOrProjectName || 'Selected work',
       meta: [project.sector, project.location, project.year].map(toText).filter(hasText).join(' / '),
-      items
+      blocks: hydratedBlocks
     });
   });
 
@@ -209,6 +260,101 @@ const buildGallery = (site, engagements) => {
   });
 };
 
+const createProjectImage = (project, item, projectIndex, imageIndex, totalImages) => {
+  const galleryIndex = galleryItems.findIndex((galleryItem) => galleryItem.path === item.path);
+  const figure = document.createElement('figure');
+  figure.className = 'project-image';
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'feed-image-button';
+  button.setAttribute('aria-label', `Open ${project.title}, image ${imageIndex + 1} of ${totalImages}`);
+  const image = document.createElement('img');
+  image.src = assetUrl(item.path);
+  image.alt = item.alt;
+  image.loading = projectIndex === 0 && imageIndex === 0 ? 'eager' : 'lazy';
+  image.decoding = 'async';
+  button.append(image);
+  button.addEventListener('click', () => openLightbox(galleryIndex, button));
+  figure.append(button);
+  return figure;
+};
+
+const createProjectVideo = (project, block) => {
+  const figure = document.createElement('figure');
+  figure.className = 'project-video';
+  const video = document.createElement('video');
+  video.src = assetUrl(block.path);
+  video.autoplay = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  video.controls = true;
+  video.loop = true;
+  video.muted = true;
+  video.playsInline = true;
+  video.preload = 'metadata';
+  video.setAttribute('aria-label', block.description || `${project.title} project video`);
+  if (hasText(block.poster)) video.poster = assetUrl(block.poster);
+  video.append(document.createTextNode('Your browser does not support embedded video.'));
+  figure.append(video);
+  return figure;
+};
+
+const createProjectSlider = (project, block, projectIndex, startIndex, totalImages) => {
+  const slider = document.createElement('section');
+  slider.className = 'project-slider';
+  slider.setAttribute('aria-label', `${project.title} image slider`);
+
+  const viewport = document.createElement('div');
+  viewport.className = 'slider-viewport';
+  block.slides.forEach((slide, slideIndex) => {
+    const galleryIndex = galleryItems.findIndex((galleryItem) => galleryItem.path === slide.item.path);
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'slider-slide';
+    button.setAttribute('aria-label', `Open ${project.title}, image ${startIndex + slideIndex + 1} of ${totalImages}`);
+    const image = document.createElement('img');
+    image.src = assetUrl(slide.item.path);
+    image.alt = slide.item.alt;
+    image.loading = projectIndex === 0 && startIndex === 0 && slideIndex === 0 ? 'eager' : 'lazy';
+    image.decoding = 'async';
+    if (slideIndex === 0) {
+      const updateRatio = () => {
+        if (image.naturalWidth && image.naturalHeight) {
+          slider.style.setProperty('--slider-ratio', `${image.naturalWidth} / ${image.naturalHeight}`);
+        }
+      };
+      if (image.complete) updateRatio();
+      else image.addEventListener('load', updateRatio, { once: true });
+    }
+    button.append(image);
+    button.addEventListener('click', () => openLightbox(galleryIndex, button));
+    viewport.append(button);
+  });
+
+  const controls = document.createElement('div');
+  controls.className = 'slider-controls';
+  const previous = document.createElement('button');
+  previous.type = 'button';
+  previous.className = 'slider-control slider-previous';
+  previous.setAttribute('aria-label', 'Previous slide');
+  previous.textContent = '←';
+  const counter = document.createElement('span');
+  counter.className = 'slider-counter';
+  counter.innerHTML = '<span data-slider-current>1</span> / <span data-slider-total></span>';
+  counter.querySelector('[data-slider-total]').textContent = String(block.slides.length);
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'slider-control slider-toggle';
+  toggle.setAttribute('aria-label', 'Pause slideshow');
+  toggle.textContent = 'Ⅱ';
+  const next = document.createElement('button');
+  next.type = 'button';
+  next.className = 'slider-control slider-next';
+  next.setAttribute('aria-label', 'Next slide');
+  next.textContent = '→';
+  controls.append(previous, counter, toggle, next);
+  slider.append(viewport, controls);
+  return slider;
+};
+
 const renderFeed = () => {
   const feed = document.querySelector('[data-feed]');
   const groups = feedProjects.slice(0, INDEX_PROJECT_LIMIT);
@@ -227,30 +373,121 @@ const renderFeed = () => {
       header.append(meta);
     }
 
-    const images = document.createElement('div');
-    images.className = 'project-images';
-    project.items.forEach((item, imageIndex) => {
-      const galleryIndex = galleryItems.findIndex((galleryItem) => galleryItem.path === item.path);
-      const figure = document.createElement('figure');
-      figure.className = 'project-image';
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'feed-image-button';
-      button.setAttribute('aria-label', `Open ${project.title}, image ${imageIndex + 1} of ${project.items.length}`);
-      const image = document.createElement('img');
-      image.src = assetUrl(item.path);
-      image.alt = `${project.title} — image ${imageIndex + 1}`;
-      image.loading = projectIndex === 0 && imageIndex === 0 ? 'eager' : 'lazy';
-      image.decoding = 'async';
-      button.append(image);
-      button.addEventListener('click', () => openLightbox(galleryIndex, button));
-      figure.append(button);
-      images.append(figure);
+    const media = document.createElement('div');
+    media.className = 'project-media';
+    const totalImages = project.blocks.reduce((total, block) => total + getBlockImages(block).length, 0);
+    let imageIndex = 0;
+    let imageGroup = null;
+    project.blocks.forEach((block) => {
+      if (block.type === 'image') {
+        if (!imageGroup) {
+          imageGroup = document.createElement('div');
+          imageGroup.className = 'project-images';
+          media.append(imageGroup);
+        }
+        imageGroup.append(createProjectImage(project, block.item, projectIndex, imageIndex, totalImages));
+        imageIndex += 1;
+        return;
+      }
+
+      imageGroup = null;
+      if (block.type === 'video') {
+        media.append(createProjectVideo(project, block));
+        return;
+      }
+      if (block.type === 'slider') {
+        media.append(createProjectSlider(project, block, projectIndex, imageIndex, totalImages));
+        imageIndex += block.slides.length;
+      }
     });
 
-    article.append(header, images);
+    article.append(header, media);
     return article;
   }));
+};
+
+const setupSliders = () => {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.project-slider').forEach((slider) => {
+    const slides = [...slider.querySelectorAll('.slider-slide')];
+    if (slides.length < 2) return;
+    const previous = slider.querySelector('.slider-previous');
+    const next = slider.querySelector('.slider-next');
+    const toggle = slider.querySelector('.slider-toggle');
+    const current = slider.querySelector('[data-slider-current]');
+    let active = 0;
+    let timer = null;
+    let userPaused = reducedMotion;
+    let interactionPaused = false;
+    let pointerStart = null;
+
+    const show = (index) => {
+      active = (index + slides.length) % slides.length;
+      slides.forEach((slide, slideIndex) => {
+        const isActive = slideIndex === active;
+        slide.setAttribute('aria-hidden', String(!isActive));
+        slide.tabIndex = isActive ? 0 : -1;
+      });
+      slider.style.setProperty('--slider-offset', `${active * -100}%`);
+      current.textContent = String(active + 1);
+    };
+    const stop = () => {
+      if (timer) window.clearInterval(timer);
+      timer = null;
+    };
+    const start = () => {
+      stop();
+      if (!userPaused && !interactionPaused) {
+        timer = window.setInterval(() => show(active + 1), 4000);
+      }
+    };
+    const updateToggle = () => {
+      toggle.textContent = userPaused ? '▶' : 'Ⅱ';
+      toggle.setAttribute('aria-label', userPaused ? 'Play slideshow' : 'Pause slideshow');
+    };
+    const move = (direction) => {
+      show(active + direction);
+      start();
+    };
+
+    previous.addEventListener('click', () => move(-1));
+    next.addEventListener('click', () => move(1));
+    toggle.addEventListener('click', () => {
+      userPaused = !userPaused;
+      updateToggle();
+      start();
+    });
+    slider.addEventListener('mouseenter', () => {
+      interactionPaused = true;
+      stop();
+    });
+    slider.addEventListener('mouseleave', () => {
+      interactionPaused = false;
+      start();
+    });
+    slider.addEventListener('focusin', () => {
+      interactionPaused = true;
+      stop();
+    });
+    slider.addEventListener('focusout', (event) => {
+      if (slider.contains(event.relatedTarget)) return;
+      interactionPaused = false;
+      start();
+    });
+    slider.addEventListener('pointerdown', (event) => {
+      pointerStart = event.clientX;
+    });
+    slider.addEventListener('pointerup', (event) => {
+      if (pointerStart === null) return;
+      const distance = event.clientX - pointerStart;
+      pointerStart = null;
+      if (Math.abs(distance) > 40) move(distance > 0 ? -1 : 1);
+    });
+
+    show(0);
+    updateToggle();
+    start();
+  });
 };
 
 const layoutProjectImages = (container) => {
@@ -340,7 +577,7 @@ const setupJustifiedGalleries = () => {
 
 const setupParallax = () => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const images = [...document.querySelectorAll('.feed-image-button img')];
+  const images = [...document.querySelectorAll('.project-image .feed-image-button img')];
   if (!images.length) return;
   let frameRequested = false;
   const update = () => {
@@ -369,7 +606,7 @@ const updateLightbox = () => {
   if (!item || !lightbox) return;
   const image = lightbox.querySelector('[data-lightbox-image]');
   image.src = assetUrl(item.path);
-  image.alt = `${item.title} — image ${activeImageIndex + 1} of ${galleryItems.length}`;
+  image.alt = item.alt;
   lightbox.querySelector('[data-lightbox-caption]').textContent = item.caption;
   const meta = lightbox.querySelector('[data-lightbox-meta]');
   meta.textContent = item.meta;
@@ -439,6 +676,7 @@ const initialise = async () => {
     buildGallery(site, engagements);
     renderFeed();
     setupJustifiedGalleries();
+    setupSliders();
     setupParallax();
     setupLightbox();
   } catch (error) {

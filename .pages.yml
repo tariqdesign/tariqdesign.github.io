@@ -1,9 +1,18 @@
 media:
-  input: assets/images/uploads
-  output: /assets/images/uploads
-  extensions: [webp, jpg, jpeg, png]
-  categories: [image]
-  rename: safe
+  - name: images
+    label: Images
+    input: assets/images/uploads
+    output: /assets/images/uploads
+    extensions: [webp, jpg, jpeg, png]
+    categories: [image]
+    rename: safe
+  - name: videos
+    label: Videos
+    input: assets/videos/uploads
+    output: /assets/videos/uploads
+    extensions: [mp4, webm]
+    categories: [video]
+    rename: safe
 
 settings:
   content:
@@ -54,6 +63,7 @@ content:
             type: image
             required: true
             options:
+              media: images
               extensions: [webp, jpg, jpeg, png]
               rename: safe
           - name: alt
@@ -203,17 +213,94 @@ content:
         label: Cover image
         type: image
         options:
+          media: images
           extensions: [webp, jpg, jpeg, png]
           rename: safe
       - name: supportingImages
         label: Lightbox supporting images
         type: image
         options:
+          media: images
           multiple:
             max: 12
           unique: true
           extensions: [webp, jpg, jpeg, png]
           rename: safe
+      - name: mediaBlocks
+        label: Ordered mixed-media blocks
+        type: block
+        blockKey: type
+        description: When blocks are added here, they replace the legacy cover and supporting images on the homepage. Drag blocks to control the exact project sequence.
+        list:
+          max: 24
+          collapsible:
+            collapsed: true
+            summary: "{type} block {index}"
+        blocks:
+          - name: image
+            label: Single image
+            fields:
+              - name: image
+                label: Image
+                type: image
+                required: true
+                options:
+                  media: images
+                  extensions: [webp, jpg, jpeg, png]
+                  rename: safe
+              - name: alt
+                label: Image description
+                type: string
+                description: Briefly describe the image for visitors using screen readers.
+          - name: video
+            label: Looping video
+            fields:
+              - name: video
+                label: MP4 or WebM video
+                type: file
+                required: true
+                options:
+                  media: videos
+                  extensions: [mp4, webm]
+                  categories: [video]
+                  rename: safe
+              - name: poster
+                label: Poster image
+                type: image
+                options:
+                  media: images
+                  extensions: [webp, jpg, jpeg, png]
+                  rename: safe
+              - name: description
+                label: Video description
+                type: string
+                description: Short accessible description of the motion or content.
+          - name: slider
+            label: Image slider
+            fields:
+              - name: slides
+                label: Slides
+                type: object
+                required: true
+                list:
+                  min: 2
+                  max: 4
+                  collapsible:
+                    collapsed: true
+                    summary: "Slide {index}"
+                fields:
+                  - name: image
+                    label: Image
+                    type: image
+                    required: true
+                    options:
+                      media: images
+                      extensions: [webp, jpg, jpeg, png]
+                      rename: safe
+                  - name: alt
+                    label: Image description
+                    type: string
+                    description: Briefly describe the slide for visitors using screen readers.
       - name: displayOrder
         label: Order
         type: number

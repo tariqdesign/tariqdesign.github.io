@@ -32,11 +32,23 @@ This is a framework-free static website for GitHub Pages. Content is stored in J
 5. Save/publish the entry in Pages CMS. Pages CMS commits the JSON change directly to the selected GitHub branch—no CMS password or token is stored in this repository.
 6. Open the repository on GitHub and confirm the new Pages CMS commit appears in the branch history.
 
+## Mixed-media projects
+
+Existing projects continue to use **Cover image** and **Lightbox supporting images**. To use the new system, add one or more **Ordered mixed-media blocks** to a project. Once that list contains a valid block, it becomes the project’s homepage media sequence and replaces the legacy cover/supporting layout.
+
+Available blocks:
+
+- **Single image** joins adjacent image blocks in the automatic justified gallery.
+- **Looping video** accepts MP4 or WebM, autoplays muted, loops, includes native controls, and can use a poster image. Convert MOV files before uploading.
+- **Image slider** accepts two to four slides, changes every four seconds, supports swipe and arrow controls, and includes pause/play and a slide counter. Use the same aspect ratio for every slide to avoid cropping changes.
+
+Drag blocks in Pages CMS to control their exact order. Static images and slider slides remain available in the full-screen lightbox; videos play directly in the project feed.
+
 ## Upload images
 
-1. Choose **Additional lightbox images** in General website content, or choose **Cover image** or **Lightbox supporting images** in an engagement.
+1. Choose **Additional lightbox images** in General website content, choose a legacy project image field, or add an image/video inside **Ordered mixed-media blocks**.
 2. Select an existing media item or upload a WebP, JPG, JPEG, or PNG file.
-3. Pages CMS stores uploads in `assets/images/uploads` and writes the public path as `/assets/images/uploads/...` in the relevant JSON file.
+3. Pages CMS stores images in `assets/images/uploads` and videos in `assets/videos/uploads`, then writes their public paths into the relevant JSON file.
 4. Save/publish the content. Use concise descriptive filenames; Pages CMS safely normalises uploaded filenames.
 
 The browser converts CMS image paths to page-relative URLs at runtime. This keeps uploads working at `https://tariqdesign.com/` and in GitHub Pages project-site previews. If an image cannot load, it is removed cleanly instead of showing a broken-image icon.
