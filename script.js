@@ -431,13 +431,20 @@ const setupSliders = () => {
   document.querySelectorAll('.project-slider').forEach((slider) => {
     const slides = [...slider.querySelectorAll('.slider-slide')];
     if (slides.length < 2) return;
+    const viewport = slider.querySelector('.slider-viewport');
     const dots = [...slider.querySelectorAll('.slider-dot')];
+    const firstSlideClone = slides[0].cloneNode(true);
+    firstSlideClone.classList.add('slider-slide--clone');
+    firstSlideClone.setAttribute('aria-hidden', 'true');
+    firstSlideClone.tabIndex = -1;
+    viewport.append(firstSlideClone);
+
     let active = 0;
     let timer = null;
     let pointerStart = null;
+    let wrapping = false;
 
-    const show = (index) => {
-      active = (index + slides.length) % slides.length;
+    const syncState = () => {
       slides.forEach((slide, slideIndex) => {
         const isActive = slideIndex === active;
         slide.setAttribute('aria-hidden', String(!isActive));
@@ -447,7 +454,32 @@ const setupSliders = () => {
         if (dotIndex === active) dot.setAttribute('aria-current', 'true');
         else dot.removeAttribute('aria-current');
       });
+    };
+    const finishWrap = () => {
+      viewport.removeEventListener('transitionend', finishWrap);
+      viewport.classList.add('is-resetting');
+      slider.style.setProperty('--slider-offset', '0%');
+      void viewport.offsetWidth;
+      window.requestAnimationFrame(() => viewport.classList.remove('is-resetting'));
+      wrapping = false;
+    };
+    const show = (index) => {
+      if (wrapping) finishWrap();
+      active = (index + slides.length) % slides.length;
+      syncState();
       slider.style.setProperty('--slider-offset', `${active * -100}%`);
+    };
+    const advance = () => {
+      if (active < slides.length - 1) {
+        show(active + 1);
+        return;
+      }
+
+      wrapping = true;
+      active = 0;
+      syncState();
+      slider.style.setProperty('--slider-offset', `${slides.length * -100}%`);
+      viewport.addEventListener('transitionend', finishWrap, { once: true });
     };
     const stop = () => {
       if (timer) window.clearInterval(timer);
@@ -456,11 +488,12 @@ const setupSliders = () => {
     const start = () => {
       stop();
       if (!reducedMotion) {
-        timer = window.setInterval(() => show(active + 1), 1000);
+        timer = window.setInterval(advance, 1000);
       }
     };
     const move = (direction) => {
-      show(active + direction);
+      if (direction > 0) advance();
+      else show(active - 1);
       start();
     };
 
