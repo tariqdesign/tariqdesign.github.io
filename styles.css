@@ -384,9 +384,15 @@ a:focus-visible {
 
 .project-heading p {
   grid-column: 2 / span 2;
+  width: min(100%, 62ch);
   color: var(--muted);
-  max-width: 72ch;
   overflow-wrap: anywhere;
+}
+
+@media (min-width: 1200px) {
+  .project-heading p {
+    width: min(75%, 62ch);
+  }
 }
 
 .project-media,
@@ -847,6 +853,12 @@ a:focus-visible {
 
   .project-heading {
     margin-bottom: 20px;
+  }
+
+  .project-heading p {
+    grid-column: 2 / -1;
+    width: 100%;
+    max-width: 45ch;
   }
 
   .project-images {
