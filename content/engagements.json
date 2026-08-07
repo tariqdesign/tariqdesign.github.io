@@ -50,7 +50,7 @@
     "clientOrProjectName": "doo",
     "description": "<p></p>",
     "coverImage": "/assets/images/uploads/postercenter-vertical.jpg",
-    "displayOrder": 3,
+    "displayOrder": 0,
     "published": true
   }
 ]
