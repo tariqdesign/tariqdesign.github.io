@@ -30,7 +30,7 @@ html {
 }
 
 body {
-  margin: 0;
+  margin: 72pt;
   background: var(--paper);
   color: var(--ink);
   font-family: "Geist Sans", "Helvetica Neue", Arial, sans-serif;
