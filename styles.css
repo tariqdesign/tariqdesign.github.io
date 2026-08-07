@@ -30,6 +30,7 @@ html {
 }
 
 body {
+  position: relative;
   margin: 72pt;
   background: var(--paper);
   color: var(--ink);
