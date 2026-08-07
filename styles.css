@@ -79,7 +79,7 @@ a:focus-visible {
 .information-layer {
   position: absolute;
   z-index: 20;
-  inset: 8px 72pt auto 72pt;
+  inset: 72pt 72pt auto 72pt;
   width: auto;
   display: grid;
   grid-template-columns: var(--site-grid);
