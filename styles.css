@@ -30,8 +30,7 @@ html {
 }
 
 body {
-  position: relative;
-  margin: 72pt;
+  margin: 0;
   background: var(--paper);
   color: var(--ink);
   font-family: "Geist Sans", "Helvetica Neue", Arial, sans-serif;
@@ -80,7 +79,7 @@ a:focus-visible {
 .information-layer {
   position: absolute;
   z-index: 20;
-  inset: 72pt 72pt auto 72pt;
+  inset: 8px var(--edge) auto;
   width: auto;
   display: grid;
   grid-template-columns: var(--site-grid);
