@@ -1,5 +1,23 @@
 [
   {
+    "title": "10 event",
+    "clientOrProjectName": "10 Event",
+    "description": "<p>Visual identity system<br>Brand touchpoints</p><p>The events industry runs on perception. Ten Event had the capability&nbsp; the identity needed to match it.<br>Ten Event is a Saudi-based event management and execution company. i built a brand around three qualities that define how they work: boldness, movement, and precision. The result is a dynamic identity — confident logo system, strong color palette, cohesive design language — that positions Ten Event as the standard, not just an option, in a competitive market.</p>",
+    "coverImage": "/assets/images/uploads/10event11-1.png",
+    "mediaBlocks": [
+      {
+        "type": "video",
+        "video": "/assets/videos/uploads/10even-1.mp4",
+        "poster": "/assets/images/uploads/artboard-1-copy2x-100-1-300x169.jpg"
+      },
+      {
+        "type": "image",
+        "image": "/assets/images/uploads/10event11-2.png"
+      }
+    ],
+    "published": true
+  },
+  {
     "title": "Alinma investment",
     "clientOrProjectName": "Alinma investment",
     "year": 2027,
@@ -34,24 +52,6 @@
       "/assets/images/uploads/325x-100-scaled.jpg"
     ],
     "displayOrder": 2,
-    "published": true
-  },
-  {
-    "title": "10 event",
-    "clientOrProjectName": "10 Event",
-    "description": "<p>Visual identity system<br>Brand touchpoints</p><p>The events industry runs on perception. Ten Event had the capability&nbsp; the identity needed to match it.<br>Ten Event is a Saudi-based event management and execution company. i built a brand around three qualities that define how they work: boldness, movement, and precision. The result is a dynamic identity — confident logo system, strong color palette, cohesive design language — that positions Ten Event as the standard, not just an option, in a competitive market.</p>",
-    "coverImage": "/assets/images/uploads/10event11-1.png",
-    "mediaBlocks": [
-      {
-        "type": "video",
-        "video": "/assets/videos/uploads/10even-1.mp4",
-        "poster": "/assets/images/uploads/artboard-1-copy2x-100-1-300x169.jpg"
-      },
-      {
-        "type": "image",
-        "image": "/assets/images/uploads/10event11-2.png"
-      }
-    ],
     "published": true
   },
   {
