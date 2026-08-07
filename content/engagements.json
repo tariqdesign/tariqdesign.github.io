@@ -44,5 +44,13 @@
     "coverImage": "/assets/images/uploads/10event11-1.png",
     "displayOrder": 3,
     "published": true
+  },
+  {
+    "title": "DOOO",
+    "clientOrProjectName": "doo",
+    "description": "<p></p>",
+    "coverImage": "/assets/images/uploads/postercenter-vertical.jpg",
+    "displayOrder": 0,
+    "published": false
   }
 ]
