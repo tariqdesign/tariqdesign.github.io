@@ -291,7 +291,7 @@ const buildGallery = (site, engagements) => {
     ? engagements
       .filter((item) => item && item.published === true)
       .map((item, originalIndex) => ({ item, originalIndex }))
-      .sort((a, b) => Number(a.item.displayOrder ?? 999) - Number(b.item.displayOrder ?? 999) || a.originalIndex - b.originalIndex)
+      .sort((a, b) => a.originalIndex - b.originalIndex)
       .map(({ item }) => item)
     : [];
 
