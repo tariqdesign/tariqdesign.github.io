@@ -3,52 +3,95 @@
   "professionalTitle": "Design Director",
   "mainPositioningStatement": "<p>I help regional organisations turn strategic intent into practical identity systems, working directly with founders, executives, and senior teams.</p>",
   "introduction": "<p>I help organisations build brands with clarity, structure, and long-term consistency. With 16+ years across government, private sector, and agencies, I bridge brand strategy and visual identity—translating direction into practical architectures, guidelines, and design languages that teams can apply consistently across every touchpoint.</p>",
-  "aboutSections": [],
   "heroImages": [
     {
-      "image": "/assets/images/uploads/untitled-7-768x430.jpg",
+      "image": "/assets/images/uploads/postercenter-vertical.jpg",
       "alt": "Selected identity design work"
     },
     {
-      "image": "/assets/images/uploads/color-1536x860bk.png",
+      "image": "/assets/images/uploads/10eventartboard-1-1.png",
       "alt": "Colour system from a selected identity project"
     },
     {
-      "image": "/assets/images/uploads/typocolor-scaled.jpg",
+      "image": "/assets/images/uploads/colortypo.png",
       "alt": "Typography and colour study"
     },
     {
-      "image": "/assets/images/uploads/vlcsnap-2023-07-10-00h16m34s479.png",
+      "image": "/assets/images/uploads/artboard-1-copy-515x.jpg",
       "alt": "Selected motion design frame"
     }
   ],
   "leadershipStatement": "Working directly with founders, executives, and senior teams to provide clear creative ownership.",
   "pointOfViewText": "Each engagement is structured around what the brand actually needs—not a fixed package.",
   "systemsStatement": "Turning strategic intent into practical frameworks teams can use across every touchpoint.",
-  "markets": ["Saudi Arabia", "MENA"],
-  "sectors": ["Government", "Private sector", "Agencies"],
+  "markets": [
+    "Saudi Arabia",
+    "MENA"
+  ],
+  "sectors": [
+    "Government",
+    "Private sector",
+    "Agencies"
+  ],
   "recognition": [
-    { "name": "Type01", "detail": "Inspired Typeface Interview, 2021" },
-    { "name": "Abduzeedo", "detail": "Zero Posters Vol. 1, 2019 · Vol. 2, 2021" },
-    { "name": "Flamant Publishers", "detail": "<cite>New 3D Effects in Graphic Design</cite>, 2019" },
-    { "name": "Advanced Photoshop UK", "detail": "Featured work" },
-    { "name": "Advanced Photoshop Magazine GE", "detail": "Featured work" },
-    { "name": "Type Image Book", "detail": "Published work" },
-    { "name": "100Poster", "detail": "Belgium exhibition" },
-    { "name": "Amman Design Week", "detail": "Exhibition" },
-    { "name": "Warehouse421", "detail": "Abu Dhabi exhibition" },
-    { "name": "DeviantArt", "detail": "Daily Deviation" }
+    {
+      "name": "Type01",
+      "detail": "<p>Inspired Typeface Interview, 2021</p>"
+    },
+    {
+      "name": "Abduzeedo",
+      "detail": "<p>Zero Posters Vol. 1, 2019 · Vol. 2, 2021</p>"
+    },
+    {
+      "name": "Flamant Publishers",
+      "detail": "<p>New 3D Effects in Graphic Design, 2019</p>"
+    },
+    {
+      "name": "Advanced Photoshop UK",
+      "detail": "<p>Featured work</p>"
+    },
+    {
+      "name": "Advanced Photoshop Magazine GE",
+      "detail": "<p>Featured work</p>"
+    },
+    {
+      "name": "Type Image Book",
+      "detail": "<p>Published work</p>"
+    },
+    {
+      "name": "100Poster",
+      "detail": "<p>Belgium exhibition</p>"
+    },
+    {
+      "name": "Amman Design Week",
+      "detail": "<p>Exhibition</p>"
+    },
+    {
+      "name": "Warehouse421",
+      "detail": "<p>Abu Dhabi exhibition</p>"
+    },
+    {
+      "name": "DeviantArt",
+      "detail": "<p>Daily Deviation</p>"
+    }
   ],
   "capabilities": [
-    { "title": "Brand Strategy & Architecture", "description": "Positioning, brand structure, visual logic, decision frameworks" },
-    { "title": "Identity Systems & Visual Frameworks", "description": "Logo systems, typography architecture, color systems, layout rules" },
-    { "title": "Art Direction & Oversight", "description": "Design leadership, quality control, consistency across outputs" }
+    {
+      "title": "Brand Strategy & Architecture",
+      "description": "Positioning, brand structure, visual logic, decision frameworks"
+    },
+    {
+      "title": "Identity Systems & Visual Frameworks",
+      "description": "Logo systems, typography architecture, color systems, layout rules"
+    },
+    {
+      "title": "Art Direction & Oversight",
+      "description": "Design leadership, quality control, consistency across outputs"
+    }
   ],
   "email": "tariqdesign@gmail.com",
-  "linkedInUrl": "",
   "behanceUrl": "https://www.behance.net/tariqdesign",
   "privatePortfolioRequestText": "Explore selected work on Behance",
-  "footerText": "",
   "labels": {
     "about": "About",
     "services": "Services",
