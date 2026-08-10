@@ -29,16 +29,15 @@ This is a framework-free static website for GitHub Pages. Content is stored in J
 
 1. Change a field in Pages CMS. Keep required fields filled in.
 2. For an engagement, set **Published** off to hide it. Published engagements appear on the Work page in ascending **Order**; equal order values keep their JSON order.
-3. Add an optional **Homepage thumbnail**, choose its **Thumbnail crop focus**, and turn on **Feature on homepage** to make an engagement eligible for the homepage. The homepage shows cropped 16:9 thumbnails for the first three published, featured engagements in the same **Order** used on the Work page. If the separate thumbnail is empty, the existing **Project cover image** is used. Selecting more than three does not create a separate order; only the first three appear. Each thumbnail opens that engagement's full project page.
-4. Each published project appears once on the Work page with its cover and supporting images grouped beneath one project name. **Additional lightbox images** remain available after the project images in the full-screen viewer.
-   The Work page builds justified rows automatically from the images’ natural proportions and a shared target height. Depending on the image shapes, a desktop row may contain one landscape, two square, or three portrait images; completed rows fill the available width at equal height. The final incomplete row keeps the target height and natural widths. Mobile recalculates the same system with a maximum of two images per row.
+3. Add an optional **Project thumbnail**, choose its **Thumbnail crop focus**, and turn on **Feature on homepage** to make an engagement eligible for the homepage. The homepage shows cropped 16:9 thumbnails for the first three published, featured engagements in the same **Order** used on the Work page. If the separate thumbnail is empty, the existing **Project cover image** is used. Selecting more than three does not create a separate order; only the first three appear. Each thumbnail opens that engagement's full project page.
+4. Each published project appears once on the Work page as a linked thumbnail with its name below. Landscape thumbnails such as 1920×1080 and 1290×1080 span the full twelve-column grid. Square thumbnails such as 1080×1080 use six columns, allowing two to share a row. All thumbnails stack full width on mobile. The dedicated project page retains the complete ordered media sequence and lightbox.
 5. Leave an optional field empty when the information is not available. Empty metadata and images are omitted from the page.
 6. Save/publish the entry in Pages CMS. Pages CMS commits the JSON change directly to the selected GitHub branch—no CMS password or token is stored in this repository.
 7. Open the repository on GitHub and confirm the new Pages CMS commit appears in the branch history.
 
 ## Mixed-media projects
 
-Existing projects continue to use **Project cover image** and **Lightbox supporting images**. To use the new system, add one or more **Ordered mixed-media blocks** to a project. Once that list contains a valid block, it becomes the project’s Work-page media sequence and replaces the legacy cover/supporting layout. The homepage uses **Homepage thumbnail** when supplied, then falls back to **Project cover image**.
+Existing projects continue to use **Project cover image** and **Lightbox supporting images**. To use the full project-page system, add one or more **Ordered mixed-media blocks** to a project. Once that list contains a valid block, it becomes the dedicated project page’s media sequence and replaces the legacy cover/supporting layout. Home and Work use **Project thumbnail** when supplied, then fall back to **Project cover image**.
 
 Available blocks:
 

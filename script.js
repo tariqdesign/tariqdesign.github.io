@@ -469,6 +469,60 @@ const renderHomeProjects = () => {
   }
 };
 
+const renderWorkIndex = () => {
+  const feed = document.querySelector('[data-feed]');
+  if (!feed) return;
+
+  const cards = feedProjects
+    .filter((project) => project.coverImages.length)
+    .map((project, projectIndex) => {
+      const article = document.createElement('article');
+      article.className = 'work-project-card';
+      article.id = project.anchor;
+      article.tabIndex = -1;
+
+      const link = document.createElement('a');
+      link.className = 'work-project-link';
+      link.href = projectPageUrl(project);
+      link.setAttribute('aria-label', `View the full ${project.title} project`);
+
+      const media = document.createElement('div');
+      media.className = 'work-project-thumbnail';
+      const image = document.createElement('img');
+      let coverIndex = 0;
+      image.src = assetUrl(project.coverImages[coverIndex]);
+      image.alt = `${project.title} project thumbnail`;
+      image.loading = projectIndex < 2 ? 'eager' : 'lazy';
+      image.decoding = 'async';
+      image.style.objectPosition = project.thumbnailPosition;
+      image.addEventListener('load', () => {
+        const ratio = image.naturalWidth / image.naturalHeight;
+        article.classList.toggle('work-project-card--six-columns', Number.isFinite(ratio) && ratio <= 1.05);
+      });
+      image.addEventListener('error', () => {
+        coverIndex += 1;
+        if (project.coverImages[coverIndex]) image.src = assetUrl(project.coverImages[coverIndex]);
+        else article.remove();
+      });
+      media.append(image);
+
+      const footer = document.createElement('div');
+      footer.className = 'work-project-title';
+      const title = document.createElement('h2');
+      title.textContent = project.title;
+      const action = document.createElement('span');
+      action.textContent = 'View project';
+      footer.append(title, action);
+
+      link.append(media, footer);
+      article.append(link);
+      return article;
+    });
+
+  feed.classList.add('work-index-grid');
+  feed.replaceChildren(...cards);
+};
+
 const createProjectImage = (project, item, projectIndex, imageIndex, totalImages) => {
   const galleryIndex = galleryItems.findIndex((galleryItem) => galleryItem.path === item.path);
   const figure = document.createElement('figure');
@@ -953,11 +1007,7 @@ const initialise = async () => {
     buildGallery(site, engagements);
     if (PAGE === 'home') renderHomeProjects();
     if (PAGE === 'work') {
-      renderFeed();
-      setupJustifiedGalleries();
-      setupSliders();
-      setupParallax();
-      setupLightbox();
+      renderWorkIndex();
       scrollToRequestedProject();
     }
     if (PAGE === 'project') {

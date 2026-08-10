@@ -334,9 +334,9 @@ content:
           format: html
           media: false
       - name: thumbnailImage
-        label: Homepage thumbnail
+        label: Project thumbnail
         type: image
-        description: Optional separate image used only for this project's cropped homepage thumbnail. Falls back to Cover image when empty.
+        description: Optional separate image used for this project's Home and Work thumbnails. Falls back to Project cover image when empty.
         options:
           media: images
           extensions: [webp, jpg, jpeg, png]
