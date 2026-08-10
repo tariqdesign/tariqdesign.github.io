@@ -1,8 +1,8 @@
 @font-face {
-  font-family: "Geist Sans";
-  src: url("assets/fonts/Geist-VF.woff2") format("woff2");
+  font-family: "Overused Grotesk";
+  src: url("assets/fonts/OverusedGrotesk-VF.woff2") format("woff2");
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 300 900;
   font-display: swap;
 }
 
@@ -34,7 +34,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: "Geist Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Overused Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 420;
   -webkit-font-smoothing: antialiased;
 }
@@ -70,7 +70,7 @@ a:focus-visible {
   padding: 8px 10px;
   background: #000;
   color: #fff;
-  font: 600 11px/1.1 "Geist Sans", "Helvetica Neue", Arial, sans-serif;
+  font: 600 11px/1.1 "Overused Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .skip-link:focus {
@@ -88,7 +88,7 @@ a:focus-visible {
   color: #fff;
   mix-blend-mode: difference;
   pointer-events: none;
-  font-family: "Geist Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Overused Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: var(--type-header);
   font-weight: 500;
   line-height: 1.3;
@@ -154,7 +154,7 @@ a:focus-visible {
   display: block;
   align-self: start;
   margin-top: clamp(6rem, 8vw, 9rem);
-  font-family: "Geist Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Overused Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: var(--micro);
   font-weight: 500;
   line-height: 1.35;
@@ -195,7 +195,7 @@ a:focus-visible {
   max-width: 72ch;
   margin: 0;
   color: var(--muted);
-  font-family: "Geist Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Overused Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: var(--type-body);
   font-weight: 450;
   line-height: 1.42;
@@ -208,7 +208,7 @@ a:focus-visible {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: clamp(18px, 2vw, 42px);
   row-gap: 16px;
-  font-family: "Geist Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Overused Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: var(--type-body);
   font-weight: 450;
   line-height: 1.38;
@@ -288,7 +288,7 @@ a:focus-visible {
 }
 
 .about-rich-text {
-  font-family: "Geist Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Overused Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 450;
   line-height: 1.42;
   letter-spacing: 0;
@@ -597,7 +597,7 @@ a:focus-visible {
   row-gap: clamp(24px, 3vw, 48px);
   align-content: start;
   padding: clamp(5rem, 10vw, 8rem) var(--edge) var(--edge);
-  font-family: "Geist Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Overused Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: var(--micro);
   font-weight: 500;
   line-height: 1.35;
@@ -717,7 +717,7 @@ a:focus-visible {
   justify-self: center;
   width: min(100%, 72rem);
   padding-top: 8px;
-  font-family: "Geist Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Overused Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 0.917rem;
   font-weight: 500;
   line-height: 1.3;
@@ -739,7 +739,7 @@ a:focus-visible {
   border: 0;
   background: transparent;
   color: #fff;
-  font: 400 24px/1 "Geist Sans", "Helvetica Neue", Arial, sans-serif;
+  font: 400 24px/1 "Overused Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
   cursor: pointer;
 }
 
@@ -748,7 +748,7 @@ a:focus-visible {
   top: 10px;
   right: 10px;
   font-size: 32px;
-  font-weight: 200;
+  font-weight: 300;
 }
 
 .quick-previous { grid-column: 1; grid-row: 1; }
@@ -760,7 +760,7 @@ a:focus-visible {
   justify-self: center;
   margin: 0;
   color: #aaa;
-  font-family: "Geist Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Overused Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 0.917rem;
 }
 
@@ -786,7 +786,7 @@ a:focus-visible {
   padding: 10px;
   background: #000;
   color: #fff;
-  font: 500 10px/1.2 "Geist Sans", "Helvetica Neue", Arial, sans-serif;
+  font: 500 10px/1.2 "Overused Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 @media (max-width: 700px) {
