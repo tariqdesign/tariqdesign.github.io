@@ -81,7 +81,7 @@ JSON loading requires an HTTP server rather than opening `index.html` directly f
 
 The site uses one Swiss-style outer grid defined by reusable CSS variables at the top of `styles.css`:
 
-- `--site-grid` is the shared page grid: four equal columns on desktop and two on mobile.
+- `--site-grid` is the shared page grid: twelve equal columns on desktop and two on mobile.
 - `--edge` controls the common left and right page margin.
 - `--gap` controls the common space between columns.
 - `--type-body` sets the primary reading size to 14pt.

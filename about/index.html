@@ -11,8 +11,8 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tariqdesign.com/about/">
   <link rel="canonical" href="https://tariqdesign.com/about/">
-  <link rel="stylesheet" href="../styles.css?v=43">
-  <script defer src="../script.js?v=20"></script>
+  <link rel="stylesheet" href="../styles.css?v=44">
+  <script defer src="../script.js?v=21"></script>
 </head>
 <body data-page="about">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -23,8 +23,6 @@
     </div>
     <div class="information-column">
       <p><span data-professional-title>Design Director</span>.<br>Independent design direction.</p>
-      <p>Focused on:<br><span data-focus>Brand systems / Identity / Direction</span></p>
-      <p>Contact:<br><a data-link="email" hidden></a><br><a data-link="linkedInUrl" target="_blank" rel="noopener noreferrer" hidden>LinkedIn</a><br><a data-link="behanceUrl" target="_blank" rel="noopener noreferrer" hidden>Behance</a></p>
     </div>
     <nav class="site-nav site-menu" aria-label="Primary navigation">
       <a href="../">Home</a>
@@ -34,13 +32,19 @@
   </header>
 
   <main id="main">
-    <section class="page-intro about-intro" aria-labelledby="about-heading">
-      <h1 id="about-heading">About</h1>
-      <p data-introduction></p>
-    </section>
-
-    <section class="profile-panel about-profile" aria-label="Practice profile">
+    <section class="profile-panel about-profile" aria-labelledby="about-heading">
+      <div class="profile-mark" aria-hidden="true">T—Y</div>
+      <div class="hero-contact">
+        <a data-link="email" hidden></a>
+        <a data-link="linkedInUrl" target="_blank" rel="noopener noreferrer" hidden>LinkedIn</a>
+        <a data-link="behanceUrl" target="_blank" rel="noopener noreferrer" hidden>Behance</a>
+      </div>
+      <h1 class="visually-hidden" id="about-heading">About Tariq Yosef</h1>
       <div class="profile-details">
+        <div>
+          <p class="detail-heading"><span data-label="about">About</span>:</p>
+          <p class="profile-copy" data-introduction></p>
+        </div>
         <div>
           <p class="detail-heading"><span data-label="capabilities">Capabilities</span>:</p>
           <ul data-capabilities></ul>

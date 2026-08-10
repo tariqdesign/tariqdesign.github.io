@@ -271,7 +271,7 @@ const renderInformation = (site) => {
     link.hidden = !email;
     if (email) {
       link.href = `mailto:${email}`;
-      link.textContent = 'E-mail';
+      link.textContent = link.dataset.emailDisplay === 'address' ? email : 'E-mail';
     }
   });
 
