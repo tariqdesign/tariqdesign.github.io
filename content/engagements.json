@@ -4,6 +4,7 @@
     "clientOrProjectName": "10 Event",
     "description": "<p>Visual identity system<br>Brand touchpoints</p><p>The events industry runs on perception. Ten Event had the capability&nbsp; the identity needed to match it.<br>Ten Event is a Saudi-based event management and execution company. i built a brand around three qualities that define how they work: boldness, movement, and precision. The result is a dynamic identity — confident logo system, strong color palette, cohesive design language — that positions Ten Event as the standard, not just an option, in a competitive market.</p>",
     "coverImage": "/assets/images/uploads/10event11-1.png",
+    "featuredOnHome": true,
     "displayOrder": 1,
     "published": true
   },
@@ -30,6 +31,7 @@
         ]
       }
     ],
+    "featuredOnHome": true,
     "displayOrder": 2,
     "published": true
   },
@@ -41,6 +43,7 @@
     "supportingImages": [
       "/assets/images/uploads/325x-100-scaled.jpg"
     ],
+    "featuredOnHome": true,
     "displayOrder": 3,
     "published": true
   },
@@ -49,6 +52,7 @@
     "clientOrProjectName": "doo",
     "description": "<p></p>",
     "coverImage": "/assets/images/uploads/postercenter-vertical.jpg",
+    "featuredOnHome": false,
     "displayOrder": 4,
     "published": true
   },
@@ -57,6 +61,7 @@
     "clientOrProjectName": "test",
     "description": "<p></p>",
     "coverImage": "/assets/images/uploads/d8543f81-fec4-425a-8cb3-2fbe81d72537.png",
+    "featuredOnHome": false,
     "displayOrder": 6,
     "published": true
   }

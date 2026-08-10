@@ -5,8 +5,10 @@ This is a framework-free static website for GitHub Pages. Content is stored in J
 ## Repository structure
 
 - `index.html` — semantic page shell
+- `about/index.html` — full profile, capabilities, approach, and recognition
+- `work/index.html` — all published engagements and their complete media sequences
 - `styles.css` — existing layout, typography, animation, and responsive rules
-- `script.js` — loads JSON content, renders the visual feed and lightbox, and connects the CMS content to the homepage
+- `script.js` — loads JSON content and renders the homepage covers, About content, Work feed, and lightbox
 - `content/site.json` — general website content
 - `content/engagements.json` — selected engagement records
 - `.pages.yml` — Pages CMS fields and media settings
@@ -25,16 +27,17 @@ This is a framework-free static website for GitHub Pages. Content is stored in J
 ## Edit and publish content
 
 1. Change a field in Pages CMS. Keep required fields filled in.
-2. For an engagement, set **Published** off to hide it. Published engagements appear in ascending **Order**; equal order values keep their JSON order.
-3. Add up to 14 published projects in **Selected engagements**. Each project appears once with its cover and supporting images grouped beneath one project name. **Additional lightbox images** remain available after the project images in the full-screen viewer.
-   The homepage builds justified rows automatically from the images’ natural proportions and a shared target height. Depending on the image shapes, a desktop row may contain one landscape, two square, or three portrait images; completed rows fill the available width at equal height. The final incomplete row keeps the target height and natural widths. Mobile recalculates the same system with a maximum of two images per row.
-4. Leave an optional field empty when the information is not available. Empty metadata and images are omitted from the page.
-5. Save/publish the entry in Pages CMS. Pages CMS commits the JSON change directly to the selected GitHub branch—no CMS password or token is stored in this repository.
-6. Open the repository on GitHub and confirm the new Pages CMS commit appears in the branch history.
+2. For an engagement, set **Published** off to hide it. Published engagements appear on the Work page in ascending **Order**; equal order values keep their JSON order.
+3. Turn on **Feature on homepage** to make an engagement eligible for the homepage. The homepage shows the covers of the first three published, featured engagements in the same **Order** used on the Work page. Selecting more than three does not create a separate order; only the first three appear.
+4. Each published project appears once on the Work page with its cover and supporting images grouped beneath one project name. **Additional lightbox images** remain available after the project images in the full-screen viewer.
+   The Work page builds justified rows automatically from the images’ natural proportions and a shared target height. Depending on the image shapes, a desktop row may contain one landscape, two square, or three portrait images; completed rows fill the available width at equal height. The final incomplete row keeps the target height and natural widths. Mobile recalculates the same system with a maximum of two images per row.
+5. Leave an optional field empty when the information is not available. Empty metadata and images are omitted from the page.
+6. Save/publish the entry in Pages CMS. Pages CMS commits the JSON change directly to the selected GitHub branch—no CMS password or token is stored in this repository.
+7. Open the repository on GitHub and confirm the new Pages CMS commit appears in the branch history.
 
 ## Mixed-media projects
 
-Existing projects continue to use **Cover image** and **Lightbox supporting images**. To use the new system, add one or more **Ordered mixed-media blocks** to a project. Once that list contains a valid block, it becomes the project’s homepage media sequence and replaces the legacy cover/supporting layout.
+Existing projects continue to use **Cover image** and **Lightbox supporting images**. To use the new system, add one or more **Ordered mixed-media blocks** to a project. Once that list contains a valid block, it becomes the project’s Work-page media sequence and replaces the legacy cover/supporting layout. The homepage always uses **Cover image**.
 
 Available blocks:
 
@@ -48,7 +51,7 @@ Use **Project information** for the short description shown beside a project tit
 
 ## Additional About sections
 
-Use **Additional About sections** in General website content to build future profile content without editing code. Available blocks are **Text section**, **Image section**, and **Text + image section**. Blocks can be reordered and temporarily hidden with **Show section**.
+Use **Additional About sections** in General website content to build future profile content on the About page without editing code. Available blocks are **Text section**, **Image section**, and **Text + image section**. Blocks can be reordered and temporarily hidden with **Show section**.
 
 Text supports headings, paragraphs, bold, italic, links, and lists, with controlled small, standard, or large type sizes. Images use one-, two-, or three-column grid widths and require an accessible image description. All blocks inherit Geist Sans, the shared four-column grid, responsive spacing, and mobile stacking rules.
 

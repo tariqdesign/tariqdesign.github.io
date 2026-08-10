@@ -4,7 +4,9 @@ const PATHS = {
   engagements: new URL('content/engagements.json', SITE_ROOT)
 };
 
-const INDEX_PROJECT_LIMIT = 14;
+const PAGE = document.body.dataset.page || 'home';
+const HOME_PROJECT_LIMIT = 3;
+const WORK_URL = new URL('work/', SITE_ROOT);
 const hasText = (value) => typeof value === 'string' && value.trim() !== '';
 const toText = (value) => value === null || value === undefined ? '' : String(value).trim();
 
@@ -29,6 +31,24 @@ const assetUrl = (value) => {
   if (/^https?:\/\//i.test(value)) return safeUrl(value);
   return new URL(value.replace(/^\/+/, ''), SITE_ROOT).href;
 };
+
+const projectSlug = (project) => {
+  const value = project.title || project.clientOrProjectName || 'selected-work';
+  return value
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '') || 'selected-work';
+};
+
+const getPublishedProjects = (engagements) => Array.isArray(engagements)
+  ? engagements
+    .filter((item) => item && item.published === true)
+    .map((item, originalIndex) => ({ item, originalIndex }))
+    .sort((a, b) => Number(a.item.displayOrder ?? 999) - Number(b.item.displayOrder ?? 999) || a.originalIndex - b.originalIndex)
+    .map(({ item }, index) => ({ ...item, anchor: `project-${index + 1}-${projectSlug(item)}` }))
+  : [];
 
 const normaliseOption = (value, allowed, fallback) => allowed.includes(value) ? value : fallback;
 
@@ -148,67 +168,82 @@ const renderInformation = (site) => {
 
   const capabilities = Array.isArray(site.capabilities) ? site.capabilities.filter((item) => item && hasText(item.title)) : [];
   const focus = document.querySelector('[data-focus]');
-  focus.textContent = capabilities.slice(0, 3).map((item) => item.title).join(' / ');
+  if (focus) focus.textContent = capabilities.slice(0, 3).map((item) => item.title).join(' / ');
 
   const capabilityList = document.querySelector('[data-capabilities]');
-  capabilityList.replaceChildren(...capabilities.map((item) => {
-    const listItem = document.createElement('li');
-    const title = document.createElement('span');
-    title.className = 'capability-title';
-    title.textContent = item.title;
-    listItem.append(title);
-    if (hasText(item.description)) {
-      const description = document.createElement('span');
-      description.className = 'capability-description';
-      description.textContent = item.description;
-      listItem.append(description);
-    }
-    return listItem;
-  }));
+  if (capabilityList) {
+    capabilityList.replaceChildren(...capabilities.map((item) => {
+      const listItem = document.createElement('li');
+      const title = document.createElement('span');
+      title.className = 'capability-title';
+      title.textContent = item.title;
+      listItem.append(title);
+      if (hasText(item.description)) {
+        const description = document.createElement('span');
+        description.className = 'capability-description';
+        description.textContent = item.description;
+        listItem.append(description);
+      }
+      return listItem;
+    }));
+  }
 
   const introduction = document.querySelector('[data-introduction]');
-  introduction.textContent = stripHtml(site.introduction);
+  if (introduction) introduction.textContent = stripHtml(site.introduction);
+  document.querySelectorAll('[data-positioning]').forEach((element) => {
+    element.textContent = stripHtml(site.mainPositioningStatement) || stripHtml(site.introduction);
+  });
 
   const practiceItems = [
     Array.isArray(site.markets) && site.markets.some(hasText) ? `Markets / ${site.markets.filter(hasText).join(', ')}` : '',
     Array.isArray(site.sectors) && site.sectors.some(hasText) ? `Sectors / ${site.sectors.filter(hasText).join(', ')}` : ''
   ].filter(hasText);
   const practiceList = document.querySelector('[data-practice]');
-  practiceList.replaceChildren(...practiceItems.map((value) => {
-    const listItem = document.createElement('li');
-    listItem.textContent = value;
-    return listItem;
-  }));
+  if (practiceList) {
+    practiceList.replaceChildren(...practiceItems.map((value) => {
+      const listItem = document.createElement('li');
+      listItem.textContent = value;
+      return listItem;
+    }));
+  }
 
   const approachItems = [site.leadershipStatement, site.pointOfViewText, site.systemsStatement].filter(hasText);
   const approachList = document.querySelector('[data-approach]');
-  approachList.replaceChildren(...approachItems.map((value) => {
-    const listItem = document.createElement('li');
-    listItem.textContent = value;
-    return listItem;
-  }));
+  if (approachList) {
+    approachList.replaceChildren(...approachItems.map((value) => {
+      const listItem = document.createElement('li');
+      listItem.textContent = value;
+      return listItem;
+    }));
+  }
 
   const recognition = Array.isArray(site.recognition) ? site.recognition : [];
   const recognitionList = document.querySelector('[data-recognition]');
-  recognitionList.replaceChildren(...recognition.map((item) => {
-    const listItem = document.createElement('li');
-    listItem.textContent = [item.name, stripHtml(item.detail)].filter(hasText).join(' / ');
-    return listItem;
-  }));
+  if (recognitionList) {
+    recognitionList.replaceChildren(...recognition.map((item) => {
+      const listItem = document.createElement('li');
+      listItem.textContent = [item.name, stripHtml(item.detail)].filter(hasText).join(' / ');
+      return listItem;
+    }));
+  }
 
   const aboutSections = document.querySelector('[data-about-sections]');
   const additionalSections = Array.isArray(site.aboutSections)
     ? site.aboutSections.map(createAboutSection).filter(Boolean)
     : [];
-  aboutSections.replaceChildren(...additionalSections);
-  aboutSections.hidden = additionalSections.length === 0;
+  if (aboutSections) {
+    aboutSections.replaceChildren(...additionalSections);
+    aboutSections.hidden = additionalSections.length === 0;
+  }
 
   const summary = document.querySelector('[data-summary]');
-  summary.textContent = stripHtml(site.mainPositioningStatement) || stripHtml(site.introduction);
+  if (summary) summary.textContent = stripHtml(site.mainPositioningStatement) || stripHtml(site.introduction);
 
   const footerText = document.querySelector('[data-footer-text]');
-  footerText.textContent = hasText(site.footerText) ? site.footerText.trim() : '';
-  footerText.hidden = !footerText.textContent;
+  if (footerText) {
+    footerText.textContent = hasText(site.footerText) ? site.footerText.trim() : '';
+    footerText.hidden = !footerText.textContent;
+  }
 
   const externalLinks = {
     linkedInUrl: safeUrl(site.linkedInUrl),
@@ -223,10 +258,12 @@ const renderInformation = (site) => {
 
   const portfolioLink = document.querySelector('[data-portfolio-link]');
   const portfolioText = hasText(site.privatePortfolioRequestText) ? site.privatePortfolioRequestText.trim() : '';
-  portfolioLink.hidden = !externalLinks.behanceUrl || !portfolioText;
-  if (!portfolioLink.hidden) {
-    portfolioLink.href = externalLinks.behanceUrl;
-    portfolioLink.textContent = `${portfolioText} ↗`;
+  if (portfolioLink) {
+    portfolioLink.hidden = !externalLinks.behanceUrl || !portfolioText;
+    if (!portfolioLink.hidden) {
+      portfolioLink.href = externalLinks.behanceUrl;
+      portfolioLink.textContent = `${portfolioText} ↗`;
+    }
   }
 
   const email = hasText(site.email) ? site.email.trim() : '';
@@ -238,7 +275,10 @@ const renderInformation = (site) => {
     }
   });
 
-  const seoTitle = hasText(site.seo?.title) ? site.seo.title.trim() : `${site.name || 'Tariq Yosef'} — ${site.professionalTitle || 'Design Director'}`;
+  const name = hasText(site.name) ? site.name.trim() : 'Tariq Yosef';
+  const title = hasText(site.professionalTitle) ? site.professionalTitle.trim() : 'Design Director';
+  const homeTitle = hasText(site.seo?.title) ? site.seo.title.trim() : `${name} — ${title}`;
+  const seoTitle = PAGE === 'about' ? `About — ${name}, ${title}` : PAGE === 'work' ? `Work — ${name}, ${title}` : homeTitle;
   const seoDescription = hasText(site.seo?.description) ? site.seo.description.trim() : stripHtml(site.introduction);
   const socialDescription = hasText(site.seo?.socialDescription) ? site.seo.socialDescription.trim() : seoDescription;
   document.title = seoTitle;
@@ -286,14 +326,20 @@ const getBlockImages = (block) => {
   return [];
 };
 
+const getProjectCovers = (project, blocks) => {
+  const covers = [];
+  if (hasText(project.coverImage)) covers.push(project.coverImage);
+  const image = blocks.find((block) => block.type === 'image' && hasText(block.path));
+  if (image) covers.push(image.path);
+  const video = blocks.find((block) => block.type === 'video' && hasText(block.poster));
+  if (video) covers.push(video.poster);
+  const slider = blocks.find((block) => block.type === 'slider' && hasText(block.slides?.[0]?.path));
+  if (slider) covers.push(slider.slides[0].path);
+  return [...new Set(covers)];
+};
+
 const buildGallery = (site, engagements) => {
-  const projects = Array.isArray(engagements)
-    ? engagements
-      .filter((item) => item && item.published === true)
-      .map((item, originalIndex) => ({ item, originalIndex }))
-      .sort((a, b) => Number(a.item.displayOrder ?? 999) - Number(b.item.displayOrder ?? 999) || a.originalIndex - b.originalIndex)
-      .map(({ item }) => item)
-    : [];
+  const projects = getPublishedProjects(engagements);
 
   const candidates = [];
   const projectByImage = new Map();
@@ -332,6 +378,9 @@ const buildGallery = (site, engagements) => {
     feedProjects.push({
       title: project.title || project.clientOrProjectName || 'Selected work',
       description: stripHtml(project.description),
+      anchor: project.anchor,
+      featuredOnHome: project.featuredOnHome === true,
+      coverImages: getProjectCovers(project, blocks),
       blocks: hydratedBlocks
     });
   });
@@ -355,6 +404,54 @@ const buildGallery = (site, engagements) => {
     seen.add(item.path);
     return true;
   });
+};
+
+const renderHomeProjects = () => {
+  const container = document.querySelector('[data-home-projects]');
+  if (!container) return;
+  const projects = feedProjects
+    .filter((project) => project.featuredOnHome && project.coverImages.length)
+    .slice(0, HOME_PROJECT_LIMIT);
+
+  const cards = projects.map((project, projectIndex) => {
+    const article = document.createElement('article');
+    article.className = 'featured-project';
+    const link = document.createElement('a');
+    link.className = 'featured-project-link';
+    link.href = `${WORK_URL.href}#${project.anchor}`;
+    link.setAttribute('aria-label', `View ${project.title} on the Work page`);
+
+    const heading = document.createElement('div');
+    heading.className = 'featured-project-heading';
+    const title = document.createElement('h3');
+    title.textContent = project.title;
+    const action = document.createElement('span');
+    action.textContent = 'View project →';
+    heading.append(title, action);
+
+    const image = document.createElement('img');
+    let coverIndex = 0;
+    image.src = assetUrl(project.coverImages[coverIndex]);
+    image.alt = `${project.title} project cover`;
+    image.loading = projectIndex === 0 ? 'eager' : 'lazy';
+    image.decoding = 'async';
+    image.addEventListener('error', () => {
+      coverIndex += 1;
+      if (project.coverImages[coverIndex]) image.src = assetUrl(project.coverImages[coverIndex]);
+      else article.remove();
+    });
+    link.append(heading, image);
+    article.append(link);
+    return article;
+  });
+
+  container.replaceChildren(...cards);
+  if (!cards.length) {
+    const message = document.createElement('p');
+    message.className = 'featured-projects-empty';
+    message.textContent = 'Featured projects will appear here when selected in Pages CMS.';
+    container.append(message);
+  }
 };
 
 const createProjectImage = (project, item, projectIndex, imageIndex, totalImages) => {
@@ -474,10 +571,13 @@ const createProjectSlider = (project, block, projectIndex, startIndex, totalImag
 
 const renderFeed = () => {
   const feed = document.querySelector('[data-feed]');
-  const groups = feedProjects.slice(0, INDEX_PROJECT_LIMIT);
+  if (!feed) return;
+  const groups = feedProjects;
   feed.replaceChildren(...groups.map((project, projectIndex) => {
     const article = document.createElement('article');
     article.className = 'project-group';
+    article.id = project.anchor;
+    article.tabIndex = -1;
 
     const header = document.createElement('header');
     header.className = 'project-heading';
@@ -521,6 +621,16 @@ const renderFeed = () => {
     article.append(header, media);
     return article;
   }));
+};
+
+const scrollToRequestedProject = () => {
+  if (PAGE !== 'work' || !window.location.hash) return;
+  const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+  if (!target) return;
+  window.requestAnimationFrame(() => {
+    target.scrollIntoView({ block: 'start' });
+    target.focus({ preventScroll: true });
+  });
 };
 
 const setupSliders = () => {
@@ -769,6 +879,7 @@ const closeLightbox = () => {
 
 const setupLightbox = () => {
   const lightbox = document.querySelector('[data-lightbox]');
+  if (!lightbox) return;
   lightbox.querySelector('[data-lightbox-close]').addEventListener('click', closeLightbox);
   lightbox.querySelector('[data-lightbox-previous]').addEventListener('click', () => moveLightbox(-1));
   lightbox.querySelector('[data-lightbox-next]').addEventListener('click', () => moveLightbox(1));
@@ -793,15 +904,21 @@ const initialise = async () => {
     const [site, engagements] = await Promise.all([siteResponse.json(), engagementResponse.json()]);
     renderInformation(site);
     buildGallery(site, engagements);
-    renderFeed();
-    setupJustifiedGalleries();
-    setupSliders();
-    setupParallax();
-    setupLightbox();
+    if (PAGE === 'home') renderHomeProjects();
+    if (PAGE === 'work') {
+      renderFeed();
+      setupJustifiedGalleries();
+      setupSliders();
+      setupParallax();
+      setupLightbox();
+      scrollToRequestedProject();
+    }
   } catch (error) {
     const status = document.querySelector('[data-error]');
-    status.hidden = false;
-    status.textContent = error.message;
+    if (status) {
+      status.hidden = false;
+      status.textContent = error.message;
+    }
   }
 };
 

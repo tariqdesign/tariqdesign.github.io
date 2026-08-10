@@ -11,76 +11,48 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tariqdesign.com/">
   <link rel="canonical" href="https://tariqdesign.com/">
-  <link rel="stylesheet" href="styles.css?v=39">
-  <script defer src="script.js?v=19"></script>
+  <link rel="stylesheet" href="styles.css?v=40">
+  <script defer src="script.js?v=20"></script>
 </head>
-<body>
-  <a class="skip-link" href="#feed">Skip to selected work</a>
+<body data-page="home">
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="information-layer" id="top" aria-label="Portfolio information">
-    <div class="information-column">
-      <p><span data-site="name">Tariq Yosef</span><br>© <span data-year></span> All rights reserved.</p>
-    </div>
-    <div class="information-column">
-      <p><span data-professional-title>Design Director</span>.<br>Independent design direction.</p>
-      <p>Focused on:<br><span data-focus>Brand systems / Identity / Direction</span></p>
-      <p>Contact:<br><a data-link="email" hidden></a><br><a data-link="linkedInUrl" target="_blank" rel="noopener noreferrer" hidden>LinkedIn</a><br><a data-link="behanceUrl" target="_blank" rel="noopener noreferrer" hidden>Behance</a></p>
-    </div>
+  <header class="site-header" id="top">
+    <a class="site-identity" href="./" aria-label="Tariq Yosef, home">
+      <span data-site="name">Tariq Yosef</span>
+      <span data-professional-title>Design Director</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="./" aria-current="page">Home</a>
+      <a href="about/">About</a>
+      <a href="work/">Work</a>
+    </nav>
   </header>
 
-  <main>
-    <section class="profile-panel" aria-label="Practice profile">
-      <div class="profile-mark" aria-hidden="true">T—Y</div>
-      <div class="profile-details">
-        <div>
-          <p class="detail-heading"><span data-label="about">About</span>:</p>
-          <p class="profile-copy" data-introduction></p>
-        </div>
-        <div>
-          <p class="detail-heading"><span data-label="capabilities">Capabilities</span>:</p>
-          <ul data-capabilities></ul>
-        </div>
-        <div>
-          <p class="detail-heading">Practice:</p>
-          <ul data-practice></ul>
-        </div>
-        <div>
-          <p class="detail-heading">Approach:</p>
-          <ul data-approach></ul>
-        </div>
-        <div>
-          <p class="detail-heading">Selected <span data-label="recognition">recognition</span>:</p>
-          <ul data-recognition></ul>
-        </div>
-        <div class="about-sections" data-about-sections></div>
-      </div>
+  <main id="main">
+    <section class="home-intro" aria-labelledby="home-heading">
+      <p class="page-label"><span data-site="name">Tariq Yosef</span> / <span data-professional-title>Design Director</span></p>
+      <h1 id="home-heading" data-positioning>I help regional organisations turn strategic intent into practical identity systems.</h1>
     </section>
 
-    <section class="visual-feed" id="feed" aria-label="Selected visual work">
-      <div class="feed-grid" data-feed></div>
+    <section class="home-work" aria-labelledby="featured-heading">
+      <header class="section-heading">
+        <h2 id="featured-heading">Featured work</h2>
+        <a href="work/">View all work →</a>
+      </header>
+      <div class="featured-projects" data-home-projects></div>
     </section>
-
-    <footer class="feed-footer">
-      <p class="footer-summary" data-summary></p>
-      <a class="footer-portfolio" data-portfolio-link target="_blank" rel="noopener noreferrer" hidden></a>
-      <p class="footer-contact" data-footer-text hidden></p>
-      <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
-    </footer>
   </main>
 
-  <dialog class="quick-view" data-lightbox aria-labelledby="quick-view-title">
-    <h2 class="visually-hidden" id="quick-view-title">Selected work image viewer</h2>
-    <button type="button" class="quick-close" data-lightbox-close aria-label="Close image viewer">×</button>
-    <button type="button" class="quick-arrow quick-previous" data-lightbox-previous aria-label="Previous image">←</button>
-    <figure class="quick-media">
-      <img data-lightbox-image alt="">
-      <figcaption class="quick-caption">
-        <span data-lightbox-caption></span>
-      </figcaption>
-    </figure>
-    <button type="button" class="quick-arrow quick-next" data-lightbox-next aria-label="Next image">→</button>
-    <p class="quick-count" aria-live="polite"><span data-lightbox-current>1</span> / <span data-lightbox-total>1</span></p>
-  </dialog>
+  <footer class="site-footer">
+    <p>© <span data-year></span> <span data-site="name">Tariq Yosef</span></p>
+    <div class="site-footer-links">
+      <a data-link="email" hidden></a>
+      <a data-link="linkedInUrl" target="_blank" rel="noopener noreferrer" hidden>LinkedIn</a>
+      <a data-link="behanceUrl" target="_blank" rel="noopener noreferrer" hidden>Behance</a>
+    </div>
+    <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+  </footer>
 
   <p class="content-error" data-error role="status" hidden></p>
 </body>

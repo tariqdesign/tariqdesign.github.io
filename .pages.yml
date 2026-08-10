@@ -354,7 +354,7 @@ content:
         label: Ordered mixed-media blocks
         type: block
         blockKey: type
-        description: When blocks are added here, they replace the legacy cover and supporting images on the homepage. Drag blocks to control the exact project sequence.
+        description: When blocks are added here, they replace the legacy cover and supporting images on the Work page. Drag blocks to control the exact project sequence.
         list:
           max: 24
           collapsible:
@@ -427,6 +427,11 @@ content:
                     label: Image description
                     type: string
                     description: Briefly describe the slide for visitors using screen readers.
+      - name: featuredOnHome
+        label: Feature on homepage
+        type: boolean
+        default: false
+        description: Show this project's cover on the homepage. The homepage displays the first three featured, published projects according to Order.
       - name: displayOrder
         label: Order
         type: number
