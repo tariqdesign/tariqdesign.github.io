@@ -3,6 +3,7 @@
     "title": "DOOO",
     "clientOrProjectName": "doo",
     "description": "<p></p>",
+    "thumbnailImage": "/assets/images/uploads/postercenter-vertical.jpg",
     "thumbnailPosition": "center",
     "coverImage": "/assets/images/uploads/postercenter-vertical.jpg",
     "featuredOnHome": false,
