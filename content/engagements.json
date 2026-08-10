@@ -1,15 +1,5 @@
 [
   {
-    "title": "test",
-    "clientOrProjectName": "test",
-    "description": "<p></p>",
-    "thumbnailPosition": "center",
-    "coverImage": "/assets/images/uploads/d8543f81-fec4-425a-8cb3-2fbe81d72537.png",
-    "featuredOnHome": false,
-    "displayOrder": 6,
-    "published": true
-  },
-  {
     "title": "Alinma investment",
     "clientOrProjectName": "Alinma investment",
     "year": 2027,
@@ -34,6 +24,16 @@
     ],
     "featuredOnHome": true,
     "displayOrder": 2,
+    "published": true
+  },
+  {
+    "title": "test",
+    "clientOrProjectName": "test",
+    "description": "<p></p>",
+    "thumbnailPosition": "center",
+    "coverImage": "/assets/images/uploads/d8543f81-fec4-425a-8cb3-2fbe81d72537.png",
+    "featuredOnHome": false,
+    "displayOrder": 6,
     "published": true
   },
   {
