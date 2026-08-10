@@ -6,7 +6,7 @@ const PATHS = {
 
 const PAGE = document.body.dataset.page || 'home';
 const HOME_PROJECT_LIMIT = 3;
-const WORK_URL = new URL('work/', SITE_ROOT);
+const PROJECT_URL = new URL('project/', SITE_ROOT);
 const hasText = (value) => typeof value === 'string' && value.trim() !== '';
 const toText = (value) => value === null || value === undefined ? '' : String(value).trim();
 
@@ -47,8 +47,17 @@ const getPublishedProjects = (engagements) => Array.isArray(engagements)
     .filter((item) => item && item.published === true)
     .map((item, originalIndex) => ({ item, originalIndex }))
     .sort((a, b) => Number(a.item.displayOrder ?? 999) - Number(b.item.displayOrder ?? 999) || a.originalIndex - b.originalIndex)
-    .map(({ item }, index) => ({ ...item, anchor: `project-${index + 1}-${projectSlug(item)}` }))
+    .map(({ item }) => {
+      const slug = projectSlug(item);
+      return { ...item, slug, anchor: `project-${slug}` };
+    })
   : [];
+
+const projectPageUrl = (project) => {
+  const url = new URL(PROJECT_URL);
+  url.searchParams.set('project', project.slug);
+  return url.href;
+};
 
 const normaliseOption = (value, allowed, fallback) => allowed.includes(value) ? value : fallback;
 
@@ -378,6 +387,7 @@ const buildGallery = (site, engagements) => {
     feedProjects.push({
       title: project.title || project.clientOrProjectName || 'Selected work',
       description: stripHtml(project.description),
+      slug: project.slug,
       anchor: project.anchor,
       featuredOnHome: project.featuredOnHome === true,
       coverImages: getProjectCovers(project, blocks),
@@ -418,8 +428,8 @@ const renderHomeProjects = () => {
     article.className = 'featured-project';
     const link = document.createElement('a');
     link.className = 'featured-project-link';
-    link.href = `${WORK_URL.href}#${project.anchor}`;
-    link.setAttribute('aria-label', `View ${project.title} on the Work page`);
+    link.href = projectPageUrl(project);
+    link.setAttribute('aria-label', `View the full ${project.title} project`);
 
     const heading = document.createElement('div');
     heading.className = 'featured-project-heading';
@@ -569,58 +579,90 @@ const createProjectSlider = (project, block, projectIndex, startIndex, totalImag
   return slider;
 };
 
-const renderFeed = () => {
-  const feed = document.querySelector('[data-feed]');
-  if (!feed) return;
-  const groups = feedProjects;
-  feed.replaceChildren(...groups.map((project, projectIndex) => {
-    const article = document.createElement('article');
-    article.className = 'project-group';
-    article.id = project.anchor;
-    article.tabIndex = -1;
+const createProjectArticle = (project, projectIndex, showHeading = true) => {
+  const article = document.createElement('article');
+  article.className = 'project-group';
+  article.id = project.anchor;
+  article.tabIndex = -1;
 
+  if (showHeading) {
     const header = document.createElement('header');
     header.className = 'project-heading';
     const title = document.createElement('h2');
-    title.textContent = project.title;
+    const titleLink = document.createElement('a');
+    titleLink.href = projectPageUrl(project);
+    titleLink.textContent = project.title;
+    title.append(titleLink);
     header.append(title);
     if (hasText(project.description)) {
       const description = document.createElement('p');
       description.textContent = project.description;
       header.append(description);
     }
+    article.append(header);
+  }
 
-    const media = document.createElement('div');
-    media.className = 'project-media';
-    const totalImages = project.blocks.reduce((total, block) => total + getBlockImages(block).length, 0);
-    let imageIndex = 0;
-    let imageGroup = null;
-    project.blocks.forEach((block) => {
-      if (block.type === 'image') {
-        if (!imageGroup) {
-          imageGroup = document.createElement('div');
-          imageGroup.className = 'project-images';
-          media.append(imageGroup);
-        }
-        imageGroup.append(createProjectImage(project, block.item, projectIndex, imageIndex, totalImages));
-        imageIndex += 1;
-        return;
+  const media = document.createElement('div');
+  media.className = 'project-media';
+  const totalImages = project.blocks.reduce((total, block) => total + getBlockImages(block).length, 0);
+  let imageIndex = 0;
+  let imageGroup = null;
+  project.blocks.forEach((block) => {
+    if (block.type === 'image') {
+      if (!imageGroup) {
+        imageGroup = document.createElement('div');
+        imageGroup.className = 'project-images';
+        media.append(imageGroup);
       }
+      imageGroup.append(createProjectImage(project, block.item, projectIndex, imageIndex, totalImages));
+      imageIndex += 1;
+      return;
+    }
 
-      imageGroup = null;
-      if (block.type === 'video') {
-        media.append(createProjectVideo(project, block));
-        return;
-      }
-      if (block.type === 'slider') {
-        media.append(createProjectSlider(project, block, projectIndex, imageIndex, totalImages));
-        imageIndex += block.slides.length;
-      }
-    });
+    imageGroup = null;
+    if (block.type === 'video') {
+      media.append(createProjectVideo(project, block));
+      return;
+    }
+    if (block.type === 'slider') {
+      media.append(createProjectSlider(project, block, projectIndex, imageIndex, totalImages));
+      imageIndex += block.slides.length;
+    }
+  });
 
-    article.append(header, media);
-    return article;
-  }));
+  article.append(media);
+  return article;
+};
+
+const renderFeed = (projects = feedProjects, showHeadings = true) => {
+  const feed = document.querySelector('[data-feed]');
+  if (!feed) return;
+  feed.replaceChildren(...projects.map((project, projectIndex) => createProjectArticle(project, projectIndex, showHeadings)));
+};
+
+const renderProjectPage = (site) => {
+  const requestedSlug = new URLSearchParams(window.location.search).get('project');
+  const project = feedProjects.find((item) => item.slug === requestedSlug);
+  if (!project) throw new Error('This project could not be found.');
+
+  document.querySelector('[data-project-title]').textContent = project.title;
+  document.querySelector('[data-project-description]').textContent = project.description || 'Selected design direction engagement.';
+
+  const name = hasText(site.name) ? site.name.trim() : 'Tariq Yosef';
+  const title = `${project.title} — ${name}`;
+  const description = project.description || `Selected work by ${name}.`;
+  document.title = title;
+  document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+  document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
+  document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
+
+  const canonical = projectPageUrl(project);
+  document.querySelector('link[rel="canonical"]')?.setAttribute('href', canonical);
+  document.querySelector('meta[property="og:url"]')?.setAttribute('content', canonical);
+
+  const projectPaths = new Set(project.blocks.flatMap((block) => getBlockImages(block).map((item) => item.path)));
+  galleryItems = galleryItems.filter((item) => projectPaths.has(item.path));
+  renderFeed([project], false);
 };
 
 const scrollToRequestedProject = () => {
@@ -912,6 +954,13 @@ const initialise = async () => {
       setupParallax();
       setupLightbox();
       scrollToRequestedProject();
+    }
+    if (PAGE === 'project') {
+      renderProjectPage(site);
+      setupJustifiedGalleries();
+      setupSliders();
+      setupParallax();
+      setupLightbox();
     }
   } catch (error) {
     const status = document.querySelector('[data-error]');

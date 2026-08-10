@@ -7,6 +7,7 @@ This is a framework-free static website for GitHub Pages. Content is stored in J
 - `index.html` — semantic page shell
 - `about/index.html` — full profile, capabilities, approach, and recognition
 - `work/index.html` — all published engagements and their complete media sequences
+- `project/index.html` — data-driven full project page for a selected engagement
 - `styles.css` — existing layout, typography, animation, and responsive rules
 - `script.js` — loads JSON content and renders the homepage covers, About content, Work feed, and lightbox
 - `content/site.json` — general website content
@@ -28,7 +29,7 @@ This is a framework-free static website for GitHub Pages. Content is stored in J
 
 1. Change a field in Pages CMS. Keep required fields filled in.
 2. For an engagement, set **Published** off to hide it. Published engagements appear on the Work page in ascending **Order**; equal order values keep their JSON order.
-3. Turn on **Feature on homepage** to make an engagement eligible for the homepage. The homepage shows the covers of the first three published, featured engagements in the same **Order** used on the Work page. Selecting more than three does not create a separate order; only the first three appear.
+3. Turn on **Feature on homepage** to make an engagement eligible for the homepage. The homepage shows the covers of the first three published, featured engagements in the same **Order** used on the Work page. Selecting more than three does not create a separate order; only the first three appear. Each cover opens that engagement's full project page.
 4. Each published project appears once on the Work page with its cover and supporting images grouped beneath one project name. **Additional lightbox images** remain available after the project images in the full-screen viewer.
    The Work page builds justified rows automatically from the images’ natural proportions and a shared target height. Depending on the image shapes, a desktop row may contain one landscape, two square, or three portrait images; completed rows fill the available width at equal height. The final incomplete row keeps the target height and natural widths. Mobile recalculates the same system with a maximum of two images per row.
 5. Leave an optional field empty when the information is not available. Empty metadata and images are omitted from the page.

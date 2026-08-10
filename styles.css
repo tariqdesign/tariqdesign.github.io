@@ -1645,3 +1645,39 @@ body[data-page="home"] .site-footer {
     grid-row: 1;
   }
 }
+
+.project-heading h2 a {
+  text-decoration: none;
+}
+
+.project-profile {
+  padding-bottom: 0;
+}
+
+.project-profile h1.detail-heading {
+  font-size: var(--type-body);
+  line-height: 1.42;
+}
+
+.project-profile .profile-details > div {
+  min-height: clamp(150px, 12vw, 180px);
+}
+
+.project-detail-feed {
+  padding: 0 var(--edge) clamp(7rem, 12vw, 11rem);
+}
+
+.project-detail-feed .project-group {
+  padding-top: 0;
+}
+
+@media (max-width: 700px) {
+  .project-profile {
+    padding-bottom: 0;
+  }
+
+  .project-profile .profile-details > div {
+    min-height: 0;
+    margin-bottom: 2rem;
+  }
+}
