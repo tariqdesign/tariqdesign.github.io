@@ -3,6 +3,8 @@
     "title": "10 event",
     "clientOrProjectName": "10 Event",
     "description": "<p>Visual identity system<br>Brand touchpoints</p><p>The events industry runs on perception. Ten Event had the capability&nbsp; the identity needed to match it.<br>Ten Event is a Saudi-based event management and execution company. i built a brand around three qualities that define how they work: boldness, movement, and precision. The result is a dynamic identity — confident logo system, strong color palette, cohesive design language — that positions Ten Event as the standard, not just an option, in a competitive market.</p>",
+    "thumbnailImage": "/assets/images/uploads/10eventartboard-1.png",
+    "thumbnailPosition": "center",
     "coverImage": "/assets/images/uploads/10event11-1.png",
     "featuredOnHome": true,
     "displayOrder": 1,
@@ -14,6 +16,7 @@
     "year": 2027,
     "role": "design Director , Concept development ",
     "description": "<p>An editorial design exploration developed as part of a strategic proposal for Alinma Bank. The project explored layout systems, typographic hierarchy, and visual structure aligned with institutional and financial communication standards.</p>",
+    "thumbnailPosition": "center",
     "coverImage": "/assets/images/uploads/inmathum-1.jpg",
     "mediaBlocks": [
       {
@@ -39,6 +42,7 @@
     "title": "Alinma Bank",
     "clientOrProjectName": "Alinma Bank",
     "description": "<p>An editorial design exploration developed as part of a strategic proposal for Alinma Bank. The project explored layout systems, typographic hierarchy, and visual structure aligned with institutional and financial communication standards.</p>",
+    "thumbnailPosition": "center",
     "coverImage": "/assets/images/uploads/slidesrewireo2.jpg",
     "supportingImages": [
       "/assets/images/uploads/325x-100-scaled.jpg"
@@ -51,6 +55,7 @@
     "title": "DOOO",
     "clientOrProjectName": "doo",
     "description": "<p></p>",
+    "thumbnailPosition": "center",
     "coverImage": "/assets/images/uploads/postercenter-vertical.jpg",
     "featuredOnHome": false,
     "displayOrder": 4,
@@ -60,6 +65,7 @@
     "title": "test",
     "clientOrProjectName": "test",
     "description": "<p></p>",
+    "thumbnailPosition": "center",
     "coverImage": "/assets/images/uploads/d8543f81-fec4-425a-8cb3-2fbe81d72537.png",
     "featuredOnHome": false,
     "displayOrder": 6,
