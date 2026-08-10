@@ -123,6 +123,11 @@ a:focus-visible {
   text-underline-offset: 0.13em;
 }
 
+.information-layer .identity-home-link,
+.profile-mark-link {
+  text-decoration: none;
+}
+
 .profile-panel {
   min-height: 0;
   display: grid;
@@ -138,6 +143,10 @@ a:focus-visible {
   line-height: 0.76;
   letter-spacing: -0.085em;
   white-space: nowrap;
+}
+
+.profile-mark-link {
+  display: block;
 }
 
 .profile-details {
