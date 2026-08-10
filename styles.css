@@ -1857,10 +1857,10 @@ body[data-page="home"] .site-footer {
 /* Design Director refinement: stronger point of view, tighter internal-page pacing. */
 .home-positioning {
   grid-column: 5 / span 7;
-  align-self: end;
-  max-width: 19ch;
-  margin: 0;
-  font-size: clamp(2.45rem, 4.2vw, 4rem);
+  align-self: start;
+  max-width: 24ch;
+  margin: clamp(13rem, 16vw, 16rem) 0 0;
+  font-size: clamp(1.9rem, 2.65vw, 2.75rem);
   font-weight: 430;
   line-height: 1.01;
   letter-spacing: -0.045em;
@@ -1958,9 +1958,9 @@ body[data-page="home"] .site-footer {
 @media (max-width: 700px) {
   .home-positioning {
     grid-column: 1 / -1;
-    max-width: 17ch;
-    margin-top: 4.5rem;
-    font-size: clamp(2rem, 9vw, 3.25rem);
+    max-width: 19ch;
+    margin-top: 3.5rem;
+    font-size: clamp(1.75rem, 7.4vw, 2.5rem);
   }
 
   .home-profile .profile-details {
