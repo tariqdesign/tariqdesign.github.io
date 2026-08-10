@@ -1,7 +1,8 @@
 const SITE_ROOT = new URL('./', document.currentScript.src);
 const PATHS = {
   site: new URL('content/site.json', SITE_ROOT),
-  engagements: new URL('content/engagements.json', SITE_ROOT)
+  engagements: new URL('content/engagements.json', SITE_ROOT),
+  visualLog: new URL('content/visual-log.json', SITE_ROOT)
 };
 
 const PAGE = document.body.dataset.page || 'home';
@@ -278,14 +279,19 @@ const renderInformation = (site) => {
     link.hidden = !email;
     if (email) {
       link.href = `mailto:${email}`;
-      link.textContent = link.dataset.emailDisplay === 'address' ? email : 'E-mail';
+      link.textContent = link.dataset.emailDisplay === 'address' ? email : 'Email';
     }
   });
 
   const name = hasText(site.name) ? site.name.trim() : 'Tariq Yosef';
   const title = hasText(site.professionalTitle) ? site.professionalTitle.trim() : 'Design Director';
   const homeTitle = hasText(site.seo?.title) ? site.seo.title.trim() : `${name} — ${title}`;
-  const seoTitle = PAGE === 'about' ? `About — ${name}, ${title}` : PAGE === 'work' ? `Work — ${name}, ${title}` : homeTitle;
+  const pageTitles = {
+    about: `About — ${name}, ${title}`,
+    work: `Work — ${name}, ${title}`,
+    'visual-log': `Visual Log — ${name}, ${title}`
+  };
+  const seoTitle = pageTitles[PAGE] || homeTitle;
   const seoDescription = hasText(site.seo?.description) ? site.seo.description.trim() : stripHtml(site.introduction);
   const socialDescription = hasText(site.seo?.socialDescription) ? site.seo.socialDescription.trim() : seoDescription;
   document.title = seoTitle;
@@ -519,6 +525,73 @@ const renderWorkIndex = () => {
 
   feed.classList.add('work-index-grid');
   feed.replaceChildren(...cards);
+};
+
+const renderVisualLog = (entries) => {
+  const feed = document.querySelector('[data-visual-log]');
+  if (!feed) return;
+
+  const items = Array.isArray(entries)
+    ? entries.filter((entry) => entry && entry.published === true && hasText(entry.title) && hasText(entry.image))
+    : [];
+
+  galleryItems = items.map((entry) => {
+    const title = entry.title.trim();
+    const year = entry.year !== null && entry.year !== undefined && entry.year !== '' && Number.isFinite(Number(entry.year))
+      ? String(entry.year)
+      : '';
+    return {
+      path: entry.image,
+      title,
+      alt: hasText(entry.alt) ? entry.alt.trim() : `${title} visual work`,
+      caption: [title, year].filter(hasText).join(' / ')
+    };
+  });
+
+  const cards = galleryItems.map((item, itemIndex) => {
+    const article = document.createElement('article');
+    article.className = 'work-project-card visual-log-card';
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'work-project-link visual-log-button';
+    button.setAttribute('aria-label', `Open ${item.title} in the image viewer`);
+
+    const media = document.createElement('div');
+    media.className = 'work-project-thumbnail';
+    const image = document.createElement('img');
+    image.src = assetUrl(item.path);
+    image.alt = item.alt;
+    image.loading = itemIndex < 2 ? 'eager' : 'lazy';
+    image.decoding = 'async';
+    image.addEventListener('load', () => {
+      const ratio = image.naturalWidth / image.naturalHeight;
+      article.classList.toggle('work-project-card--six-columns', Number.isFinite(ratio) && ratio <= 1.05);
+    });
+    image.addEventListener('error', () => article.remove());
+    media.append(image);
+
+    const footer = document.createElement('div');
+    footer.className = 'work-project-title';
+    const title = document.createElement('h2');
+    title.textContent = item.caption;
+    const action = document.createElement('span');
+    action.textContent = 'View image';
+    footer.append(title, action);
+
+    button.append(media, footer);
+    button.addEventListener('click', () => openLightbox(itemIndex, button));
+    article.append(button);
+    return article;
+  });
+
+  feed.replaceChildren(...cards);
+  if (!cards.length) {
+    const message = document.createElement('p');
+    message.className = 'featured-projects-empty visual-log-empty';
+    message.textContent = 'Visual Log entries will appear here when published in Pages CMS.';
+    feed.append(message);
+  }
 };
 
 const createProjectImage = (project, item, projectIndex, imageIndex, totalImages) => {
@@ -995,13 +1068,23 @@ const setupLightbox = () => {
 
 const initialise = async () => {
   try {
-    const [siteResponse, engagementResponse] = await Promise.all([
+    const [siteResponse, engagementResponse, visualLogResponse] = await Promise.all([
       fetch(PATHS.site, { cache: 'no-cache' }),
-      fetch(PATHS.engagements, { cache: 'no-cache' })
+      fetch(PATHS.engagements, { cache: 'no-cache' }),
+      fetch(PATHS.visualLog, { cache: 'no-cache' })
     ]);
-    if (!siteResponse.ok || !engagementResponse.ok) throw new Error('Content could not be loaded.');
-    const [site, engagements] = await Promise.all([siteResponse.json(), engagementResponse.json()]);
+    if (!siteResponse.ok || !engagementResponse.ok || !visualLogResponse.ok) throw new Error('Content could not be loaded.');
+    const [site, engagements, visualLog] = await Promise.all([
+      siteResponse.json(),
+      engagementResponse.json(),
+      visualLogResponse.json()
+    ]);
     renderInformation(site);
+    if (PAGE === 'visual-log') {
+      renderVisualLog(visualLog);
+      setupLightbox();
+      return;
+    }
     buildGallery(site, engagements);
     if (PAGE === 'home') renderHomeProjects();
     if (PAGE === 'work') {

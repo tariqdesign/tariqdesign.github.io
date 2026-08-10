@@ -463,3 +463,43 @@ content:
         label: Published
         type: boolean
         required: true
+
+  - name: visualLog
+    label: Visual Log
+    type: file
+    path: content/visual-log.json
+    format: json
+    list: true
+    description: Standalone single-image work. Drag entries into the desired top-to-bottom order on the Visual Log page.
+    operations:
+      delete: false
+    fields:
+      - name: title
+        label: Name
+        type: string
+        required: true
+      - name: year
+        label: Year
+        type: number
+        options:
+          min: 1900
+          max: 2100
+      - name: image
+        label: Image
+        type: image
+        required: true
+        description: Square and horizontal images keep their original proportions on the website.
+        options:
+          media: images
+          extensions: [webp, jpg, jpeg, png]
+          rename: safe
+      - name: alt
+        label: Image description
+        type: string
+        required: true
+        description: Briefly describe the image for visitors using screen readers.
+      - name: published
+        label: Published
+        type: boolean
+        default: true
+        required: true

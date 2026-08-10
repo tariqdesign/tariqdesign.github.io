@@ -7,11 +7,13 @@ This is a framework-free static website for GitHub Pages. Content is stored in J
 - `index.html` — semantic page shell
 - `about/index.html` — full profile, capabilities, approach, and recognition
 - `work/index.html` — all published engagements and their complete media sequences
+- `visual-log/index.html` — standalone single-image work in a proportion-aware lightbox gallery
 - `project/index.html` — data-driven full project page for a selected engagement
 - `styles.css` — existing layout, typography, animation, and responsive rules
 - `script.js` — loads JSON content and renders the homepage covers, About content, Work feed, and lightbox
 - `content/site.json` — general website content
 - `content/engagements.json` — selected engagement records
+- `content/visual-log.json` — standalone Visual Log entries
 - `.pages.yml` — Pages CMS fields and media settings
 - `assets/images/uploads/` — images uploaded through Pages CMS
 - `assets/fonts/` — locally hosted Geist Sans font and license
@@ -23,17 +25,23 @@ This is a framework-free static website for GitHub Pages. Content is stored in J
 3. Choose **Sign in with GitHub** and authorize Pages CMS.
 4. If prompted, install the Pages CMS GitHub App for the GitHub account or organisation that owns the site. Give it access to this repository.
 5. In Pages CMS, select the repository and then select the branch used by GitHub Pages (normally `main`). Pages CMS reads `.pages.yml` from that branch.
-6. Open **General website content** to edit the site-wide wording and links, or **Selected engagements** to edit the project records.
+6. Open **General website content** to edit site-wide wording and links, **Selected engagements** to edit full projects, or **Visual Log** to edit standalone single-image work.
 
 ## Edit and publish content
 
 1. Change a field in Pages CMS. Keep required fields filled in.
-2. For an engagement, set **Published** off to hide it. Published engagements appear on the Work page in ascending **Order**; equal order values keep their JSON order.
-3. Add an optional **Project thumbnail**, choose its **Thumbnail crop focus**, and turn on **Feature on homepage** to make an engagement eligible for the homepage. The homepage shows cropped 16:9 thumbnails for the first three published, featured engagements in the same **Order** used on the Work page. If the separate thumbnail is empty, the existing **Project cover image** is used. Selecting more than three does not create a separate order; only the first three appear. Each thumbnail opens that engagement's full project page.
+2. For an engagement, set **Published** off to hide it. Drag engagement entries into the desired top-to-bottom order; the Home and Work pages use that same Pages CMS list order.
+3. Add an optional **Project thumbnail**, choose its **Thumbnail crop focus**, and turn on **Feature on homepage** to make an engagement eligible for the homepage. The homepage shows cropped 16:9 thumbnails for the first three published, featured engagements in the shared list order. If the separate thumbnail is empty, the existing **Project cover image** is used. Selecting more than three does not create a separate order; only the first three appear. Each thumbnail opens that engagement's full project page.
 4. Each published project appears once on the Work page as a linked thumbnail with its name below. Landscape thumbnails such as 1920×1080 and 1290×1080 span the full twelve-column grid. Square thumbnails such as 1080×1080 use six columns, allowing two to share a row. All thumbnails stack full width on mobile. The dedicated project page retains the complete ordered media sequence and lightbox.
 5. Leave an optional field empty when the information is not available. Empty metadata and images are omitted from the page.
 6. Save/publish the entry in Pages CMS. Pages CMS commits the JSON change directly to the selected GitHub branch—no CMS password or token is stored in this repository.
 7. Open the repository on GitHub and confirm the new Pages CMS commit appears in the branch history.
+
+## Visual Log
+
+Use the separate **Visual Log** tab in Pages CMS for standalone work that has one image rather than a complete project story. Each entry has a name, optional year, image, accessible image description, and Published switch. Drag entries to control their order.
+
+Visual Log images retain their source proportions. Horizontal images span the desktop grid; square and portrait images use six columns and can share a row. All entries stack full width on mobile. Selecting an entry opens the image in the shared keyboard-accessible lightbox; Visual Log entries do not create dedicated project pages.
 
 ## Mixed-media projects
 
