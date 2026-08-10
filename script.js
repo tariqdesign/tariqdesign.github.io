@@ -352,6 +352,22 @@ const getProjectCovers = (project, blocks) => {
   return [...new Set(covers)];
 };
 
+const getProjectMetadata = (project, title) => {
+  const client = toText(project.clientOrProjectName);
+  const metadata = [];
+  if (client && client.toLowerCase() !== title.toLowerCase()) metadata.push({ label: 'Client', value: client });
+  [
+    ['Role', project.role],
+    ['Sector', project.sector],
+    ['Location', project.location],
+    ['Year', project.year]
+  ].forEach(([label, value]) => {
+    const textValue = toText(value);
+    if (textValue) metadata.push({ label, value: textValue });
+  });
+  return metadata;
+};
+
 const buildGallery = (site, engagements) => {
   const projects = getPublishedProjects(engagements);
 
@@ -389,9 +405,11 @@ const buildGallery = (site, engagements) => {
       }
       return block;
     });
+    const title = project.title || project.clientOrProjectName || 'Selected work';
     feedProjects.push({
-      title: project.title || project.clientOrProjectName || 'Selected work',
+      title,
       description: stripHtml(project.description),
+      metadata: getProjectMetadata(project, title),
       slug: project.slug,
       anchor: project.anchor,
       featuredOnHome: project.featuredOnHome === true,
@@ -576,7 +594,7 @@ const renderVisualLog = (entries) => {
     const title = document.createElement('h2');
     title.textContent = item.caption;
     const action = document.createElement('span');
-    action.textContent = 'View image';
+    action.textContent = `${String(itemIndex + 1).padStart(2, '0')} / View image`;
     footer.append(title, action);
 
     button.append(media, footer);
@@ -777,6 +795,20 @@ const renderProjectPage = (site) => {
 
   document.querySelector('[data-project-title]').textContent = project.title;
   document.querySelector('[data-project-description]').textContent = project.description || 'Selected design direction engagement.';
+  const metadata = document.querySelector('[data-project-metadata]');
+  if (metadata) {
+    const entries = Array.isArray(project.metadata) ? project.metadata : [];
+    metadata.replaceChildren(...entries.map((entry) => {
+      const group = document.createElement('div');
+      const term = document.createElement('dt');
+      const detail = document.createElement('dd');
+      term.textContent = entry.label;
+      detail.textContent = entry.value;
+      group.append(term, detail);
+      return group;
+    }));
+    metadata.hidden = entries.length === 0;
+  }
 
   const name = hasText(site.name) ? site.name.trim() : 'Tariq Yosef';
   const title = `${project.title} — ${name}`;
