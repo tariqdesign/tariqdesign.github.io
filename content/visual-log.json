@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "title": "book",
+    "image": "/assets/images/uploads/hio.png",
+    "alt": "book",
+    "published": true
+  }
+]
