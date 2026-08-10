@@ -337,6 +337,7 @@ const getBlockImages = (block) => {
 
 const getProjectCovers = (project, blocks) => {
   const covers = [];
+  if (hasText(project.thumbnailImage)) covers.push(project.thumbnailImage);
   if (hasText(project.coverImage)) covers.push(project.coverImage);
   const image = blocks.find((block) => block.type === 'image' && hasText(block.path));
   if (image) covers.push(image.path);
@@ -391,6 +392,9 @@ const buildGallery = (site, engagements) => {
       anchor: project.anchor,
       featuredOnHome: project.featuredOnHome === true,
       coverImages: getProjectCovers(project, blocks),
+      thumbnailPosition: ['top', 'bottom', 'left', 'right'].includes(project.thumbnailPosition)
+        ? project.thumbnailPosition
+        : 'center',
       blocks: hydratedBlocks
     });
   });
@@ -442,7 +446,8 @@ const renderHomeProjects = () => {
     const image = document.createElement('img');
     let coverIndex = 0;
     image.src = assetUrl(project.coverImages[coverIndex]);
-    image.alt = `${project.title} project cover`;
+    image.alt = `${project.title} project thumbnail`;
+    image.style.objectPosition = project.thumbnailPosition;
     image.loading = projectIndex === 0 ? 'eager' : 'lazy';
     image.decoding = 'async';
     image.addEventListener('error', () => {
