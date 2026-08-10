@@ -11,18 +11,21 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tariqdesign.com/">
   <link rel="canonical" href="https://tariqdesign.com/">
-  <link rel="stylesheet" href="styles.css?v=40">
+  <link rel="stylesheet" href="styles.css?v=41">
   <script defer src="script.js?v=20"></script>
 </head>
 <body data-page="home">
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header" id="top">
-    <a class="site-identity" href="./" aria-label="Tariq Yosef, home">
-      <span data-site="name">Tariq Yosef</span>
-      <span data-professional-title>Design Director</span>
-    </a>
-    <nav class="site-nav" aria-label="Primary navigation">
+  <header class="information-layer home-information" id="top" aria-label="Portfolio information">
+    <div class="information-column">
+      <p><span data-site="name">Tariq Yosef</span><br>© <span data-year></span> All rights reserved.</p>
+    </div>
+    <div class="information-column">
+      <p><span data-professional-title>Design Director</span>.<br>Independent design direction.</p>
+      <p>Focused on:<br><span data-focus>Brand systems / Identity / Direction</span></p>
+    </div>
+    <nav class="site-nav home-nav" aria-label="Primary navigation">
       <a href="./" aria-current="page">Home</a>
       <a href="about/">About</a>
       <a href="work/">Work</a>
@@ -30,9 +33,11 @@
   </header>
 
   <main id="main">
-    <section class="home-intro" aria-labelledby="home-heading">
-      <p class="page-label"><span data-site="name">Tariq Yosef</span> / <span data-professional-title>Design Director</span></p>
-      <h1 id="home-heading" data-positioning>I help regional organisations turn strategic intent into practical identity systems.</h1>
+    <section class="profile-panel home-profile" aria-labelledby="home-heading">
+      <div class="profile-mark" aria-hidden="true">T—Y</div>
+      <div class="home-hero-copy">
+        <h1 id="home-heading" data-positioning>I help regional organisations turn strategic intent into practical identity systems.</h1>
+      </div>
     </section>
 
     <section class="home-work" aria-labelledby="featured-heading">
