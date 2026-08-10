@@ -6,7 +6,6 @@
     "thumbnailPosition": "center",
     "coverImage": "/assets/images/uploads/d8543f81-fec4-425a-8cb3-2fbe81d72537.png",
     "featuredOnHome": false,
-    "displayOrder": 6,
     "published": true
   },
   {
@@ -33,7 +32,6 @@
       }
     ],
     "featuredOnHome": true,
-    "displayOrder": 2,
     "published": true
   },
   {
@@ -44,7 +42,6 @@
     "thumbnailPosition": "center",
     "coverImage": "/assets/images/uploads/10event11-1.png",
     "featuredOnHome": true,
-    "displayOrder": 1,
     "published": true
   },
   {
@@ -57,7 +54,6 @@
       "/assets/images/uploads/325x-100-scaled.jpg"
     ],
     "featuredOnHome": true,
-    "displayOrder": 3,
     "published": true
   },
   {
@@ -67,7 +63,6 @@
     "thumbnailPosition": "center",
     "coverImage": "/assets/images/uploads/postercenter-vertical.jpg",
     "featuredOnHome": false,
-    "displayOrder": 4,
     "published": true
   }
 ]

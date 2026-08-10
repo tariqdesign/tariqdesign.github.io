@@ -300,6 +300,7 @@ content:
     path: content/engagements.json
     format: json
     list: true
+    description: Drag projects into the desired top-to-bottom order. This same order is used on the Home and Work pages.
     operations:
       delete: false
     fields:
@@ -457,13 +458,7 @@ content:
         label: Feature on homepage
         type: boolean
         default: false
-        description: Show this project's thumbnail on the homepage. The homepage displays the first three featured, published projects according to Order.
-      - name: displayOrder
-        label: Order
-        type: number
-        required: true
-        options:
-          min: 0
+        description: Show this project's thumbnail on the homepage. The homepage displays the first three featured, published projects in the top-to-bottom order above.
       - name: published
         label: Published
         type: boolean

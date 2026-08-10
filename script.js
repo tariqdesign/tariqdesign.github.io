@@ -45,9 +45,7 @@ const projectSlug = (project) => {
 const getPublishedProjects = (engagements) => Array.isArray(engagements)
   ? engagements
     .filter((item) => item && item.published === true)
-    .map((item, originalIndex) => ({ item, originalIndex }))
-    .sort((a, b) => Number(a.item.displayOrder ?? 999) - Number(b.item.displayOrder ?? 999) || a.originalIndex - b.originalIndex)
-    .map(({ item }) => {
+    .map((item) => {
       const slug = projectSlug(item);
       return { ...item, slug, anchor: `project-${slug}` };
     })
