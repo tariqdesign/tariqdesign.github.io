@@ -10,5 +10,11 @@
     "image": "/assets/images/uploads/1000-1000.png",
     "alt": "coffee brand ",
     "published": true
+  },
+  {
+    "title": "dd",
+    "image": "/assets/images/uploads/artboard-1-copy2x-100-1-300x169.jpg",
+    "alt": "dd",
+    "published": true
   }
 ]
