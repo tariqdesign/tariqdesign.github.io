@@ -11,7 +11,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tariqdesign.com/">
   <link rel="canonical" href="https://tariqdesign.com/">
-  <link rel="stylesheet" href="styles.css?v=41">
+  <link rel="stylesheet" href="styles.css?v=42">
   <script defer src="script.js?v=20"></script>
 </head>
 <body data-page="home">
@@ -24,6 +24,7 @@
     <div class="information-column">
       <p><span data-professional-title>Design Director</span>.<br>Independent design direction.</p>
       <p>Focused on:<br><span data-focus>Brand systems / Identity / Direction</span></p>
+      <p>Contact:<br><a data-link="email" hidden></a><br><a data-link="linkedInUrl" target="_blank" rel="noopener noreferrer" hidden>LinkedIn</a><br><a data-link="behanceUrl" target="_blank" rel="noopener noreferrer" hidden>Behance</a></p>
     </div>
     <nav class="site-nav home-nav" aria-label="Primary navigation">
       <a href="./" aria-current="page">Home</a>
@@ -35,8 +36,29 @@
   <main id="main">
     <section class="profile-panel home-profile" aria-labelledby="home-heading">
       <div class="profile-mark" aria-hidden="true">T—Y</div>
-      <div class="home-hero-copy">
-        <h1 id="home-heading" data-positioning>I help regional organisations turn strategic intent into practical identity systems.</h1>
+      <h1 class="visually-hidden" id="home-heading">About Tariq Yosef</h1>
+      <div class="profile-details">
+        <div>
+          <p class="detail-heading"><span data-label="about">About</span>:</p>
+          <p class="profile-copy" data-introduction></p>
+        </div>
+        <div>
+          <p class="detail-heading"><span data-label="capabilities">Capabilities</span>:</p>
+          <ul data-capabilities></ul>
+        </div>
+        <div>
+          <p class="detail-heading">Practice:</p>
+          <ul data-practice></ul>
+        </div>
+        <div>
+          <p class="detail-heading">Approach:</p>
+          <ul data-approach></ul>
+        </div>
+        <div>
+          <p class="detail-heading">Selected <span data-label="recognition">recognition</span>:</p>
+          <ul data-recognition></ul>
+        </div>
+        <div class="about-sections" data-about-sections></div>
       </div>
     </section>
 
