@@ -6,6 +6,10 @@
     "thumbnailImage": "/assets/images/uploads/10event11-1.png",
     "thumbnailPosition": "center",
     "coverImage": "/assets/images/uploads/10event11-1.png",
+    "supportingImages": [
+      "/assets/images/uploads/10eventartboard-2.png",
+      "/assets/images/uploads/10eventartboard-1-1.png"
+    ],
     "featuredOnHome": true,
     "published": true
   },
