@@ -13,7 +13,7 @@
   --blue: #416ddd;
   --active: #d9270c;
   --gap: 10px;
-  --media-flow-gap: calc(var(--gap) * 2);
+  --media-flow-gap: calc(var(--gap) * 3);
   --edge: clamp(20px, 2.92vw, 42px);
   --type-body: 14px;
   --type-header: 13.8px;
@@ -1855,7 +1855,7 @@ body[data-page="home"] .site-footer {
 }
 
 .project-profile .profile-details > div {
-  min-height: clamp(150px, 12vw, 180px);
+  min-height: 0;
 }
 
 .project-detail-feed {
@@ -1887,7 +1887,7 @@ body[data-page="home"] .site-footer {
 
   .project-profile .profile-details > div {
     min-height: 0;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
   }
 }
 
@@ -1918,8 +1918,7 @@ body[data-page="home"] .site-footer {
 }
 
 .work-profile .profile-details > div,
-.visual-log-profile .profile-details > div,
-.project-profile .profile-details > div {
+.visual-log-profile .profile-details > div {
   min-height: clamp(100px, 8vw, 130px);
 }
 
