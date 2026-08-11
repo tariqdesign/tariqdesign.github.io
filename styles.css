@@ -1023,14 +1023,16 @@ a:focus-visible {
   line-height: 1.25;
 }
 
-.hero-contact a {
+.hero-contact a,
+.information-contact a {
   display: inline-flex;
   align-items: baseline;
   width: fit-content;
   text-decoration: none;
 }
 
-.hero-contact a::before {
+.hero-contact a::before,
+.information-contact a::before {
   width: 0;
   overflow: hidden;
   content: "→";
@@ -1042,12 +1044,16 @@ a:focus-visible {
 }
 
 .hero-contact a:hover,
-.hero-contact a:focus-visible {
+.hero-contact a:focus-visible,
+.information-contact a:hover,
+.information-contact a:focus-visible {
   text-decoration: none;
 }
 
 .hero-contact a:hover::before,
-.hero-contact a:focus-visible::before {
+.hero-contact a:focus-visible::before,
+.information-contact a:hover::before,
+.information-contact a:focus-visible::before {
   width: 1.2em;
   opacity: 1;
   transform: translateX(0);
@@ -1435,7 +1441,8 @@ a:focus-visible {
     transition: none;
   }
 
-  .hero-contact a::before {
+  .hero-contact a::before,
+  .information-contact a::before {
     transition: none;
   }
 }
