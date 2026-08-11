@@ -1899,7 +1899,7 @@ body[data-page="home"] .site-footer {
   margin: clamp(13rem, 16vw, 16rem) 0 0;
   font-size: clamp(1.9rem, 2.65vw, 2.75rem);
   font-weight: 430;
-  line-height: 1.01;
+  line-height: 1.1;
   letter-spacing: -0.02em;
 }
 
