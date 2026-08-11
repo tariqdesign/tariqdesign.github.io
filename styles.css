@@ -1024,8 +1024,33 @@ a:focus-visible {
 }
 
 .hero-contact a {
+  display: inline-flex;
+  align-items: baseline;
   width: fit-content;
   text-decoration: none;
+}
+
+.hero-contact a::before {
+  width: 0;
+  overflow: hidden;
+  content: "→";
+  opacity: 0;
+  font-size: 0.9em;
+  line-height: 1;
+  transform: translateX(-0.35em);
+  transition: width 160ms ease, opacity 160ms ease, transform 160ms ease;
+}
+
+.hero-contact a:hover,
+.hero-contact a:focus-visible {
+  text-decoration: none;
+}
+
+.hero-contact a:hover::before,
+.hero-contact a:focus-visible::before {
+  width: 1.2em;
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .profile-details,
@@ -1407,6 +1432,10 @@ a:focus-visible {
   .work-project-thumbnail img,
   .work-project-title h2,
   .work-project-title span {
+    transition: none;
+  }
+
+  .hero-contact a::before {
     transition: none;
   }
 }
