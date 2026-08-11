@@ -13,6 +13,7 @@
   --blue: #416ddd;
   --active: #d9270c;
   --gap: 10px;
+  --media-flow-gap: calc(var(--gap) * 2);
   --edge: clamp(20px, 2.92vw, 42px);
   --type-body: 14px;
   --type-header: 13.8px;
@@ -408,7 +409,7 @@ a:focus-visible {
 .project-media,
 .project-images {
   display: grid;
-  gap: clamp(10px, 1.4vw, 20px);
+  gap: var(--media-flow-gap);
 }
 
 .project-video {
@@ -899,7 +900,7 @@ a:focus-visible {
   }
 
   .project-images {
-    gap: var(--gap);
+    gap: var(--media-flow-gap);
   }
 
   .feed-footer {
@@ -1822,7 +1823,7 @@ body[data-page="home"] .site-footer {
 }
 
 .project-detail-feed {
-  padding: 0 var(--edge) clamp(7rem, 12vw, 11rem);
+  padding: var(--media-flow-gap) var(--edge) clamp(7rem, 12vw, 11rem);
 }
 
 .project-detail-feed .project-group {
