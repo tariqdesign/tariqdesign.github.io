@@ -7,8 +7,10 @@
     "thumbnailPosition": "center",
     "coverImage": "/assets/images/uploads/10event11-1.png",
     "supportingImages": [
+      "/assets/images/uploads/v10event2-thumb.png",
       "/assets/images/uploads/prepaire-for-site2.png",
-      "/assets/images/uploads/colortypo.png"
+      "/assets/images/uploads/colortypo.png",
+      "/assets/images/uploads/10event7.png"
     ],
     "featuredOnHome": true,
     "published": true
