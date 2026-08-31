@@ -9,10 +9,6 @@
     "mediaBlocks": [
       {
         "type": "image",
-        "image": "/assets/images/uploads/10event1.jpg"
-      },
-      {
-        "type": "image",
         "image": "/assets/images/uploads/v10event2-thumb-1.png"
       },
       {
@@ -26,6 +22,10 @@
       {
         "type": "image",
         "image": "/assets/images/uploads/10event7-1.png"
+      },
+      {
+        "type": "image",
+        "image": "/assets/images/uploads/10event1.jpg"
       }
     ],
     "published": true
