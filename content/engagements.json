@@ -6,16 +6,26 @@
     "thumbnailImage": "/assets/images/uploads/10event11-1.png",
     "thumbnailPosition": "center",
     "coverImage": "/assets/images/uploads/10event11-1.png",
-    "supportingImages": [
-      "/assets/images/uploads/v10event2-thumb.png",
-      "/assets/images/uploads/prepaire-for-site2.png",
-      "/assets/images/uploads/colortypo.png",
-      "/assets/images/uploads/10event7.png"
-    ],
     "mediaBlocks": [
       {
         "type": "image",
         "image": "/assets/images/uploads/10event1.jpg"
+      },
+      {
+        "type": "image",
+        "image": "/assets/images/uploads/v10event2-thumb-1.png"
+      },
+      {
+        "type": "image",
+        "image": "/assets/images/uploads/10event8-1.png"
+      },
+      {
+        "type": "image",
+        "image": "/assets/images/uploads/10event9.png"
+      },
+      {
+        "type": "image",
+        "image": "/assets/images/uploads/10event7-1.png"
       }
     ],
     "featuredOnHome": true,
