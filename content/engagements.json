@@ -65,5 +65,31 @@
     "coverImage": "/assets/images/uploads/d8c054654855935afc651c483ce-1.png",
     "featuredOnHome": false,
     "published": false
+  },
+  {
+    "title": "Eror store",
+    "clientOrProjectName": "Eror Store",
+    "location": "Saudi Arabia",
+    "year": 2024,
+    "role": "Design direct ",
+    "description": "<p></p>",
+    "thumbnailImage": "/assets/images/uploads/eror5.png",
+    "thumbnailPosition": "center",
+    "coverImage": "/assets/images/uploads/eror-0-4bk.jpg",
+    "supportingImages": [
+      "/assets/images/uploads/hterorthumb.png"
+    ],
+    "mediaBlocks": [
+      {
+        "type": "image",
+        "image": "/assets/images/uploads/artboard-115x.png"
+      },
+      {
+        "type": "image",
+        "image": "/assets/images/uploads/artboard-1-copy-615x.png"
+      }
+    ],
+    "featuredOnHome": false,
+    "published": false
   }
 ]
