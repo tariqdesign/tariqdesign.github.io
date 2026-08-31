@@ -476,7 +476,7 @@ const renderHomeProjects = () => {
       if (project.coverImages[coverIndex]) image.src = assetUrl(project.coverImages[coverIndex]);
       else article.remove();
     });
-    link.append(heading, image);
+    link.append(image, heading);
     article.append(link);
     return article;
   });
