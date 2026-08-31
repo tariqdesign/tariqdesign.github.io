@@ -6,7 +6,7 @@ const PATHS = {
 };
 
 const PAGE = document.body.dataset.page || 'home';
-const HOME_PROJECT_LIMIT = 3;
+const HOME_PROJECT_LIMIT = 12;
 const PROJECT_URL = new URL('project/', SITE_ROOT);
 const hasText = (value) => typeof value === 'string' && value.trim() !== '';
 const toText = (value) => value === null || value === undefined ? '' : String(value).trim();
@@ -412,7 +412,6 @@ const buildGallery = (site, engagements) => {
       metadata: getProjectMetadata(project, title),
       slug: project.slug,
       anchor: project.anchor,
-      featuredOnHome: project.featuredOnHome === true,
       coverImages: getProjectCovers(project, blocks),
       thumbnailPosition: ['top', 'bottom', 'left', 'right'].includes(project.thumbnailPosition)
         ? project.thumbnailPosition
@@ -446,7 +445,7 @@ const renderHomeProjects = () => {
   const container = document.querySelector('[data-home-projects]');
   if (!container) return;
   const projects = feedProjects
-    .filter((project) => project.featuredOnHome && project.coverImages.length)
+    .filter((project) => project.coverImages.length)
     .slice(0, HOME_PROJECT_LIMIT);
 
   const cards = projects.map((project, projectIndex) => {
@@ -486,7 +485,7 @@ const renderHomeProjects = () => {
   if (!cards.length) {
     const message = document.createElement('p');
     message.className = 'featured-projects-empty';
-    message.textContent = 'Featured projects will appear here when selected in Pages CMS.';
+    message.textContent = 'Published projects will appear here when they include project media.';
     container.append(message);
   }
 };

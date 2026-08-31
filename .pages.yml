@@ -454,11 +454,6 @@ content:
                     label: Image description
                     type: string
                     description: Briefly describe the slide for visitors using screen readers.
-      - name: featuredOnHome
-        label: Feature on homepage
-        type: boolean
-        default: false
-        description: Show this project's thumbnail on the homepage. The homepage displays the first three featured, published projects in the top-to-bottom order above.
       - name: published
         label: Published
         type: boolean

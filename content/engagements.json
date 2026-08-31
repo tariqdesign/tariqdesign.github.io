@@ -62,6 +62,7 @@
     "clientOrProjectName": "Alinma Bank",
     "description": "<p>An editorial design exploration developed as part of a strategic proposal for Alinma Bank. The project explored layout systems, typographic hierarchy, and visual structure aligned with institutional and financial communication standards.</p>",
     "thumbnailPosition": "center",
+    "coverImage": "/assets/images/uploads/slidesrewireo2.jpg",
     "featuredOnHome": false,
     "published": true
   },
@@ -74,7 +75,7 @@
     "thumbnailPosition": "center",
     "coverImage": "/assets/images/uploads/d8c054654855935afc651c483ce-1.png",
     "featuredOnHome": false,
-    "published": false
+    "published": true
   },
   {
     "title": "Eror store",

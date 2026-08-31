@@ -1642,6 +1642,23 @@ body[data-page="home"] .site-footer {
   font-size: var(--type-body);
 }
 
+.home-work-more {
+  display: grid;
+  grid-template-columns: var(--site-grid);
+  gap: var(--gap);
+  padding: 0 0 clamp(48px, 7vw, 110px);
+}
+
+.home-work-more a {
+  grid-column: 8 / span 3;
+  justify-self: start;
+  font-size: clamp(1rem, 1.35vw, 1.25rem);
+  font-weight: 540;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-underline-offset: 0.16em;
+}
+
 .page-intro {
   min-height: min(68svh, 760px);
   align-content: end;
@@ -1794,6 +1811,10 @@ body[data-page="home"] .site-footer {
   }
 
   .featured-project-heading span {
+    grid-column: 2;
+  }
+
+  .home-work-more a {
     grid-column: 2;
   }
 
