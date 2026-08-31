@@ -1577,6 +1577,10 @@ body[data-page="home"] .site-footer {
   font-weight: 540;
 }
 
+body[data-page="home"] .section-heading {
+  font-size: clamp(1.125rem, 1.7vw, 1.5rem);
+}
+
 .section-heading h2 {
   grid-column: 1 / span 2;
 }
@@ -1600,8 +1604,8 @@ body[data-page="home"] .site-footer {
   display: grid;
   grid-template-columns: var(--site-grid);
   gap: var(--gap);
-  padding-top: 10px;
-  font-size: var(--type-body);
+  padding-top: 12px;
+  font-size: clamp(1rem, 1.35vw, 1.25rem);
   line-height: 1.3;
 }
 
