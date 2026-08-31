@@ -28,7 +28,6 @@
         "image": "/assets/images/uploads/10event7-1.png"
       }
     ],
-    "featuredOnHome": true,
     "published": true
   },
   {
@@ -54,7 +53,6 @@
         ]
       }
     ],
-    "featuredOnHome": false,
     "published": true
   },
   {
@@ -63,7 +61,6 @@
     "description": "<p>An editorial design exploration developed as part of a strategic proposal for Alinma Bank. The project explored layout systems, typographic hierarchy, and visual structure aligned with institutional and financial communication standards.</p>",
     "thumbnailPosition": "center",
     "coverImage": "/assets/images/uploads/slidesrewireo2.jpg",
-    "featuredOnHome": false,
     "published": true
   },
   {
@@ -74,7 +71,16 @@
     "thumbnailImage": "/assets/images/uploads/165af2654855935af5bf8eae575.jpg",
     "thumbnailPosition": "center",
     "coverImage": "/assets/images/uploads/d8c054654855935afc651c483ce-1.png",
-    "featuredOnHome": false,
+    "mediaBlocks": [
+      {
+        "type": "image",
+        "image": "/assets/images/uploads/00.jpg"
+      },
+      {
+        "type": "image",
+        "image": "/assets/images/uploads/25-wb-8-724x1024-1.jpg"
+      }
+    ],
     "published": true
   },
   {
@@ -100,7 +106,6 @@
         "image": "/assets/images/uploads/artboard-1-copy-615x.png"
       }
     ],
-    "featuredOnHome": false,
     "published": false
   }
 ]
