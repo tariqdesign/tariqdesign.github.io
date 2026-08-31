@@ -12,6 +12,12 @@
       "/assets/images/uploads/colortypo.png",
       "/assets/images/uploads/10event7.png"
     ],
+    "mediaBlocks": [
+      {
+        "type": "image",
+        "image": "/assets/images/uploads/10event1.jpg"
+      }
+    ],
     "featuredOnHome": true,
     "published": true
   },
